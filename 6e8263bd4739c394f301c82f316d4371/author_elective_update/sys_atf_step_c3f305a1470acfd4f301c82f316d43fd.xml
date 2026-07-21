@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_atf_step">
+    <sys_atf_step action="DELETE">
+        <active>true</active>
+        <callable_outputs/>
+        <copied_from/>
+        <description>Open 'Equipment Request' catalog item</description>
+        <display_name>Open a Catalog Item</display_name>
+        <inputs/>
+        <mugshots_cache_json/>
+        <notes/>
+        <order>2</order>
+        <step_config display_value="Open a Catalog Item">2516c0e1c332220076173b0ac3d3ae39</step_config>
+        <sys_class_name>sys_atf_step</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-12 20:07:37</sys_created_on>
+        <sys_id>c3f305a1470acfd4f301c82f316d43fd</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Open a Catalog Item</sys_name>
+        <sys_package display_value="Launchpad" source="x_2062828_launch_0">6e8263bd4739c394f301c82f316d4371</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</sys_scope>
+        <sys_update_name>sys_atf_step_c3f305a1470acfd4f301c82f316d43fd</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-12 20:07:37</sys_updated_on>
+        <table/>
+        <test display_value="ATF-01 Submit Equipment Request">52224129470acfd4f301c82f316d431c</test>
+        <timeout/>
+        <warning_message/>
+    </sys_atf_step>
+    <sys_variable_value action="DELETE" query="document_key=c3f305a1470acfd4f301c82f316d43fd"/>
+    <sys_variable_value action="DELETE">
+        <document>sys_atf_step</document>
+        <document_key>c3f305a1470acfd4f301c82f316d43fd</document_key>
+        <order>100</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-12 20:07:37</sys_created_on>
+        <sys_id>82644d6d470acfd4f301c82f316d431e</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-12 20:07:37</sys_updated_on>
+        <value>9d36377547f9c394f301c82f316d43f1</value>
+        <variable display_value="Catalog item">b0d64ce1c332220076173b0ac3d3ae95</variable>
+    </sys_variable_value>
+    <sys_element_mapping action="DELETE" query="table=var__m_atf_input_variable_2516c0e1c332220076173b0ac3d3ae39^id=c3f305a1470acfd4f301c82f316d43fd"/>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</application>
+        <file_path/>
+        <instance_id>4f244272ebe8039c56eafddacad0cd3d</instance_id>
+        <instance_name>dev396915</instance_name>
+        <name>sys_atf_step_c3f305a1470acfd4f301c82f316d43fd</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_atf_step"><sys_atf_step action="INSERT_OR_UPDATE"><active>true</active><callable_outputs/><copied_from/><description>Open 'Equipment Request' catalog item</description><display_name>Open a Catalog Item</display_name><inputs/><mugshots_cache_json/><notes/><order>2</order><step_config display_value="Open a Catalog Item">2516c0e1c332220076173b0ac3d3ae39</step_config><sys_class_name>sys_atf_step</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2026-07-12 20:07:37</sys_created_on><sys_id>c3f305a1470acfd4f301c82f316d43fd</sys_id><sys_mod_count>0</sys_mod_count><sys_name>Open a Catalog Item</sys_name><sys_package display_value="Launchpad" source="x_2062828_launch_0">6e8263bd4739c394f301c82f316d4371</sys_package><sys_policy/><sys_scope display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</sys_scope><sys_update_name>sys_atf_step_c3f305a1470acfd4f301c82f316d43fd</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2026-07-12 20:07:37</sys_updated_on><table/><test display_value="ATF-01 Submit Equipment Request">52224129470acfd4f301c82f316d431c</test><timeout/><warning_message/></sys_atf_step><sys_variable_value action="delete_multiple" query="document_key=c3f305a1470acfd4f301c82f316d43fd"/><sys_variable_value action="INSERT_OR_UPDATE"><document>sys_atf_step</document><document_key>c3f305a1470acfd4f301c82f316d43fd</document_key><order>100</order><sys_class_name>sys_variable_value</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2026-07-12 20:07:37</sys_created_on><sys_id>82644d6d470acfd4f301c82f316d431e</sys_id><sys_mod_count>0</sys_mod_count><sys_updated_by>admin</sys_updated_by><sys_updated_on>2026-07-12 20:07:37</sys_updated_on><value>9d36377547f9c394f301c82f316d43f1</value><variable display_value="Catalog item">b0d64ce1c332220076173b0ac3d3ae95</variable></sys_variable_value><sys_element_mapping action="delete_multiple" query="table=var__m_atf_input_variable_2516c0e1c332220076173b0ac3d3ae39^id=c3f305a1470acfd4f301c82f316d43fd"/></record_update>]]></payload>
+        <payload_hash>-1715683904</payload_hash>
+        <record_name>Open a Catalog Item</record_name>
+        <reverted_from/>
+        <source>6a8263bd4739c394f301c82f316d4375</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-12 20:07:37</sys_created_on>
+        <sys_id>c2644d6d470acfd4f301c82f316d4322</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>19f57f145e60000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-12 20:07:37</sys_updated_on>
+        <type>Test Step</type>
+        <update_guid>82644d6def0acfd4af2a842f2a0e3e21</update_guid>
+        <update_guid_history>82644d6def0acfd4af2a842f2a0e3e21:-1715683904</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-12 20:54:02</sys_created_on>
+        <sys_db_object display_value="" name="sys_atf_step">sys_atf_step</sys_db_object>
+        <sys_id>1e7e25de0d43498f8de3418d72f8cfe1</sys_id>
+        <sys_metadata>c3f305a1470acfd4f301c82f316d43fd</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Open a Catalog Item</sys_name>
+        <sys_package display_value="Launchpad" source="x_2062828_launch_0">6e8263bd4739c394f301c82f316d4371</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</sys_scope>
+        <sys_scope_delete display_value="">c6c3a19153a145709d697dc6ddb23900</sys_scope_delete>
+        <sys_update_name>sys_atf_step_c3f305a1470acfd4f301c82f316d43fd</sys_update_name>
+        <sys_update_version display_value="sys_atf_step_c3f305a1470acfd4f301c82f316d43fd">c2644d6d470acfd4f301c82f316d4322</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-12 20:54:02</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

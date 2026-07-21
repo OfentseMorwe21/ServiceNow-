@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sc_cat_item_category">
+    <sc_cat_item_category action="INSERT_OR_UPDATE">
+        <sc_cat_item display_value="New Starter Bundle">62bdefed474e0318f301c82f316d431d</sc_cat_item>
+        <sc_category display_value="New Starter">2db9ab92470e8718f301c82f316d4321</sc_category>
+        <sys_class_name>sc_cat_item_category</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-15 16:06:36</sys_created_on>
+        <sys_id>f80a6312470e8718f301c82f316d43cd</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>New Starter .New Starter Bundle</sys_name>
+        <sys_package display_value="Launchpad" source="x_2062828_launch_0">6e8263bd4739c394f301c82f316d4371</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</sys_scope>
+        <sys_update_name>sc_cat_item_category_f80a6312470e8718f301c82f316d43cd</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-15 16:06:36</sys_updated_on>
+    </sc_cat_item_category>
+</record_update>

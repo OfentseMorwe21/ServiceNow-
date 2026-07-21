@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[api.controller = function() {
+  var c = this;
+
+  // This ensures c.data is available in the HTML template
+  c.data = c.data || {};
+
+  var spUtil = angular.element(document.body).injector().get('spUtil');
+  spUtil.addInfoMessage("Welcome back! Your secure Launchpad terminal workspace is fully synchronized.");
+};]]></client_script>
+        <controller_as>c</controller_as>
+        <css>/*&#13;
+===============================================================================&#13;
+LAUNCHPAD HERO WIDGET — SPAR Futuristic edition&#13;
+Paste into the widget's CSS field (or append to the theme's CSS field)&#13;
+Uses the same $brand-primary / $brand-success / $glow-primary / $glow-success&#13;
+tokens as the rest of the theme, so it stays in sync if the palette changes.&#13;
+===============================================================================&#13;
+*/&#13;
+&#13;
+/* Container — soft glass, gradient top edge like the rest of the panels */&#13;
+.launchpad-hero-container {&#13;
+  position: relative;&#13;
+  padding: 60px 40px;&#13;
+  background: rgba(255, 255, 255, 0.88);&#13;
+  backdrop-filter: blur(6px);&#13;
+  border: 1px solid #E2E8F0;&#13;
+  border-radius: 16px;&#13;
+  overflow: hidden;&#13;
+  margin-top: 24px;&#13;
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.06);&#13;
+  transition: box-shadow 300ms ease;&#13;
+}&#13;
+.launchpad-hero-container::before {&#13;
+  content: "";&#13;
+  position: absolute;&#13;
+  top: 0;&#13;
+  left: 0;&#13;
+  right: 0;&#13;
+  height: 4px;&#13;
+  background: linear-gradient(90deg, $brand-primary 0%, $brand-success 100%);&#13;
+  background-size: 200% 100%;&#13;
+  animation: gradientShift 5s ease infinite;&#13;
+}&#13;
+.launchpad-hero-container:hover {&#13;
+  box-shadow: 0 12px 32px -4px rgba(227, 6, 19, 0.14);&#13;
+}&#13;
+&#13;
+/* Animated accent blobs — dual-tone red + green drift, replacing the single blue blob */&#13;
+.accent-blob {&#13;
+  position: absolute;&#13;
+  width: 320px;&#13;
+  height: 320px;&#13;
+  background: radial-gradient(circle, $glow-primary 0%, transparent 70%);&#13;
+  border-radius: 50%;&#13;
+  top: -80px;&#13;
+  right: -60px;&#13;
+  opacity: 0.55;&#13;
+  animation: blob-drift 8s ease-in-out infinite;&#13;
+  pointer-events: none;&#13;
+}&#13;
+.accent-blob--secondary {&#13;
+  position: absolute;&#13;
+  width: 260px;&#13;
+  height: 260px;&#13;
+  background: radial-gradient(circle, $glow-success 0%, transparent 70%);&#13;
+  border-radius: 50%;&#13;
+  bottom: -70px;&#13;
+  left: -50px;&#13;
+  opacity: 0.5;&#13;
+  animation: blob-drift 10s ease-in-out infinite reverse;&#13;
+  pointer-events: none;&#13;
+}&#13;
+&#13;
+/* Greeting sub — bold SPAR red, slides in from left */&#13;
+.greeting-sub {&#13;
+  font-size: 0.85rem;&#13;
+  font-weight: 700;&#13;
+  letter-spacing: 0.15em;&#13;
+  color: $brand-primary !important;&#13;
+  margin-bottom: 8px;&#13;
+  opacity: 0;&#13;
+  animation: slide-in-left 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s forwards;&#13;
+}&#13;
+&#13;
+/* Main heading — bold, near-black with a subtle red-to-green gradient sweep on the accent word (wrap the key word in &lt;span class="greeting-accent"&gt;) */&#13;
+.greeting-main {&#13;
+  font-size: 2.5rem;&#13;
+  font-weight: 800;&#13;
+  color: #0F172A !important;&#13;
+  letter-spacing: -0.03em;&#13;
+  margin-bottom: 12px;&#13;
+  opacity: 0;&#13;
+  animation: slide-in-left 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 0.25s forwards;&#13;
+}&#13;
+.greeting-main .greeting-accent {&#13;
+  background: linear-gradient(90deg, $brand-primary 0%, $brand-success 100%);&#13;
+  -webkit-background-clip: text;&#13;
+  background-clip: text;&#13;
+  color: transparent !important;&#13;
+}&#13;
+&#13;
+/* Lead paragraph — fades up last */&#13;
+.greeting-lead {&#13;
+  font-size: 1rem;&#13;
+  line-height: 1.6;&#13;
+  color: #334155 !important;&#13;
+  opacity: 0;&#13;
+  animation: fade-up 0.7s cubic-bezier(0.4, 0, 0.2, 1) 0.45s forwards;&#13;
+}&#13;
+&#13;
+/* Optional CTA row under the lead — bold gradient pill button + glow, same&#13;
+   language as the "Request Access" button elsewhere in the theme */&#13;
+.greeting-cta {&#13;
+  display: inline-flex;&#13;
+  align-items: center;&#13;
+  gap: 8px;&#13;
+  margin-top: 24px;&#13;
+  padding: 12px 28px;&#13;
+  border-radius: 999px;&#13;
+  border: none;&#13;
+  background: linear-gradient(135deg, $gradient-primary-start 0%, $gradient-primary-end 100%);&#13;
+  color: #ffffff;&#13;
+  font-weight: 700;&#13;
+  letter-spacing: 0.03em;&#13;
+  text-transform: uppercase;&#13;
+  font-size: 0.85rem;&#13;
+  box-shadow: 0 6px 18px $glow-primary;&#13;
+  opacity: 0;&#13;
+  cursor: pointer;&#13;
+  transition: transform 250ms cubic-bezier(0.34,1.56,0.64,1), box-shadow 250ms ease;&#13;
+  animation: fade-up 0.7s cubic-bezier(0.4, 0, 0.2, 1) 0.6s forwards;&#13;
+}&#13;
+.greeting-cta:hover {&#13;
+  transform: translateY(-3px);&#13;
+  box-shadow: 0 10px 26px $glow-primary;&#13;
+}&#13;
+&#13;
+/* ── Keyframes ── */&#13;
+@keyframes slide-in-left {&#13;
+  from { opacity: 0; transform: translateX(-28px); }&#13;
+  to   { opacity: 1; transform: translateX(0); }&#13;
+}&#13;
+@keyframes fade-up {&#13;
+  from { opacity: 0; transform: translateY(16px); }&#13;
+  to   { opacity: 1; transform: translateY(0); }&#13;
+}&#13;
+@keyframes blob-drift {&#13;
+  0%, 100% { transform: translate(0, 0) scale(1); }&#13;
+  33%      { transform: translate(-20px, 15px) scale(1.05); }&#13;
+  66%      { transform: translate(10px, -20px) scale(0.97); }&#13;
+}&#13;
+@keyframes gradientShift {&#13;
+  0%   { background-position: 0% 50%; }&#13;
+  50%  { background-position: 100% 50%; }&#13;
+  100% { background-position: 0% 50%; }&#13;
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>launchpad_premium_welcome</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {
+  
+}]]></link>
+        <name>Launchpad Premium Welcome</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+  var userGR = new GlideRecord('sys_user');
+  if (userGR.get(gs.getUserID())) {
+    data.firstName = userGR.getValue('first_name') || 'Explorer';
+    data.lastName = userGR.getValue('last_name') || '';
+  } else {
+    data.firstName = 'Explorer';
+    data.lastName = '';
+  }
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-01 17:15:09</sys_created_on>
+        <sys_id>02b2f7bd47b9c394f301c82f316d4354</sys_id>
+        <sys_mod_count>8</sys_mod_count>
+        <sys_name>Launchpad Premium Welcome</sys_name>
+        <sys_package display_value="Launchpad" source="x_2062828_launch_0">6e8263bd4739c394f301c82f316d4371</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</sys_scope>
+        <sys_update_name>sp_widget_02b2f7bd47b9c394f301c82f316d4354</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-16 08:46:56</sys_updated_on>
+        <template><![CDATA[<div class="launchpad-hero-container">
+  <div class="text-content">
+    <p class="greeting-sub">YOUR RUNWAY AWAITS</p>
+    <h1 class="greeting-main">Welcome to your Launchpad, {{c.data.firstName}} {{c.data.lastName}}</h1>
+    <p class="greeting-lead">Let's get you squared away with your gear, workspace coordinates, and security clearance today.</p>
+  </div>
+  <div class="accent-blob"></div>
+</div>]]></template>
+    </sp_widget>
+</record_update>

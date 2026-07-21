@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="kb_uc_can_read_mtom">
+    <kb_uc_can_read_mtom action="DELETE">
+        <kb_knowledge_base display_value="IT Onboarding  KB">c2f554274779cf94f301c82f316d430f</kb_knowledge_base>
+        <sys_class_name>kb_uc_can_read_mtom</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-06 11:42:33</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>09479ca74779cf94f301c82f316d43a8</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>IT Onboarding  KB.Launchpad Employees Can Read</sys_name>
+        <sys_package display_value="Launchpad" source="x_2062828_launch_0">6e8263bd4739c394f301c82f316d4371</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</sys_scope>
+        <sys_update_name>kb_uc_can_read_mtom_09479ca74779cf94f301c82f316d43a8</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-06 11:42:33</sys_updated_on>
+        <user_criteria display_value="Launchpad Employees Can Read">5b07d4a74779cf94f301c82f316d43d2</user_criteria>
+    </kb_uc_can_read_mtom>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</application>
+        <file_path/>
+        <instance_id>4f244272ebe8039c56eafddacad0cd3d</instance_id>
+        <instance_name>dev396915</instance_name>
+        <name>kb_uc_can_read_mtom_09479ca74779cf94f301c82f316d43a8</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="kb_uc_can_read_mtom"><kb_uc_can_read_mtom action="INSERT_OR_UPDATE"><kb_knowledge_base display_value="IT Onboarding  KB">c2f554274779cf94f301c82f316d430f</kb_knowledge_base><sys_class_name>kb_uc_can_read_mtom</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2026-07-06 11:42:33</sys_created_on><sys_domain>global</sys_domain><sys_domain_path>/</sys_domain_path><sys_id>09479ca74779cf94f301c82f316d43a8</sys_id><sys_mod_count>0</sys_mod_count><sys_name>IT Onboarding  KB.Launchpad Employees Can Read</sys_name><sys_package display_value="Launchpad" source="x_2062828_launch_0">6e8263bd4739c394f301c82f316d4371</sys_package><sys_policy/><sys_scope display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</sys_scope><sys_update_name>kb_uc_can_read_mtom_09479ca74779cf94f301c82f316d43a8</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2026-07-06 11:42:33</sys_updated_on><user_criteria display_value="Launchpad Employees Can Read">5b07d4a74779cf94f301c82f316d43d2</user_criteria></kb_uc_can_read_mtom></record_update>]]></payload>
+        <payload_hash>-1970678493</payload_hash>
+        <record_name>IT Onboarding  KB.Launchpad Employees Can Read</record_name>
+        <reverted_from/>
+        <source>6a8263bd4739c394f301c82f316d4375</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-06 11:42:33</sys_created_on>
+        <sys_id>c1479ca74779cf94f301c82f316d43ac</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>19f373cb5dc0000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-06 11:42:33</sys_updated_on>
+        <type>Who Can Read Knowledge Base</type>
+        <update_guid>81479ca77179cf944660e0192786d6ab</update_guid>
+        <update_guid_history>81479ca77179cf944660e0192786d6ab:-1970678493</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="IT Onboarding  KB.Launchpad Employees Can Read">832c19f3477183d4f301c82f316d4305</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-07 11:22:05</sys_created_on>
+        <sys_db_object display_value="" name="kb_uc_can_read_mtom">kb_uc_can_read_mtom</sys_db_object>
+        <sys_id>0ccc901cc4b4445781b4e4a245f1a7a1</sys_id>
+        <sys_metadata>09479ca74779cf94f301c82f316d43a8</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>IT Onboarding  KB.Launchpad Employees Can Read</sys_name>
+        <sys_package display_value="Launchpad" source="x_2062828_launch_0">6e8263bd4739c394f301c82f316d4371</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</sys_scope>
+        <sys_scope_delete display_value="">c6c3a19153a145709d697dc6ddb23900</sys_scope_delete>
+        <sys_update_name>kb_uc_can_read_mtom_09479ca74779cf94f301c82f316d43a8</sys_update_name>
+        <sys_update_version display_value="kb_uc_can_read_mtom_09479ca74779cf94f301c82f316d43a8">c1479ca74779cf94f301c82f316d43ac</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-07 11:22:05</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

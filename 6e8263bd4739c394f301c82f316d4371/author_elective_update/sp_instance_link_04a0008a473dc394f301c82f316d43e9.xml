@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_instance_link">
+    <sp_instance_link action="DELETE">
+        <active>true</active>
+        <advanced_placeholder_dimensions>false</advanced_placeholder_dimensions>
+        <async_load>false</async_load>
+        <async_load_device_type>desktop,tablet,mobile</async_load_device_type>
+        <async_load_trigger>viewport</async_load_trigger>
+        <class_name/>
+        <color>default</color>
+        <css/>
+        <glyph>laptop</glyph>
+        <id/>
+        <kb_article/>
+        <kb_category/>
+        <kb_topic/>
+        <order>1</order>
+        <placeholder_dimensions>{&#13;	"mobile": {&#13;		"height": "250px",&#13;		"width": "100%"&#13;	},&#13;	"desktop": {&#13;		"height": "250px",&#13;		"width": "100%"&#13;	},&#13;	"tablet": {&#13;		"height": "250px",&#13;		"width": "100%"&#13;	}&#13;}</placeholder_dimensions>
+        <placeholder_dimensions_script><![CDATA[function evaluateConfig(options) { return {	"mobile": {		"height": "250px",		"width": "100%"	},	"desktop": {		"height": "250px",		"width": "100%"	},	"tablet": {		"height": "250px",		"width": "100%"	}}; }]]></placeholder_dimensions_script>
+        <placeholder_template>&lt;!-- 
+	AngularJS template with configurable options.
+	Use the `options` object to control dynamic behavior.
+	Example: Display an element when max row count is 10:
+	&lt;div ng-if="options.maxRowCount === 10"&gt;&lt;/div&gt;
+	The `skeleton-container` class is used for loading placeholders.
+--&gt;
+	&lt;div class="skeleton-container"&gt;
+	&lt;!-- Header Skeleton --&gt;
+	&lt;div class="skeleton-box skeleton-header"&gt;&lt;/div&gt;
+	&lt;!-- Body Skeleton --&gt;
+	&lt;div class="skeleton-box skeleton-line"&gt;&lt;/div&gt;
+	&lt;div class="skeleton-box skeleton-line small"&gt;&lt;/div&gt;
+	&lt;div class="skeleton-box skeleton-line medium"&gt;&lt;/div&gt;
+&lt;/div&gt;</placeholder_template>
+        <preserve_placeholder_size>false</preserve_placeholder_size>
+        <roles/>
+        <sc_cat_item display_value="Equipment Request">9d36377547f9c394f301c82f316d43f1</sc_cat_item>
+        <sc_category/>
+        <short_description>Configure your high-performance remote developer laptop and workspace gear.</short_description>
+        <size>md</size>
+        <sp_column display_value="1">1147957b473183d4f301c82f316d43ab</sp_column>
+        <sp_page display_value="sc_cat_item">9f12251147132100ba13a5554ee490f4</sp_page>
+        <sp_widget display_value="Icon Link">3caa67afcb13020000f8d856634c9c2e</sp_widget>
+        <sys_class_name>sp_instance_link</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-01 18:12:44</sys_created_on>
+        <sys_id>04a0008a473dc394f301c82f316d43e9</sys_id>
+        <sys_mod_count>7</sys_mod_count>
+        <sys_name>Equipment Loadout</sys_name>
+        <sys_package display_value="Launchpad" source="x_2062828_launch_0">6e8263bd4739c394f301c82f316d4371</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</sys_scope>
+        <sys_update_name>sp_instance_link_04a0008a473dc394f301c82f316d43e9</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-07 11:00:52</sys_updated_on>
+        <title>Equipment Loadout</title>
+        <type>sc_cat_item</type>
+        <url/>
+        <widget_parameters><![CDATA[{
+	"link_template": {
+		"value": "Top Icon",
+		"displayValue": "Top Icon"
+	}
+}]]></widget_parameters>
+    </sp_instance_link>
+    <sys_translated_text action="DELETE" query="documentkey=04a0008a473dc394f301c82f316d43e9"/>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</application>
+        <file_path/>
+        <instance_id>4f244272ebe8039c56eafddacad0cd3d</instance_id>
+        <instance_name>dev396915</instance_name>
+        <name>sp_instance_link_04a0008a473dc394f301c82f316d43e9</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sp_instance_link"&gt;&lt;sp_instance_link action="INSERT_OR_UPDATE"&gt;&lt;active&gt;true&lt;/active&gt;&lt;advanced_placeholder_dimensions&gt;false&lt;/advanced_placeholder_dimensions&gt;&lt;async_load&gt;false&lt;/async_load&gt;&lt;async_load_device_type&gt;desktop,tablet,mobile&lt;/async_load_device_type&gt;&lt;async_load_trigger&gt;viewport&lt;/async_load_trigger&gt;&lt;class_name/&gt;&lt;color&gt;default&lt;/color&gt;&lt;css/&gt;&lt;glyph&gt;laptop&lt;/glyph&gt;&lt;id/&gt;&lt;kb_article/&gt;&lt;kb_category/&gt;&lt;kb_topic/&gt;&lt;order&gt;1&lt;/order&gt;&lt;placeholder_dimensions&gt;{&amp;#13;	"mobile": {&amp;#13;		"height": "250px",&amp;#13;		"width": "100%"&amp;#13;	},&amp;#13;	"desktop": {&amp;#13;		"height": "250px",&amp;#13;		"width": "100%"&amp;#13;	},&amp;#13;	"tablet": {&amp;#13;		"height": "250px",&amp;#13;		"width": "100%"&amp;#13;	}&amp;#13;}&lt;/placeholder_dimensions&gt;&lt;placeholder_dimensions_script&gt;&lt;![CDATA[function evaluateConfig(options) { return {	"mobile": {		"height": "250px",		"width": "100%"	},	"desktop": {		"height": "250px",		"width": "100%"	},	"tablet": {		"height": "250px",		"width": "100%"	}}; }]]&gt;&lt;/placeholder_dimensions_script&gt;&lt;placeholder_template&gt;&amp;lt;!-- 
+	AngularJS template with configurable options.
+	Use the `options` object to control dynamic behavior.
+	Example: Display an element when max row count is 10:
+	&amp;lt;div ng-if="options.maxRowCount === 10"&amp;gt;&amp;lt;/div&amp;gt;
+	The `skeleton-container` class is used for loading placeholders.
+--&amp;gt;
+	&amp;lt;div class="skeleton-container"&amp;gt;
+	&amp;lt;!-- Header Skeleton --&amp;gt;
+	&amp;lt;div class="skeleton-box skeleton-header"&amp;gt;&amp;lt;/div&amp;gt;
+	&amp;lt;!-- Body Skeleton --&amp;gt;
+	&amp;lt;div class="skeleton-box skeleton-line"&amp;gt;&amp;lt;/div&amp;gt;
+	&amp;lt;div class="skeleton-box skeleton-line small"&amp;gt;&amp;lt;/div&amp;gt;
+	&amp;lt;div class="skeleton-box skeleton-line medium"&amp;gt;&amp;lt;/div&amp;gt;
+&amp;lt;/div&amp;gt;&lt;/placeholder_template&gt;&lt;preserve_placeholder_size&gt;false&lt;/preserve_placeholder_size&gt;&lt;roles/&gt;&lt;sc_cat_item display_value="Equipment Request"&gt;9d36377547f9c394f301c82f316d43f1&lt;/sc_cat_item&gt;&lt;sc_category/&gt;&lt;short_description&gt;Configure your high-performance remote developer laptop and workspace gear.&lt;/short_description&gt;&lt;size&gt;md&lt;/size&gt;&lt;sp_column display_value="1"&gt;1147957b473183d4f301c82f316d43ab&lt;/sp_column&gt;&lt;sp_page display_value="sc_cat_item"&gt;9f12251147132100ba13a5554ee490f4&lt;/sp_page&gt;&lt;sp_widget display_value="Icon Link"&gt;3caa67afcb13020000f8d856634c9c2e&lt;/sp_widget&gt;&lt;sys_class_name&gt;sp_instance_link&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2026-07-01 18:12:44&lt;/sys_created_on&gt;&lt;sys_id&gt;04a0008a473dc394f301c82f316d43e9&lt;/sys_id&gt;&lt;sys_mod_count&gt;7&lt;/sys_mod_count&gt;&lt;sys_name&gt;Equipment Loadout&lt;/sys_name&gt;&lt;sys_package display_value="Launchpad" source="x_2062828_launch_0"&gt;6e8263bd4739c394f301c82f316d4371&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="Launchpad"&gt;6e8263bd4739c394f301c82f316d4371&lt;/sys_scope&gt;&lt;sys_update_name&gt;sp_instance_link_04a0008a473dc394f301c82f316d43e9&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2026-07-07 11:00:52&lt;/sys_updated_on&gt;&lt;title&gt;Equipment Loadout&lt;/title&gt;&lt;type&gt;sc_cat_item&lt;/type&gt;&lt;url/&gt;&lt;widget_parameters&gt;&lt;![CDATA[{
+	"link_template": {
+		"value": "Top Icon",
+		"displayValue": "Top Icon"
+	}
+}]]&gt;&lt;/widget_parameters&gt;&lt;/sp_instance_link&gt;&lt;sys_translated_text action="delete_multiple" query="documentkey=04a0008a473dc394f301c82f316d43e9"/&gt;&lt;/record_update&gt;</payload>
+        <payload_hash>-256838228</payload_hash>
+        <record_name>Equipment Loadout</record_name>
+        <reverted_from/>
+        <source>6a8263bd4739c394f301c82f316d4375</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-07 11:00:52</sys_created_on>
+        <sys_id>1857197b473183d4f301c82f316d4352</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>19f3c3ce90d0000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-07 11:00:52</sys_updated_on>
+        <type>Instance with Link</type>
+        <update_guid>d457197b033183d4244f6b67a4791651</update_guid>
+        <update_guid_history>d457197b033183d4244f6b67a4791651:-256838228,c16ca0b32cf943d40f71632e36128634:192910080,e64cac738ff943d40083d4332fb8e55d:410324869,10b089e6a5b10b9426b77ebf8d59cab3:192910080,82d1480e9f3dc3945d29f7dcfea5e088:1029720770,281140caae3dc394906caeaa790f435e:-863497482,afa0448a343dc394dbb5cd2059c82422:1767677239,c8a0c08a1c3dc394866eaf2705a19c5a:-863497482</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="Equipment Loadout">ca3b2582474ec318f301c82f316d4352</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-14 12:14:10</sys_created_on>
+        <sys_db_object display_value="" name="sp_instance_link">sp_instance_link</sys_db_object>
+        <sys_id>2a38a3fc890549bd905eb527c2343cf9</sys_id>
+        <sys_metadata>04a0008a473dc394f301c82f316d43e9</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Equipment Loadout</sys_name>
+        <sys_package display_value="Launchpad" source="x_2062828_launch_0">6e8263bd4739c394f301c82f316d4371</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</sys_scope>
+        <sys_scope_delete display_value="">c6c3a19153a145709d697dc6ddb23900</sys_scope_delete>
+        <sys_update_name>sp_instance_link_04a0008a473dc394f301c82f316d43e9</sys_update_name>
+        <sys_update_version display_value="sp_instance_link_04a0008a473dc394f301c82f316d43e9">1857197b473183d4f301c82f316d4352</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-14 12:14:10</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

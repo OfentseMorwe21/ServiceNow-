@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="m2m_sp_theme_css_include">
+    <m2m_sp_theme_css_include action="INSERT_OR_UPDATE">
+        <order/>
+        <sp_css_include display_value="Google Loster Font">243aa40c47964710f301c82f316d4359</sp_css_include>
+        <sp_theme display_value="Launchpad Minimalist Design Theme">168727394779c394f301c82f316d43fc</sp_theme>
+        <sys_class_name>m2m_sp_theme_css_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-20 12:38:17</sys_created_on>
+        <sys_id>314aa40c47964710f301c82f316d43d4</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Google Loster Font.Launchpad Minimalist Design Theme</sys_name>
+        <sys_package display_value="Launchpad" source="x_2062828_launch_0">6e8263bd4739c394f301c82f316d4371</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</sys_scope>
+        <sys_update_name>m2m_sp_theme_css_include_314aa40c47964710f301c82f316d43d4</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-20 12:38:17</sys_updated_on>
+    </m2m_sp_theme_css_include>
+</record_update>

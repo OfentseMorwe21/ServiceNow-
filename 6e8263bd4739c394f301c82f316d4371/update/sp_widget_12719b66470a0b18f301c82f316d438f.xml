@@ -1,0 +1,466 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>standard</category>
+        <client_script><![CDATA[api.controller=function($scope, spAriaUtil) {
+	$scope.accessibilityModeEnabled = spAriaUtil.isAccessibilityEnabled();
+};]]></client_script>
+        <controller_as>c</controller_as>
+        <css>// Grays&#13;
+$gray-base: #000000;&#13;
+$gray-dark: lighten($gray-base, 18.04%);&#13;
+$gray-darker: lighten($gray-base, 8.24%);&#13;
+$gray-light: lighten($gray-base, 40%);&#13;
+$gray-lighter: lighten($gray-base, 94.51%);&#13;
+$gray: lighten($gray-base, 29.02%);&#13;
+&#13;
+////// Branding variables //////&#13;
+// should always end with !default and no other variable should have !default&#13;
+$brand-primary: #E30613 !default;&#13;
+$body-bg: #ffffff !default;&#13;
+$brand-success: #007A33 !default;&#13;
+$state-success-text: darken(desaturate(adjust-hue($brand-success, 3), 15.64%), 34.31) !default;&#13;
+$sp-navbar-divider-color: #0F5C36 !default;&#13;
+$text-color: $gray-dark !default;&#13;
+$navbar-inverse-link-hover-color: #FCD34D !default;&#13;
+$navbar-inverse-bg: #00532B !default;&#13;
+$brand-warning: #E8A200 !default;&#13;
+$brand-danger: #B10510 !default;&#13;
+$sp-tagline-color: #ffffff !default;&#13;
+$navbar-inverse-link-active-color: $sp-tagline-color !default;&#13;
+$navbar-inverse-link-color: #C9D8CE !default;&#13;
+$brand-info: #3FA66B !default;&#13;
+$link-color: #C81420 !default;&#13;
+$sp-logo-margin-x: 15px !default;&#13;
+$text-muted: $gray-light !default;&#13;
+////////////////////////////////////&#13;
+&#13;
+// Link hover decoration&#13;
+$link-hover-decoration: underline !default;&#13;
+&#13;
+// SPAR theme variables&#13;
+$brand-primary-dark: darken($brand-primary, 20%);&#13;
+$brand-primary-darker: #7A0308 !default;&#13;
+$brand-primary-light: #F3949B !default;&#13;
+$brand-primary-lighter: #FBC7CA !default;&#13;
+$brand-primary-lightest: #FDF2F2 !default;&#13;
+$dropdown-link-disabled-color: $gray-light;&#13;
+$link-hover-color: darken(desaturate(adjust-hue($link-color, 1), 0.42%), 16.67);&#13;
+$navbar-inverse-link-active-bg: #003D1F;&#13;
+$navbar-inverse-link-hover-bg: #00713F;&#13;
+$panel-primary-border: $brand-primary;&#13;
+$panel-primary-heading-bg: $brand-primary;&#13;
+$panel-primary-text: #ffffff;&#13;
+$primary: $brand-primary;&#13;
+$input-border-focus: #E30613;&#13;
+$quicklinks-background: #FDF2F2;&#13;
+$btn-success-bg: $brand-success;&#13;
+$btn-default-color: #2e2e2e;&#13;
+$btn-primary-color: #ffffff;&#13;
+$btn-primary-bg: $brand-primary;&#13;
+$btn-primary-border: darken($btn-primary-bg, 5%);&#13;
+$btn-success-bg: $brand-success;&#13;
+$btn-success-border: darken($btn-success-bg, 5%);&#13;
+$btn-success-color: darken(desaturate(adjust-hue($brand-success, 3), 15.64%), 34.31);&#13;
+$btn-disabled-opacity: 0.25;&#13;
+$component-active-color: $gray;&#13;
+$component-active-bg: #f5f5f5;&#13;
+$state-danger-bg: lighten(saturate(adjust-hue($brand-danger, 354), 42.52%), 42.94);&#13;
+$state-danger-border: #B10510;&#13;
+$state-danger-text: #64100A;&#13;
+$state-info-bg: lighten(desaturate($brand-info, 3.27%), 19.02);&#13;
+$state-info-border: $brand-info;&#13;
+$state-info-text: darken(desaturate(adjust-hue($brand-info, 1), 2.75%), 41.57);&#13;
+$state-success-bg: lighten(saturate($brand-success, 3.67%), 28.24);&#13;
+$state-success-border: $brand-success;&#13;
+$state-warning-bg: lighten(saturate(adjust-hue($brand-warning, -3), 17.70%), 29.61);&#13;
+$state-warning-border: $brand-warning;&#13;
+$state-warning-text: darken(desaturate(adjust-hue($brand-warning, -4), 20.32%), 44.31);&#13;
+$alert-danger-bg: $state-danger-bg;&#13;
+$alert-danger-border: $state-danger-border;&#13;
+$alert-danger-text: $state-danger-text;&#13;
+$alert-info-bg: $state-info-bg;&#13;
+$alert-info-border: $state-info-border;&#13;
+$alert-info-text: $state-info-text;&#13;
+$alert-success-bg: $state-success-bg;&#13;
+$alert-success-border: $state-success-border;&#13;
+$alert-success-text: $state-success-text;&#13;
+$alert-warning-bg: $state-warning-bg;&#13;
+$alert-warning-border: $state-warning-border;&#13;
+$alert-warning-text: $state-warning-text;&#13;
+&#13;
+// To get service status messages consistent with brand colors&#13;
+$primary: $brand-primary;&#13;
+$warning: $brand-warning;&#13;
+$success: $brand-success;&#13;
+$info: $brand-info;&#13;
+$danger: $brand-danger;&#13;
+$input-border-placeholder: white;&#13;
+&#13;
+// Service Catalog panel hover highlight&#13;
+$panel-list-item: lighten(desaturate(adjust-hue($panel-primary-heading-bg, -6), 20.79%), 58.04);&#13;
+$panel-primary-heading-bg: #C81420;&#13;
+&#13;
+$multiple-issues-color: #7070B3;&#13;
+$no-issue-color: lighten($brand-success, 40%);&#13;
+$planned-maintenance-color: lighten($brand-info, 35%);&#13;
+$service-degredation-color: lighten($brand-warning, 40%);&#13;
+$service-outage-color: lighten($brand-danger, 45%);&#13;
+&#13;
+$no-issue-border-color: $brand-success;&#13;
+$planned-maintenance-border-color: $brand-info;&#13;
+$service-degredation-border-color: $brand-warning;&#13;
+$service-outage-border-color: $brand-danger;&#13;
+&#13;
+$no-issues-text: $state-success-text;&#13;
+$planned-maintenance-text: $state-info-text;&#13;
+$service-degredation-text: $state-info-text;&#13;
+$service-outage-text: $state-danger-bg;&#13;
+&#13;
+$login-btn-bg: $btn-primary-bg;&#13;
+$login-btn-border: $btn-primary-border;&#13;
+&#13;
+$qa-tag-color: $state-info-text;&#13;
+$qa-tag-bg: $state-info-bg;&#13;
+$qa-tag-border: $state-info-bg;&#13;
+$qa-tag-hover-color: darken($qa-tag-color, 10%);&#13;
+$qa-tag-hover-bg: darken($qa-tag-bg, 10%);&#13;
+&#13;
+$qa-thread-tag-color: $state-info-text;&#13;
+$qa-thread-tag-bg: $state-info-bg;&#13;
+$qa-thread-tag-hover-color: darken($qa-thread-tag-color, 10%);&#13;
+$qa-thread-tag-hover-bg: darken($qa-thread-tag-bg, 10%);&#13;
+&#13;
+$qa-panel-link-color: $link-color;&#13;
+$select2-container-active: $input-border-focus;&#13;
+&#13;
+$not-webkit-outline-color: $input-border-focus;&#13;
+$webkit-outline-color: $input-border-focus;&#13;
+&#13;
+$label-success-bg: lighten(saturate($brand-success, 3.67%), 28.24);&#13;
+$label-info-bg: lighten(desaturate($brand-info, 3.27%), 19.02);&#13;
+$label-warning-bg: lighten(saturate(adjust-hue($brand-warning, -3), 17.70%), 29.61);&#13;
+$label-danger-bg: lighten(saturate(adjust-hue($brand-danger, 354), 42.52%), 42.94);&#13;
+$label-primary-bg: #B10510;&#13;
+$data-table-selected: $brand-primary;&#13;
+&#13;
+$button-selected-color: $btn-primary-bg;&#13;
+$dropdown-link-active-bg: $brand-primary;&#13;
+$dropdown-link-active-color: #ffffff;&#13;
+$widget-editor-fa-bg: $brand-primary;&#13;
+&#13;
+$input-border-tab-focus: $input-border-focus;&#13;
+&#13;
+$fav-star-color: darken($brand-warning, 20%);&#13;
+$fav-star-color-off: #ffffff;&#13;
+$fav-star-outline-color: #6b611f;&#13;
+$fav-star-outline: -1px 0 $fav-star-outline-color, 0 1px $fav-star-outline-color, 1px 0 $fav-star-outline-color, 0 -1px $fav-star-outline-color;&#13;
+&#13;
+$sc-field-error-color: #1a424b;&#13;
+$qa-star-color-on: $brand-warning;&#13;
+$qa-star-color-off: #ffffff;&#13;
+&#13;
+$list-group-link-color: $brand-primary;&#13;
+$list-group-hover-bg: lighten($panel-primary-heading-bg, 40%);&#13;
+&#13;
+$accessible-placeholder-gray: #565656;&#13;
+&#13;
+// ── Icon colors ──&#13;
+$icon-color: $brand-success;&#13;
+$icon-color-hover: $brand-primary;&#13;
+$icon-color-active: $brand-primary-dark;&#13;
+$icon-color-muted: $gray-light;&#13;
+$icon-color-inverse: #ffffff;&#13;
+&#13;
+// ── Widget/category icon chip background ──&#13;
+$widget-icon-color: $brand-success;&#13;
+$widget-icon-bg: $no-issue-color;&#13;
+&#13;
+// ── Needed by the Icon Link widget ──&#13;
+$icon-link-glyph-color: #ffffff;&#13;
+$text-secondary: #64748B;&#13;
+&#13;
+// ── Futuristic accents: gradients + glow ──&#13;
+$gradient-primary-start: $brand-primary;&#13;
+$gradient-primary-end: darken($brand-primary, 15%);&#13;
+$gradient-success-start: $brand-success;&#13;
+$gradient-success-end: darken($brand-success, 15%);&#13;
+$glow-primary: rgba(227, 6, 19, 0.45);&#13;
+$glow-success: rgba(0, 122, 51, 0.45);&#13;
+$glass-bg: rgba(255, 255, 255, 0.65);&#13;
+$glass-border: rgba(255, 255, 255, 0.4);&#13;
+/*&#13;
+===============================================================================&#13;
+ICON LINK WIDGET — SPAR Futuristic edition&#13;
+Paste into the widget's CSS field (or the theme's CSS field if used sitewide)&#13;
+Adds gradients, glow, float and bounce to the stock top/circle/color-box icon&#13;
+link styles, using the same tokens as the rest of the theme.&#13;
+===============================================================================&#13;
+*/&#13;
+&#13;
+.iconlink {&#13;
+  padding: 3px 0;&#13;
+}&#13;
+.iconlink a label,h2 {&#13;
+  display: block;&#13;
+  font-size: 2.5rem;&#13;
+  font-weight: 300;&#13;
+  line-height: 1.1;&#13;
+  padding: 0;&#13;
+  margin: 0 0 10px 0;&#13;
+}&#13;
+&#13;
+/* TOP ICON ---------- */&#13;
+a.top_icon {&#13;
+  display: block;&#13;
+  padding: 20px;&#13;
+  text-align: center;&#13;
+  border-radius: 14px;&#13;
+  transition: transform 280ms cubic-bezier(0.34, 1.56, 0.64, 1), background 280ms ease;&#13;
+}&#13;
+a.top_icon .fa {&#13;
+  display: block;&#13;
+  text-align: center;&#13;
+  transition: transform 280ms cubic-bezier(0.34, 1.56, 0.64, 1), filter 280ms ease;&#13;
+}&#13;
+a.top_icon:hover {&#13;
+  background: rgba(227, 6, 19, 0.06);&#13;
+  transform: translateY(-3px);&#13;
+}&#13;
+a.top_icon:hover .fa {&#13;
+  transform: scale(1.18) rotate(-4deg);&#13;
+  filter: drop-shadow(0 4px 10px rgba(227, 6, 19, 0.35));&#13;
+}&#13;
+&#13;
+/* CIRCLE ICON ---------- */&#13;
+@keyframes circleIconFloat {&#13;
+  0%, 100% { transform: translateY(0); }&#13;
+  50%      { transform: translateY(-3px); }&#13;
+}&#13;
+a.circle_icon {&#13;
+  display: block;&#13;
+  padding: 20px 0px 20px 70px;&#13;
+  position: relative;&#13;
+}&#13;
+a.circle_icon .fa {&#13;
+  position: absolute;&#13;
+  left: 0px;&#13;
+  top: 10px;&#13;
+  width: 46px;&#13;
+  height: 46px;&#13;
+  display: flex;&#13;
+  align-items: center;&#13;
+  justify-content: center;&#13;
+  border-radius: 50%;&#13;
+  background: linear-gradient(135deg, $gradient-success-start 0%, $gradient-success-end 100%);&#13;
+  box-shadow: 0 4px 14px $glow-success;&#13;
+  animation: circleIconFloat 3.2s ease-in-out infinite;&#13;
+  transition: transform 280ms cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 280ms ease;&#13;
+}&#13;
+a.circle_icon .fa-stack-1x {&#13;
+  color: $icon-link-glyph-color;&#13;
+  position: relative;&#13;
+}&#13;
+a.circle_icon:hover .fa {&#13;
+  transform: scale(1.15) rotate(-6deg);&#13;
+  box-shadow: 0 8px 22px $glow-success;&#13;
+  animation-play-state: paused;&#13;
+}&#13;
+&#13;
+/* COLOR BOX ---------- */&#13;
+a.color_box {&#13;
+  display: block;&#13;
+  position: relative;&#13;
+  padding: 20px 20px 20px 82px;&#13;
+  border-radius: 14px;&#13;
+  margin-bottom: 20px;&#13;
+  overflow: hidden;&#13;
+  color: $panel-primary-text;&#13;
+  transition: transform 280ms cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 280ms ease;&#13;
+}&#13;
+a.color_box::after {&#13;
+  content: "";&#13;
+  position: absolute;&#13;
+  top: 0;&#13;
+  left: -60%;&#13;
+  width: 40%;&#13;
+  height: 100%;&#13;
+  background: linear-gradient(120deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.35) 50%, rgba(255,255,255,0) 100%);&#13;
+  transform: skewX(-20deg);&#13;
+  transition: left 550ms ease;&#13;
+}&#13;
+a.color_box:hover::after {&#13;
+  left: 130%;&#13;
+}&#13;
+a.color_box:hover {&#13;
+  transform: translateY(-4px);&#13;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.18);&#13;
+}&#13;
+a.color_box .fa {&#13;
+  position: absolute;&#13;
+  left: 20px;&#13;
+  top: 20px;&#13;
+  width: 42px;&#13;
+  text-align: center;&#13;
+  transition: transform 280ms cubic-bezier(0.34, 1.56, 0.64, 1);&#13;
+}&#13;
+a.color_box:hover .fa {&#13;
+  transform: scale(1.15);&#13;
+}&#13;
+&#13;
+/* Gradient icon-link backgrounds, replacing flat fills */&#13;
+.icon-link-background-primary {&#13;
+  background: linear-gradient(135deg, $gradient-primary-start 0%, $gradient-primary-end 100%);&#13;
+}&#13;
+.icon-link-background-info {&#13;
+  background: linear-gradient(135deg, $brand-info 0%, darken($brand-info, 15%) 100%);&#13;
+}&#13;
+.icon-link-background-success {&#13;
+  background: linear-gradient(135deg, $gradient-success-start 0%, $gradient-success-end 100%);&#13;
+}&#13;
+.icon-link-background-warning {&#13;
+  background: linear-gradient(135deg, $brand-warning 0%, darken($brand-warning, 12%) 100%);&#13;
+}&#13;
+.icon-link-background-danger {&#13;
+  background: linear-gradient(135deg, $brand-danger 0%, darken($brand-danger, 12%) 100%);&#13;
+}&#13;
+.icon-link-background-default {&#13;
+  background: linear-gradient(135deg, $gradient-primary-start 0%, $gradient-primary-end 100%);&#13;
+}&#13;
+&#13;
+/* Text link colors — unchanged logic, bolder hover lift */&#13;
+.text-primary {&#13;
+  color: $brand-primary-dark;&#13;
+  transition: color 200ms ease, transform 200ms ease;&#13;
+&#13;
+  &amp;:hover {&#13;
+    color: $brand-primary-darker;&#13;
+    transform: translateX(2px);&#13;
+  }&#13;
+}&#13;
+.text-info {&#13;
+  color: $brand-info;&#13;
+  transition: color 200ms ease, transform 200ms ease;&#13;
+&#13;
+  &amp;:hover {&#13;
+    color: darken($brand-info, 20%);&#13;
+    transform: translateX(2px);&#13;
+  }&#13;
+}&#13;
+.text-success {&#13;
+  color: $brand-success;&#13;
+  transition: color 200ms ease, transform 200ms ease;&#13;
+&#13;
+  &amp;:hover {&#13;
+    color: darken($brand-success, 20%);&#13;
+    transform: translateX(2px);&#13;
+  }&#13;
+}&#13;
+.text-warning {&#13;
+  color: $brand-warning;&#13;
+  transition: color 200ms ease, transform 200ms ease;&#13;
+&#13;
+  &amp;:hover {&#13;
+    color: darken($brand-warning, 20%);&#13;
+    transform: translateX(2px);&#13;
+  }&#13;
+}&#13;
+.text-danger {&#13;
+  color: $brand-danger;&#13;
+  transition: color 200ms ease, transform 200ms ease;&#13;
+&#13;
+  &amp;:hover {&#13;
+    color: darken($brand-danger, 20%);&#13;
+    transform: translateX(2px);&#13;
+  }&#13;
+}&#13;
+.text-default {&#13;
+  color: $brand-primary-dark;&#13;
+  transition: color 200ms ease, transform 200ms ease;&#13;
+&#13;
+  &amp;:hover {&#13;
+    color: $brand-primary-darker;&#13;
+    transform: translateX(2px);&#13;
+  }&#13;
+}&#13;
+.text-muted {&#13;
+  color: $text-secondary;&#13;
+}&#13;
+&#13;
+.high-contrast {&#13;
+  .text-primary {&#13;
+    color: darken($brand-primary-dark, 10%);&#13;
+  }&#13;
+  .text-info {&#13;
+    color: darken($brand-info, 10%);&#13;
+  }&#13;
+  .text-success {&#13;
+    color: darken($brand-success, 10%);&#13;
+  }&#13;
+  .text-warning {&#13;
+    color: darken($brand-warning, 10%);&#13;
+  }&#13;
+  .text-danger {&#13;
+    color: darken($brand-danger, 10%);&#13;
+  }&#13;
+  .text-default {&#13;
+    color: darken($brand-primary-dark, 10%);&#13;
+  }&#13;
+}</css>
+        <data_table>sp_instance_link</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list>type,url,sc_category,sc_cat_item,kb_topic,kb_article,kb_category,sp_page,title,short_description,color,class_name,glyph</field_list>
+        <has_preview>false</has_preview>
+        <id>onboarding_icon_link</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>Onboarding Icon Link</name>
+        <option_schema>[{"name":"link_template","section":"Presentation","label":"Template","type":"choice","choices":[{"label":"Top Icon","value":"Top Icon"},{"label":"Circle Icon","value":"Circle Icon"},{"label":"Color Box","value":"Color Box"}]}]</option_schema>
+        <public>true</public>
+        <roles/>
+        <script><![CDATA[(function(){
+	var gr = $sp.getInstanceRecord();
+	data.href = $sp.getMenuHREF(gr);
+	data.target = options.target || "";
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-16 08:57:52</sys_created_on>
+        <sys_id>12719b66470a0b18f301c82f316d438f</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>Onboarding Icon Link</sys_name>
+        <sys_package display_value="Launchpad" source="x_2062828_launch_0">6e8263bd4739c394f301c82f316d4371</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</sys_scope>
+        <sys_update_name>sp_widget_12719b66470a0b18f301c82f316d438f</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-16 09:02:03</sys_updated_on>
+        <template><![CDATA[<div class="iconlink" ng-class="{'high-contrast': accessibilityModeEnabled}">
+  <!--// Top Icon -->
+  <a ng-if="::(options.link_template == 'Top Icon' || !options.link_template)" ng-href="{{::data.href}}" class="top_icon {{::options.class_name}}" target="{{::data.target}}">
+    <div class="m-b fa fa-{{::options.glyph}} fa-4x {{::options.class_name}} text-{{::options.color}}"></div>
+    <h2 class="text-default">{{::options.title}}</h2>
+    <span class="text-muted">{{::options.short_description}}</span>
+  </a>
+
+  <!--// Circle Icon -->
+  <a ng-if="::(options.link_template == 'Circle Icon')" ng-href="{{::data.href}}" class="circle_icon {{::options.class_name}} text-{{::options.color}}" target="{{::data.target}}">
+    <span class="fa fa-stack fa-2x" aria-hidden="true">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fa fa-{{::options.glyph}} fa-stack-1x fa-inverse"></i>
+    </span>
+    <h2>{{::options.title}}</h2>
+    <span class="text-muted">{{::options.short_description}}</span>
+  </a>
+
+  <!--// Color Box -->
+  <a ng-if="::(options.link_template == 'Color Box')" ng-href="{{::data.href}}" class="color_box {{::options.class_name}} icon-link-background-{{::options.color}}" target="{{::data.target}}">
+    <div class="fa fa-{{::options.glyph}} fa-3x {{::options.class_name}}"></div>
+    <h2>{{::options.title}}</h2>
+    <span>{{::options.short_description}}</span>
+  </a>
+</div>]]></template>
+    </sp_widget>
+</record_update>

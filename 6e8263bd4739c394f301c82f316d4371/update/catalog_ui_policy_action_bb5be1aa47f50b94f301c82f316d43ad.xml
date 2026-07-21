@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="catalog_ui_policy_action">
+    <catalog_ui_policy_action action="INSERT_OR_UPDATE">
+        <catalog_item display_value="Facilities Request">9c5658e2477dc794f301c82f316d43ea</catalog_item>
+        <catalog_variable>IO:4089a5a647f50b94f301c82f316d4379</catalog_variable>
+        <cleared>false</cleared>
+        <disabled>ignore</disabled>
+        <field/>
+        <field_message/>
+        <field_message_type>none</field_message_type>
+        <mandatory>true</mandatory>
+        <order>100</order>
+        <sys_class_name>catalog_ui_policy_action</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-03 15:17:15</sys_created_on>
+        <sys_id>bb5be1aa47f50b94f301c82f316d43ad</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>photo_upload</sys_name>
+        <sys_package display_value="Launchpad" source="x_2062828_launch_0">6e8263bd4739c394f301c82f316d4371</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</sys_scope>
+        <sys_update_name>catalog_ui_policy_action_bb5be1aa47f50b94f301c82f316d43ad</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-03 15:17:15</sys_updated_on>
+        <table/>
+        <ui_policy display_value="Show Badge Fields Only When Badge Requested">c61ba96a47f50b94f301c82f316d43a9</ui_policy>
+        <value/>
+        <value_action>ignore</value_action>
+        <variable>photo_upload</variable>
+        <variable_set/>
+        <visible>true</visible>
+    </catalog_ui_policy_action>
+    <sys_translated_text action="delete_multiple" query="documentkey=bb5be1aa47f50b94f301c82f316d43ad"/>
+</record_update>

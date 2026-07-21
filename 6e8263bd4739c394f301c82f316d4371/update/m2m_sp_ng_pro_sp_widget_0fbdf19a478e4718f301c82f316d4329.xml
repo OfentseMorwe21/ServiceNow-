@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="m2m_sp_ng_pro_sp_widget">
+    <m2m_sp_ng_pro_sp_widget action="INSERT_OR_UPDATE">
+        <sp_angular_provider display_value="scToggleData">c045f99a0b67320014ea425663673a25</sp_angular_provider>
+        <sp_widget display_value="Copy of SC Catalog Item">07bdf19a478e4718f301c82f316d4314</sp_widget>
+        <sys_class_name>m2m_sp_ng_pro_sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-15 08:13:32</sys_created_on>
+        <sys_id>0fbdf19a478e4718f301c82f316d4329</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>scToggleData.Copy of SC Catalog Item</sys_name>
+        <sys_package display_value="Launchpad" source="x_2062828_launch_0">6e8263bd4739c394f301c82f316d4371</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</sys_scope>
+        <sys_update_name>m2m_sp_ng_pro_sp_widget_0fbdf19a478e4718f301c82f316d4329</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-15 08:13:32</sys_updated_on>
+    </m2m_sp_ng_pro_sp_widget>
+</record_update>

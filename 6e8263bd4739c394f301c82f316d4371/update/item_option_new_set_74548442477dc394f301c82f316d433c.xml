@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="item_option_new_set">
+    <item_option_new_set action="INSERT_OR_UPDATE">
+        <create_roles/>
+        <description/>
+        <display_title>false</display_title>
+        <internal_name>systems_access_table</internal_name>
+        <layout>normal</layout>
+        <name/>
+        <order>100</order>
+        <read_roles/>
+        <set_attributes/>
+        <sys_class_name>item_option_new_set</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-01 18:29:38</sys_created_on>
+        <sys_id>74548442477dc394f301c82f316d433c</sys_id>
+        <sys_mod_count>12</sys_mod_count>
+        <sys_name>Systems Access Table</sys_name>
+        <sys_package display_value="Launchpad" source="x_2062828_launch_0">6e8263bd4739c394f301c82f316d4371</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</sys_scope>
+        <sys_update_name>item_option_new_set_74548442477dc394f301c82f316d433c</sys_update_name>
+        <sys_updated_by>system</sys_updated_by>
+        <sys_updated_on>2026-07-01 19:19:23</sys_updated_on>
+        <title>Systems Access Table</title>
+        <type>one_to_many</type>
+        <version>12</version>
+        <write_roles/>
+    </item_option_new_set>
+</record_update>

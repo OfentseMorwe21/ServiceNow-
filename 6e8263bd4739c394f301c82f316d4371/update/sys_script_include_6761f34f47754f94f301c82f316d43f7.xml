@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>public</access>
+        <active>true</active>
+        <api_name>x_2062828_launch_0.OnboardingUtils</api_name>
+        <caller_access/>
+        <client_callable>false</client_callable>
+        <description/>
+        <mobile_callable>false</mobile_callable>
+        <name>OnboardingUtils</name>
+        <sandbox_callable>false</sandbox_callable>
+        <script><![CDATA[var OnboardingUtils = Class.create();
+OnboardingUtils.prototype = {
+    initialize: function() {
+    },
+
+    /**
+     * P3-T01.1: Validates that critical fulfillment fields are filled.
+     * @param {GlideRecord} grRequest - The current onboarding request record.
+     * @return {Boolean} true if valid, false otherwise.
+     */
+    validateRequest: function(grRequest) {
+    if (!grRequest.assignment_group ||
+        !grRequest.due_date) {
+        return false;
+    }
+    return true;
+},
+
+    /**
+     * P3-T01.2: Returns the correct assignment group based on the category string.
+     * @param {String} category - The category value from the request record.
+     * @return {String} The sys_id of the target user group.
+     */
+    getAssignmentGroup: function(category) {
+        var groups = {
+            "equipment": "8a5055c9c61122780043563ef53438e3", 
+            "system_access": "287ebd7da9fe198100f92cc8d1d2154e",
+            "general": "d625dccec0a8016700a222a0f7900d06"
+        };
+        
+        return groups[category] || groups["general"];
+    },
+
+    /**
+     * P3-T01.3: Writes an audit tracking entry directly to the record's Work Notes.
+     * @param {GlideRecord} grRequest - The target request record.
+     * @param {String} action - Description of what occurred (e.g., "Approved & Fulfilled").
+     */
+    logAction: function(grRequest, action) {
+        if (!grRequest) return;
+        
+        // Appends a clean, automated track entry into the activity journal logs
+        grRequest.work_notes = "Launchpad Audit Log - Action executed: " + action;
+    },
+
+    type: 'OnboardingUtils'
+};]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-05 14:24:08</sys_created_on>
+        <sys_id>6761f34f47754f94f301c82f316d43f7</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>OnboardingUtils</sys_name>
+        <sys_package display_value="Launchpad" source="x_2062828_launch_0">6e8263bd4739c394f301c82f316d4371</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_scope display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</sys_scope>
+        <sys_update_name>sys_script_include_6761f34f47754f94f301c82f316d43f7</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-11 10:11:16</sys_updated_on>
+    </sys_script_include>
+</record_update>

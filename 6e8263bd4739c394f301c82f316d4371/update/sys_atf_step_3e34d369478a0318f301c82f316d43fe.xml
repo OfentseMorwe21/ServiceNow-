@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_atf_step">
+    <sys_atf_step action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <callable_outputs/>
+        <copied_from/>
+        <description>Run Server Side Validation Script</description>
+        <display_name>Run Server Side Script</display_name>
+        <inputs/>
+        <mugshots_cache_json/>
+        <notes/>
+        <order>4</order>
+        <step_config display_value="Run Server Side Script">41de4a935332120028bc29cac2dc349a</step_config>
+        <sys_class_name>sys_atf_step</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-13 06:37:45</sys_created_on>
+        <sys_id>3e34d369478a0318f301c82f316d43fe</sys_id>
+        <sys_mod_count>3</sys_mod_count>
+        <sys_name>Run Server Side Script</sys_name>
+        <sys_package display_value="Launchpad" source="x_2062828_launch_0">6e8263bd4739c394f301c82f316d4371</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</sys_scope>
+        <sys_update_name>sys_atf_step_3e34d369478a0318f301c82f316d43fe</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-13 06:43:56</sys_updated_on>
+        <table/>
+        <test display_value="ATF-01 Submit Equipment Request">52224129470acfd4f301c82f316d431c</test>
+        <timeout/>
+        <warning_message/>
+    </sys_atf_step>
+    <sys_variable_value action="delete_multiple" query="document_key=3e34d369478a0318f301c82f316d43fe"/>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>sys_atf_step</document>
+        <document_key>3e34d369478a0318f301c82f316d43fe</document_key>
+        <order>100</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-13 06:37:45</sys_created_on>
+        <sys_id>28a493a9478a0318f301c82f316d43da</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-13 06:37:45</sys_updated_on>
+        <value>3.1</value>
+        <variable display_value="Jasmine version">42f2564b73031300440211d8faf6a777</variable>
+    </sys_variable_value>
+    <sys_variable_value action="INSERT_OR_UPDATE">
+        <document>sys_atf_step</document>
+        <document_key>3e34d369478a0318f301c82f316d43fe</document_key>
+        <order>200</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-13 06:37:45</sys_created_on>
+        <sys_id>6ca493a9478a0318f301c82f316d43da</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-13 06:43:56</sys_updated_on>
+        <value>(function() {&#13;
+    var gr = new GlideRecord('sc_req_item');&#13;
+    gr.addQuery('short_description', 'ATF Test Equipment Request');&#13;
+    gr.orderByDesc('sys_created_on');&#13;
+    gr.setLimit(1);&#13;
+    gr.query();&#13;
+&#13;
+    if (gr.next()) {&#13;
+        assertEqual({&#13;
+            name: 'Record was created successfully',&#13;
+            expected: 'ATF Test Equipment Request',&#13;
+            actual: gr.getValue('short_description')&#13;
+        });&#13;
+    } else {&#13;
+        fail('ATF Test Equipment Request not found');&#13;
+    }&#13;
+})();</value>
+        <variable display_value="Test script">989d9e235324220002c6435723dc3484</variable>
+    </sys_variable_value>
+</record_update>

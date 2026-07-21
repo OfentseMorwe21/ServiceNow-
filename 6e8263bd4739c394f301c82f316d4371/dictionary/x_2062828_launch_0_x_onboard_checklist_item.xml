@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element attributes="enforce_dot_walk_cross_scope_access=true" db_object_id="8a80ac254706cfd4f301c82f316d43be" extends="task" label="Onboarding Checklist Item" max_length="40" name="x_2062828_launch_0_x_onboard_checklist_item" type="collection">
+        <element label="Checklist Item" max_length="200" name="checklist_item" type="string"/>
+        <element label="Completed" max_length="40" name="completed" type="boolean"/>
+        <element label="Category" max_length="100" name="category" type="string"/>
+    </element>
+</database>

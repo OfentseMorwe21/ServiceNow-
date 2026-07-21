@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_scope_privilege">
+    <sys_scope_privilege action="INSERT_OR_UPDATE">
+        <operation>read</operation>
+        <source_scope display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</source_scope>
+        <status>allowed</status>
+        <sys_class_name>sys_scope_privilege</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-21 07:51:58</sys_created_on>
+        <sys_id>d152b49c4796c710f301c82f316d4336</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>sn_creatorstudio_task</sys_name>
+        <sys_package display_value="Launchpad" source="x_2062828_launch_0">6e8263bd4739c394f301c82f316d4371</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</sys_scope>
+        <sys_update_name>sys_scope_privilege_d152b49c4796c710f301c82f316d4336</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-21 07:51:58</sys_updated_on>
+        <target_name>sn_creatorstudio_task</target_name>
+        <target_scope display_value="Creator Studio">81ac5fe1c7442110408bc8d6f2c260d1</target_scope>
+        <target_type>sys_db_object</target_type>
+    </sys_scope_privilege>
+</record_update>

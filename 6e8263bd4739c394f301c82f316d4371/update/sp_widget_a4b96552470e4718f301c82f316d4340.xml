@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[api.controller = function($scope, spUtil) {
+  var c = this;
+
+  // Load the catalog item widget
+  spUtil.get('sc_cat_item', {
+    sys_id: c.data.catalogItemId,
+    hide_order_button: true
+  }).then(function(response) {
+    c.catalogWidget = response;
+  });
+
+  // Override the order button with Request Access
+  c.submitRequest = function() {
+    $scope.$broadcast('submit.catalog.item');
+  };
+};]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.sar-container {&#13;
+  max-width: 860px !important;&#13;
+  margin: 0 auto !important;&#13;
+  padding: 24px !important;&#13;
+}&#13;
+&#13;
+.sar-header {&#13;
+  margin-bottom: 24px !important;&#13;
+}&#13;
+&#13;
+.sar-title {&#13;
+  font-size: 1.8rem !important;&#13;
+  font-weight: 700 !important;&#13;
+  color: #0F172A !important;&#13;
+  margin-bottom: 6px !important;&#13;
+}&#13;
+&#13;
+.sar-desc {&#13;
+  color: #64748B !important;&#13;
+  font-size: 0.95rem !important;&#13;
+}&#13;
+&#13;
+/* Hide Order Now button and Quantity field */&#13;
+.sar-embed .sc-order-now-btn,&#13;
+.sar-embed [ng-click*="orderNow"],&#13;
+.sar-embed .btn-checkout,&#13;
+.sar-embed .quantity-selector,&#13;
+.sar-embed .sc-quantity,&#13;
+.sar-embed label[for*="quantity"],&#13;
+.sar-embed .input-group-qty,&#13;
+.sar-embed [class*="quantity"],&#13;
+.sar-embed [class*="order-now"],&#13;
+.sar-embed .order-now,&#13;
+.sar-embed .sp-order-now {&#13;
+  display: none !important;&#13;
+}&#13;
+&#13;
+/* Style Add to Cart button as Request Access */&#13;
+.sar-embed .btn-cart,&#13;
+.sar-embed [ng-click*="addToCart"],&#13;
+.sar-embed .sc-cart-btn {&#13;
+  background: #2563EB !important;&#13;
+  color: #FFFFFF !important;&#13;
+  border: none !important;&#13;
+  border-radius: 999px !important;&#13;
+  padding: 12px 32px !important;&#13;
+  font-weight: 600 !important;&#13;
+  font-size: 0.9rem !important;&#13;
+  width: 100% !important;&#13;
+  margin-top: 8px !important;&#13;
+}&#13;
+&#13;
+.sar-embed .btn-cart::after,&#13;
+.sar-embed [ng-click*="addToCart"]::after {&#13;
+  content: ' Access' !important;&#13;
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>system_access_form</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {
+  
+}]]></link>
+        <name>System Access Request Form</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+    var gr = new GlideRecord('sc_cat_item');
+    gr.addQuery('name', 'System Access Request');
+    gr.query();
+    if (gr.next()) {
+        data.catalogItemId = gr.getUniqueValue();
+    }
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-15 06:48:54</sys_created_on>
+        <sys_id>a4b96552470e4718f301c82f316d4340</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>System Access Request Form</sys_name>
+        <sys_package display_value="Launchpad" source="x_2062828_launch_0">6e8263bd4739c394f301c82f316d4371</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</sys_scope>
+        <sys_update_name>sp_widget_a4b96552470e4718f301c82f316d4340</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-15 06:48:54</sys_updated_on>
+        <template><![CDATA[<div class="sar-container">
+  <div class="sar-header">
+    <h2 class="sar-title">System Access Request</h2>
+    <p class="sar-desc">Request secure software permissions, environments, and tool credentials.</p>
+  </div>
+  <div class="sar-embed">
+    <sp-widget widget="c.catalogWidget"></sp-widget>
+  </div>
+</div>]]></template>
+    </sp_widget>
+</record_update>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="m2m_sp_ng_pro_sp_widget">
+    <m2m_sp_ng_pro_sp_widget action="DELETE">
+        <sp_angular_provider display_value="scToggleData">c045f99a0b67320014ea425663673a25</sp_angular_provider>
+        <sp_widget display_value="Copy of SC Catalog Item">928e319a478e4718f301c82f316d434c</sp_widget>
+        <sys_class_name>m2m_sp_ng_pro_sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-15 08:17:03</sys_created_on>
+        <sys_id>2a8e3dda478e4718f301c82f316d43b0</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>scToggleData.Copy of SC Catalog Item</sys_name>
+        <sys_package display_value="Launchpad" source="x_2062828_launch_0">6e8263bd4739c394f301c82f316d4371</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</sys_scope>
+        <sys_update_name>m2m_sp_ng_pro_sp_widget_2a8e3dda478e4718f301c82f316d43b0</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-15 08:17:03</sys_updated_on>
+    </m2m_sp_ng_pro_sp_widget>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</application>
+        <file_path/>
+        <instance_id>4f244272ebe8039c56eafddacad0cd3d</instance_id>
+        <instance_name>dev396915</instance_name>
+        <name>m2m_sp_ng_pro_sp_widget_2a8e3dda478e4718f301c82f316d43b0</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="m2m_sp_ng_pro_sp_widget"><m2m_sp_ng_pro_sp_widget action="INSERT_OR_UPDATE"><sp_angular_provider display_value="scToggleData">c045f99a0b67320014ea425663673a25</sp_angular_provider><sp_widget display_value="Copy of SC Catalog Item">928e319a478e4718f301c82f316d434c</sp_widget><sys_class_name>m2m_sp_ng_pro_sp_widget</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2026-07-15 08:17:03</sys_created_on><sys_id>2a8e3dda478e4718f301c82f316d43b0</sys_id><sys_mod_count>0</sys_mod_count><sys_name>scToggleData.Copy of SC Catalog Item</sys_name><sys_package display_value="Launchpad" source="x_2062828_launch_0">6e8263bd4739c394f301c82f316d4371</sys_package><sys_policy/><sys_scope display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</sys_scope><sys_update_name>m2m_sp_ng_pro_sp_widget_2a8e3dda478e4718f301c82f316d43b0</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2026-07-15 08:17:03</sys_updated_on></m2m_sp_ng_pro_sp_widget></record_update>]]></payload>
+        <payload_hash>343720010</payload_hash>
+        <record_name>scToggleData.Copy of SC Catalog Item</record_name>
+        <reverted_from/>
+        <source>6a8263bd4739c394f301c82f316d4375</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-15 08:17:03</sys_created_on>
+        <sys_id>628e3dda478e4718f301c82f316d43b4</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>19f64d9cdb40000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-15 08:17:03</sys_updated_on>
+        <type>Angular Providers</type>
+        <update_guid>228e3dda218e4718ea7561c8ae85d9b3</update_guid>
+        <update_guid_history>228e3dda218e4718ea7561c8ae85d9b3:343720010</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="scToggleData.Copy of SC Catalog Item">cc698e5247028718f301c82f316d4365</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-15 09:04:24</sys_created_on>
+        <sys_db_object display_value="" name="m2m_sp_ng_pro_sp_widget">m2m_sp_ng_pro_sp_widget</sys_db_object>
+        <sys_id>1923d76785d7475a98c4dade64bbf7e4</sys_id>
+        <sys_metadata>2a8e3dda478e4718f301c82f316d43b0</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>scToggleData.Copy of SC Catalog Item</sys_name>
+        <sys_package display_value="Launchpad" source="x_2062828_launch_0">6e8263bd4739c394f301c82f316d4371</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</sys_scope>
+        <sys_scope_delete display_value="">c6c3a19153a145709d697dc6ddb23900</sys_scope_delete>
+        <sys_update_name>m2m_sp_ng_pro_sp_widget_2a8e3dda478e4718f301c82f316d43b0</sys_update_name>
+        <sys_update_version display_value="m2m_sp_ng_pro_sp_widget_2a8e3dda478e4718f301c82f316d43b0">628e3dda478e4718f301c82f316d43b4</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-15 09:04:24</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

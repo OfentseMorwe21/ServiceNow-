@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[api.controller = function($http, spUtil) {
+  var c = this;
+
+  c.toggleItem = function(item) {
+    item.completed = !item.completed;
+
+    // Recalculate progress
+    var completed = c.data.items.filter(function(i) {
+      return i.completed;
+    }).length;
+    c.data.completedCount = completed;
+    c.data.progressPercent = Math.round(
+      (completed / c.data.totalCount) * 100
+    );
+
+    // Send to server script
+    spUtil.get('onboarding_progress_tracker', {
+      sys_id: item.sys_id,
+      completed: item.completed
+    });
+  };
+};]]></client_script>
+        <controller_as>c</controller_as>
+        <css>/*&#13;
+===============================================================================&#13;
+ONBOARDING PROGRESS TRACKER — SPAR Futuristic edition&#13;
+Paste into the widget's CSS field&#13;
+Moves the dark cyan/teal dashboard look to the theme's light glass language:&#13;
+white cards, red-to-green gradient progress fill, animated checklist states.&#13;
+===============================================================================&#13;
+*/&#13;
+&#13;
+/* Container */&#13;
+.progress-tracker {&#13;
+  padding: 24px;&#13;
+  font-family: 'Inter', 'Segoe UI', sans-serif;&#13;
+}&#13;
+&#13;
+/* Header */&#13;
+.tracker-header {&#13;
+  margin-bottom: 24px;&#13;
+}&#13;
+.tracker-title {&#13;
+  font-size: 1.5rem;&#13;
+  font-weight: 800;&#13;
+  color: #0F172A;&#13;
+  letter-spacing: -0.02em;&#13;
+  margin-bottom: 4px;&#13;
+}&#13;
+.tracker-subtitle {&#13;
+  font-size: 0.875rem;&#13;
+  color: #64748B;&#13;
+}&#13;
+&#13;
+/* Progress bar */&#13;
+.progress-section {&#13;
+  margin-bottom: 32px;&#13;
+}&#13;
+.progress-labels {&#13;
+  display: flex;&#13;
+  justify-content: space-between;&#13;
+  margin-bottom: 8px;&#13;
+}&#13;
+.progress-text {&#13;
+  font-size: 0.875rem;&#13;
+  font-weight: 700;&#13;
+  color: #0F172A;&#13;
+}&#13;
+.progress-percent {&#13;
+  font-size: 0.875rem;&#13;
+  color: #64748B;&#13;
+}&#13;
+.progress-bar-container {&#13;
+  position: relative;&#13;
+  width: 100%;&#13;
+  height: 14px;&#13;
+  background: #F1F5F9;&#13;
+  border: 1px solid #E2E8F0;&#13;
+  border-radius: 999px;&#13;
+  overflow: hidden;&#13;
+  margin-bottom: 8px;&#13;
+}&#13;
+.progress-bar-fill {&#13;
+  position: relative;&#13;
+  height: 100%;&#13;
+  background: linear-gradient(135deg, $brand-primary 0%, $brand-success 100%);&#13;
+  border-radius: 999px;&#13;
+  overflow: hidden;&#13;
+  box-shadow: 0 0 10px rgba(227, 6, 19, 0.35);&#13;
+  transition: width 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);&#13;
+}&#13;
+/* Animated shimmer sweeping across the filled portion */&#13;
+.progress-bar-fill::after {&#13;
+  content: "";&#13;
+  position: absolute;&#13;
+  inset: 0;&#13;
+  background: linear-gradient(120deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.55) 50%, rgba(255,255,255,0) 100%);&#13;
+  transform: translateX(-100%);&#13;
+  animation: progressShimmer 2.2s ease-in-out infinite;&#13;
+}&#13;
+@keyframes progressShimmer {&#13;
+  to { transform: translateX(100%); }&#13;
+}&#13;
+.progress-percent-label {&#13;
+  font-size: 0.8rem;&#13;
+  color: $brand-primary;&#13;
+  font-weight: 700;&#13;
+  text-align: right;&#13;
+}&#13;
+&#13;
+/* Checklist */&#13;
+.checklist-container {&#13;
+  display: flex;&#13;
+  flex-direction: column;&#13;
+  gap: 12px;&#13;
+}&#13;
+&#13;
+.checklist-item {&#13;
+  position: relative;&#13;
+  display: flex;&#13;
+  align-items: center;&#13;
+  gap: 16px;&#13;
+  padding: 16px;&#13;
+  background: rgba(255, 255, 255, 0.9);&#13;
+  border: 1px solid #E2E8F0;&#13;
+  border-radius: 12px;&#13;
+  overflow: hidden;&#13;
+  transition: transform 250ms cubic-bezier(0.34, 1.56, 0.64, 1),&#13;
+              box-shadow 250ms ease,&#13;
+              border-color 250ms ease;&#13;
+}&#13;
+.checklist-item::before {&#13;
+  content: "";&#13;
+  position: absolute;&#13;
+  top: 0;&#13;
+  left: 0;&#13;
+  bottom: 0;&#13;
+  width: 3px;&#13;
+  background: $brand-primary;&#13;
+  opacity: 0;&#13;
+  transition: opacity 250ms ease;&#13;
+}&#13;
+.checklist-item:hover {&#13;
+  transform: translateY(-2px);&#13;
+  box-shadow: 0 8px 20px -4px rgba(227, 6, 19, 0.14);&#13;
+  border-color: rgba(227, 6, 19, 0.25);&#13;
+}&#13;
+.checklist-item:hover::before {&#13;
+  opacity: 1;&#13;
+}&#13;
+&#13;
+/* Status icon circle — pending vs. complete */&#13;
+.checklist-icon {&#13;
+  flex-shrink: 0;&#13;
+  display: flex;&#13;
+  align-items: center;&#13;
+  justify-content: center;&#13;
+  width: 36px;&#13;
+  height: 36px;&#13;
+  border-radius: 50%;&#13;
+  font-size: 0.9rem;&#13;
+  transition: background 250ms ease, transform 250ms cubic-bezier(0.34,1.56,0.64,1), box-shadow 250ms ease;&#13;
+}&#13;
+.checklist-icon--pending {&#13;
+  background: #F1F5F9;&#13;
+  border: 2px solid #CBD5E1;&#13;
+  color: transparent;&#13;
+}&#13;
+.checklist-icon--complete {&#13;
+  background: linear-gradient(135deg, $brand-success 0%, darken($brand-success, 12%) 100%);&#13;
+  color: #ffffff;&#13;
+  box-shadow: 0 0 0 4px rgba(0, 122, 51, 0.15);&#13;
+  animation: checkPop 400ms cubic-bezier(0.34, 1.56, 0.64, 1);&#13;
+}&#13;
+@keyframes checkPop {&#13;
+  0%   { transform: scale(0.4); opacity: 0; }&#13;
+  60%  { transform: scale(1.15); opacity: 1; }&#13;
+  100% { transform: scale(1); }&#13;
+}&#13;
+&#13;
+.checklist-text {&#13;
+  display: flex;&#13;
+  flex-direction: column;&#13;
+  gap: 2px;&#13;
+}&#13;
+.checklist-item-title {&#13;
+  font-size: 0.9rem;&#13;
+  font-weight: 700;&#13;
+  color: #0F172A;&#13;
+}&#13;
+.checklist-item-meta {&#13;
+  font-size: 0.78rem;&#13;
+  color: #94A3B8;&#13;
+}&#13;
+&#13;
+/* Completed items dim slightly and get a strikethrough-free "done" tint */&#13;
+.checklist-item--complete {&#13;
+  background: rgba(0, 122, 51, 0.04);&#13;
+  border-color: rgba(0, 122, 51, 0.20);&#13;
+}&#13;
+.checklist-item--complete .checklist-item-title {&#13;
+  color: #475569;&#13;
+}&#13;
+&#13;
+/* Empty state, in case the checklist has nothing to show yet */&#13;
+.tracker-empty {&#13;
+  text-align: center;&#13;
+  padding: 48px;&#13;
+  color: #94A3B8;&#13;
+  font-size: 0.875rem;&#13;
+}&#13;
+&#13;
+/* Responsive */&#13;
+@media (max-width: 768px) {&#13;
+  .checklist-item {&#13;
+    padding: 12px;&#13;
+    gap: 12px;&#13;
+  }&#13;
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>onboarding_progress_tracker</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {
+  
+}]]></link>
+        <name>Onboarding Progress Tracker</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+    // Handle toggle action from client
+    if (input && input.sys_id) {
+        var updateGr = new GlideRecord('x_2062828_launch_0_x_onboard_checklist_item');
+        if (updateGr.get(input.sys_id)) {
+            var isCompleted = input.completed === true || input.completed === 'true';
+            updateGr.setValue('u_completed', isCompleted ? '1' : '0');
+            updateGr.setValue('state', isCompleted ? '3' : '1');
+            updateGr.setWorkflow(false);
+            updateGr.update();
+            data.updated = true;
+        }
+        return;
+    }
+
+    // Load checklist items
+    var items = [];
+    var totalCount = 0;
+    var completedCount = 0;
+
+    var gr = new GlideRecord('x_2062828_launch_0_x_onboard_checklist_item');
+    gr.addQuery('assigned_to', gs.getUserID());
+    gr.orderBy('u_order');
+    gr.query();
+
+    while (gr.next()) {
+        totalCount++;
+        var completed = gr.getValue('u_completed') == '1' ||
+                       gr.getValue('state') == '3';
+
+        if (completed) completedCount++;
+
+        items.push({
+            sys_id: gr.getUniqueValue(),
+            short_description: gr.getValue('short_description'),
+            category: gr.getValue('u_category') || 'General',
+            completed: completed,
+            order: gr.getValue('u_order')
+        });
+    }
+
+    var progressPercent = totalCount > 0 ?
+        Math.round((completedCount / totalCount) * 100) : 0;
+
+    data.items = items;
+    data.totalCount = totalCount;
+    data.completedCount = completedCount;
+    data.progressPercent = progressPercent;
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-12 18:08:34</sys_created_on>
+        <sys_id>f0e8e0a54746cfd4f301c82f316d43ea</sys_id>
+        <sys_mod_count>7</sys_mod_count>
+        <sys_name>Onboarding Progress Tracker</sys_name>
+        <sys_package display_value="Launchpad" source="x_2062828_launch_0">6e8263bd4739c394f301c82f316d4371</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</sys_scope>
+        <sys_update_name>sp_widget_f0e8e0a54746cfd4f301c82f316d43ea</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-16 08:54:45</sys_updated_on>
+        <template><![CDATA[<div class="progress-tracker">
+  <div class="tracker-header">
+    <h2 class="tracker-title">My Onboarding Checklist</h2>
+    <p class="tracker-subtitle">Track your onboarding progress</p>
+  </div>
+
+  <!-- Progress Bar -->
+  <div class="progress-section">
+    <div class="progress-labels">
+      <span class="progress-text">Overall Progress</span>
+      <span class="progress-percent">{{c.data.completedCount}} / {{c.data.totalCount}} completed</span>
+    </div>
+    <div class="progress-bar-container">
+      <div class="progress-bar-fill" ng-style="{'width': c.data.progressPercent + '%'}"></div>
+    </div>
+    <p class="progress-percent-label">{{c.data.progressPercent}}% Complete</p>
+  </div>
+
+  <!-- Checklist Items -->
+  <div class="checklist-container">
+    <div class="checklist-item" 
+     ng-repeat="item in c.data.items" 
+     ng-class="{'completed': item.completed}"
+     ng-click="c.toggleItem(item)">
+  <div class="item-checkbox">
+    <span class="checkmark" ng-if="item.completed">✓</span>
+  </div>
+      <div class="item-content">
+        <p class="item-title" ng-class="{'strikethrough': item.completed}">{{item.short_description}}</p>
+        <span class="item-category">{{item.category}}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Empty state -->
+  <div class="empty-state" ng-if="c.data.items.length === 0">
+    <p>No checklist items found for your account.</p>
+  </div>
+</div>]]></template>
+    </sp_widget>
+</record_update>

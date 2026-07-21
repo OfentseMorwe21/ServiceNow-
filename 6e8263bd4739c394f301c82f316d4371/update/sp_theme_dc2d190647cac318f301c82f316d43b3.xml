@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_theme">
+    <sp_theme action="INSERT_OR_UPDATE">
+        <css_variables>/*&#13;
+=============================================================================&#13;
+  MORWE HOLDINGS — IT Onboarding Hub&#13;
+  ServiceNow Service Portal Theme CSS&#13;
+  Light Silver &amp; Slate + Deep Forest Green Theme&#13;
+  Version 6.0 (True Silver &amp; Dark Green Variant)&#13;
+=============================================================================&#13;
+*/&#13;
+&#13;
+/* =============================================================================&#13;
+   CSS VARIABLES&#13;
+   ============================================================================= */&#13;
+:root {&#13;
+  --bg-primary:       #E2E8F0; /* Clean, light-medium structural silver */&#13;
+  --bg-secondary:     #CBD5E1; /* Deeper metallic silver tone for structural bars */&#13;
+  --bg-card:          #F1F5F9; /* Crisp, ultra-light slate/silver for cards */&#13;
+  --bg-card-hover:    #F8FAFC;&#13;
+  --accent-primary:   #14532D; /* Deep, authoritative Forest Green for primary actions */&#13;
+  --accent-green:     #166534; /* Rich Emerald-Forest for links and checkmarks */&#13;
+  --accent-silver:    #475569; /* Slate grey for structural accents */&#13;
+  --accent-glow:      rgba(22, 101, 52, 0.12);&#13;
+  --text-primary:     #0F172A; /* Crisp Slate-900 for absolute high-contrast reading */&#13;
+  --text-dark:        #0F172A; &#13;
+  --text-secondary:   #334155; /* Slate-700 for labels, headers, and secondary lines */&#13;
+  --text-muted:       #64748B; /* Muted slate for helper strings */&#13;
+  --border-color:     #94A3B8; /* Defined silver-grey borders */&#13;
+  --border-hover:     #166534; /* Green highlights on focus/hover */&#13;
+  --radius:           12px;&#13;
+  --radius-pill:      999px;&#13;
+  --transition:       all 0.22s ease;&#13;
+}&#13;
+&#13;
+&#13;
+/* =============================================================================&#13;
+   BASE&#13;
+   ============================================================================= */&#13;
+body {&#13;
+  background-color: var(--bg-primary) !important;&#13;
+  background-image: radial-gradient(ellipse at 20% 0%, rgba(22, 101, 52, 0.06) 0%, transparent 60%),&#13;
+                    radial-gradient(ellipse at 80% 100%, rgba(71, 85, 105, 0.05) 0%, transparent 60%) !important;&#13;
+  color: var(--text-primary); &#13;
+  font-family: 'Inter', 'Segoe UI', -apple-system, sans-serif !important;&#13;
+  -webkit-font-smoothing: antialiased;&#13;
+}&#13;
+&#13;
+&#13;
+/* =============================================================================&#13;
+   TYPOGRAPHY &amp; CONTEXTUAL CONTRAST&#13;
+   ============================================================================= */&#13;
+h1, h2, h3, h4, h5, h6,&#13;
+.h1, .h2, .h3, .h4, .h5, .h6 {&#13;
+  color: var(--text-primary); &#13;
+  font-family: 'Inter', 'Segoe UI', sans-serif !important;&#13;
+  font-weight: 600;&#13;
+  letter-spacing: -0.01em;&#13;
+}&#13;
+&#13;
+p, span, li, td, th, label {&#13;
+  font-family: 'Inter', 'Segoe UI', sans-serif !important;&#13;
+}&#13;
+&#13;
+/* Hard structural override: ensures any hardcoded white blocks cleanly integrate */&#13;
+.bg-white, &#13;
+.panel-white,&#13;
+[style*="background-color: white"], &#13;
+[style*="background-color: #fff"] {&#13;
+  background-color: var(--bg-card) !important;&#13;
+  color: var(--text-primary) !important;&#13;
+}&#13;
+&#13;
+.text-muted {&#13;
+  color: var(--text-muted) !important;&#13;
+}&#13;
+&#13;
+a {&#13;
+  color: var(--accent-green) !important;&#13;
+  text-decoration: none !important;&#13;
+  transition: var(--transition);&#13;
+}&#13;
+&#13;
+a:hover {&#13;
+  color: var(--accent-primary) !important;&#13;
+}&#13;
+&#13;
+&#13;
+/* =============================================================================&#13;
+   NAVIGATION&#13;
+   ============================================================================= */&#13;
+.navbar,&#13;
+nav.navbar {&#13;
+  background-color: var(--bg-secondary) !important;&#13;
+  border-bottom: 1px solid var(--border-color) !important;&#13;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04) !important;&#13;
+}&#13;
+&#13;
+.navbar-brand {&#13;
+  color: var(--text-primary) !important;&#13;
+  font-weight: 700 !important;&#13;
+}&#13;
+&#13;
+.navbar-nav &gt; li &gt; a {&#13;
+  color: var(--text-secondary) !important;&#13;
+  font-size: 0.875rem !important;&#13;
+  font-weight: 500 !important;&#13;
+  transition: var(--transition) !important;&#13;
+}&#13;
+&#13;
+.navbar-nav &gt; li &gt; a:hover {&#13;
+  color: var(--accent-green) !important;&#13;
+}&#13;
+&#13;
+&#13;
+/* =============================================================================&#13;
+   PANELS &amp; CARDS&#13;
+   ============================================================================= */&#13;
+.panel,&#13;
+.panel-default {&#13;
+  background-color: var(--bg-card);&#13;
+  border: 1px solid var(--border-color);&#13;
+  border-radius: var(--radius) !important;&#13;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05) !important;&#13;
+  transition: var(--transition) !important;&#13;
+}&#13;
+&#13;
+.panel:hover,&#13;
+.panel-default:hover {&#13;
+  border-color: var(--border-hover);&#13;
+  background-color: var(--bg-card-hover);&#13;
+}&#13;
+&#13;
+.panel .panel-heading,&#13;
+.panel-default .panel-heading {&#13;
+  color: var(--text-primary) !important;&#13;
+  background-color: transparent !important;&#13;
+  border-bottom: 1px solid var(--border-color) !important;&#13;
+}&#13;
+&#13;
+.panel p, .panel span, .panel td {&#13;
+  color: var(--text-secondary);&#13;
+}&#13;
+&#13;
+&#13;
+/* =============================================================================&#13;
+   CATALOG ITEMS&#13;
+   ============================================================================= */&#13;
+.sc-cat-item,&#13;
+.catalog-item,&#13;
+.sp-catalog-item {&#13;
+  background-color: var(--bg-card) !important;&#13;
+  border: 1px solid var(--border-color) !important;&#13;
+  border-radius: var(--radius) !important;&#13;
+  transition: var(--transition) !important;&#13;
+  color: var(--text-primary) !important;&#13;
+}&#13;
+&#13;
+.sc-cat-item:hover,&#13;
+.catalog-item:hover {&#13;
+  border-color: var(--accent-green) !important;&#13;
+  background-color: var(--bg-card-hover) !important;&#13;
+}&#13;
+&#13;
+&#13;
+/* =============================================================================&#13;
+   FORMS &amp; INPUT FIELDS&#13;
+   ============================================================================= */&#13;
+.form-control,&#13;
+input[type="text"],&#13;
+input[type="email"],&#13;
+input[type="password"],&#13;
+input[type="search"],&#13;
+textarea,&#13;
+select {&#13;
+  background-color: #FFFFFF !important; /* White input fields look best on silver backdrops */&#13;
+  border: 1px solid var(--border-color) !important;&#13;
+  border-radius: var(--radius) !important;&#13;
+  color: var(--text-dark) !important;&#13;
+  font-family: 'Inter', 'Segoe UI', sans-serif !important;&#13;
+  transition: var(--transition) !important;&#13;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05) !important;&#13;
+}&#13;
+&#13;
+.form-control:focus,&#13;
+input:focus,&#13;
+select:focus,&#13;
+textarea:focus {&#13;
+  border-color: var(--accent-green) !important;&#13;
+  box-shadow: 0 0 0 3px var(--accent-glow) !important;&#13;
+  outline: 0 none !important;&#13;
+}&#13;
+&#13;
+label,&#13;
+.control-label {&#13;
+  color: var(--text-secondary);&#13;
+  font-size: 0.8rem !important;&#13;
+  font-weight: 600 !important;&#13;
+  text-transform: uppercase !important;&#13;
+  letter-spacing: 0.05em !important;&#13;
+}&#13;
+&#13;
+&#13;
+/* =============================================================================&#13;
+   HERO / WELCOME WIDGET&#13;
+   ============================================================================= */&#13;
+.launchpad-hero-container {&#13;
+  background-image: none !important;&#13;
+  background-color: var(--bg-secondary) !important;&#13;
+  border-bottom: 1px solid var(--border-color);&#13;
+}&#13;
+&#13;
+.sp-widget .panel {&#13;
+  background-color: var(--bg-card) !important;&#13;
+  border: 1px solid var(--border-color) !important;&#13;
+}&#13;
+&#13;
+&#13;
+/* =============================================================================&#13;
+   HIGH-CONTRAST READABILITY &amp; UTILITY PATCHES&#13;
+   ============================================================================= */&#13;
+.text-muted, &#13;
+.sp-widget .text-muted,&#13;
+.help-block,&#13;
+.form-text,&#13;
+.meta-text,&#13;
+.field-hint,&#13;
+.input-hint,&#13;
+span.help-block,&#13;
+.control-label-help {&#13;
+  color: var(--text-muted) !important; &#13;
+  opacity: 1.0 !important;&#13;
+}&#13;
+&#13;
+.text-success,&#13;
+.label-success,&#13;
+.badge-success,&#13;
+[style*="color: green"] {&#13;
+  color: var(--accent-green) !important;&#13;
+}&#13;
+&#13;
+.sc-cat-item .item-short-desc,&#13;
+.catalog-item p {&#13;
+  color: var(--text-secondary) !important; &#13;
+}</css_variables>
+        <footer display_value="Sample Footer">feb4f763df121200ba13a4836bf26320</footer>
+        <footer_fixed>true</footer_fixed>
+        <header display_value="Stock Header">bf5ec2f2cb10120000f8d856634c9c0c</header>
+        <icon/>
+        <logo/>
+        <logo_alt_text/>
+        <matching_now_experience_theme/>
+        <name>Launchpad Minimalist Design Theme</name>
+        <navbar_fixed>true</navbar_fixed>
+        <sys_class_name>sp_theme</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-14 11:12:36</sys_created_on>
+        <sys_id>dc2d190647cac318f301c82f316d43b3</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Launchpad Minimalist Design Theme</sys_name>
+        <sys_package display_value="Launchpad" source="x_2062828_launch_0">6e8263bd4739c394f301c82f316d4371</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</sys_scope>
+        <sys_update_name>sp_theme_dc2d190647cac318f301c82f316d43b3</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-14 11:12:36</sys_updated_on>
+        <turn_off_scss_compilation>false</turn_off_scss_compilation>
+    </sp_theme>
+    <sys_translated_text action="delete_multiple" query="documentkey=dc2d190647cac318f301c82f316d43b3"/>
+</record_update>

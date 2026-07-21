@@ -1,0 +1,971 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_hub_flow">
+    <sys_hub_flow action="INSERT_OR_UPDATE">
+        <access>public</access>
+        <acls/>
+        <active>true</active>
+        <allow_high_security_roles>false</allow_high_security_roles>
+        <annotation/>
+        <attributes>browserActivatedIn=chrome,integrationActivatedIn=standalone,labelCacheCleanUpExecuted=true,timeFromCreateToActivate=35285000,viewActivatedIn=naturalLanguage</attributes>
+        <authored_on_release_version>29000</authored_on_release_version>
+        <callable_by_client_api>false</callable_by_client_api>
+        <category/>
+        <copied_from/>
+        <copied_from_name/>
+        <description>Automated manager approval routing and IT warehouse fulfillment tasks for onboarding hardware configurations.</description>
+        <display_name_after_preview/>
+        <flow_priority>MEDIUM</flow_priority>
+        <generation_source/>
+        <internal_name>launchpad_equipment_procurement</internal_name>
+        <label_cache>[{"name":"Service Catalog_1.request_item.requested_for.first_name","label":"Trigger - Service Catalog➛Requested Item Record➛Requested for➛First name","reference":"","reference_display":"First name","type":"string","base_type":"string","parent_table_name":"sys_user","column_name":"first_name","usedInstances":{"6e9cff93-206b-49f5-8692-b9c5773b820a":["ah_requested_item"]}},{"name":"Service Catalog_1.request_item.requested_for.manager","label":"Trigger - Service Catalog➛Requested Item Record➛Requested for➛Manager","reference":"sys_user","reference_display":"User","type":"reference","base_type":"reference","parent_table_name":"sys_user","column_name":"manager","usedInstances":{"a28b65d8-0e01-4310-a614-b911d6180d4a":["approval_conditions"]}},{"name":"Service Catalog_1.request_item.opened_by","label":"Trigger - Service Catalog➛Requested Item Record➛Opened by","reference":"sys_user","reference_display":"User","type":"reference","base_type":"reference","parent_table_name":"sc_req_item","column_name":"opened_by","usedInstances":{}},{"name":"Service Catalog_1.request_item.assignment_group.manager","label":"Trigger - Service Catalog➛Requested Item Record➛Assignment group➛Manager","reference":"sys_user","reference_display":"User","type":"reference","base_type":"reference","parent_table_name":"sys_user_group","column_name":"manager","usedInstances":{}},{"name":"181222ac-27e0-48e4-b6b6-a4f8df06bb62.monitor_size","label":"1 - Get Catalog Variables➛monitor_size","reference":"","reference_display":"monitor_size","type":"choice","base_type":"choice","choices":[{"label":"27-inch 4K Color-Accurate Designer Display","value":"27-inch 4K Color-Accurate Designer Display","order":100.0},{"label":"34-inch Curved Ultra-Wide Productivity Display","value":"34-inch Curved Ultra-Wide Productivity Display","order":100.0},{"label":"49-inch Dual-QHD Curved Workspace Monitor","value":"49-inch Dual-QHD Curved Workspace Monitor","order":100.0}],"usedInstances":{},"attributes":{"catalogType":"5","catalogTypeLabel":"Select Box"}},{"name":"181222ac-27e0-48e4-b6b6-a4f8df06bb62.laptop_model","label":"1 - Get Catalog Variables➛laptop_model","reference":"","reference_display":"laptop_model","type":"choice","base_type":"choice","choices":[{"label":"16-inch M3 Max MacBook Pro (64GB Unified Memory, 1TB SSD)","value":"16-inch M3 Max MacBook Pro (64GB Unified Memory, 1TB SSD)","order":100.0},{"label":"14-inch M3 Pro MacBook Pro (32GB Unified Memory, 512GB SSD)","value":"14-inch M3 Pro MacBook Pro (32GB Unified Memory, 512GB SSD)","order":100.0},{"label":"ThinkPad P1 Gen 6 Mobile Workstation (Intel i9, 64GB RAM, RTX 4080)","value":"ThinkPad P1 Gen 6 Mobile Workstation (Intel i9, 64GB RAM, RTX 4080)","order":100.0}],"usedInstances":{"2099f3e6-9401-497e-8c52-02f9f3c898e5":["condition"]},"attributes":{"catalogType":"5","catalogTypeLabel":"Select Box"}},{"name":"Service Catalog_1.request_item.opened_by.manager","label":"Trigger - Service Catalog➛Requested Item Record➛Opened by➛Manager","reference":"sys_user","reference_display":"User","type":"reference","base_type":"reference","parent_table_name":"sys_user","column_name":"manager","usedInstances":{"fcc14250-3cad-49d2-8b67-8fcf6def2b85":["approval_conditions"],"19ae2d65-14e1-46b3-aa66-e28c1a1efe98":["approval_conditions"]}},{"name":"Service Catalog_1.request_item","label":"Trigger - Service Catalog➛Requested Item Record","reference":"sc_req_item","reference_display":"Requested Item","type":"reference","base_type":"reference","usedInstances":{"181222ac-27e0-48e4-b6b6-a4f8df06bb62":["requested_item"],"fcc14250-3cad-49d2-8b67-8fcf6def2b85":["record"],"fcc3c97a-42f3-4b6c-8122-4abbfcac0c38":["ah_requested_item"],"9939b369-1bf7-4478-b2ec-4a997a948f11":["ah_requested_item"],"5975cfb1-e094-4e38-81d1-97c18efab176":["record"],"19ae2d65-14e1-46b3-aa66-e28c1a1efe98":["record"],"a28b65d8-0e01-4310-a614-b911d6180d4a":["record"]},"attributes":{"default_search_field":"number"}}]</label_cache>
+        <master_snapshot>d213bc2e47310b94f301c82f316d43a4</master_snapshot>
+        <master_snapshot_digest/>
+        <name>Launchpad Equipment Procurement</name>
+        <natlang/>
+        <outputs/>
+        <pre_compiled>false</pre_compiled>
+        <remote_trigger_id>8b13fc2e47310b94f301c82f316d4356</remote_trigger_id>
+        <run_as>system</run_as>
+        <run_with_roles/>
+        <sc_callable>false</sc_callable>
+        <show_draft_actions>false</show_draft_actions>
+        <show_triggered_flows>false</show_triggered_flows>
+        <status>published</status>
+        <substatus/>
+        <sys_class_name>sys_hub_flow</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-03 10:09:15</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>d125606247fdc794f301c82f316d439a</sys_id>
+        <sys_mod_count>61</sys_mod_count>
+        <sys_name>Launchpad Equipment Procurement</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="Launchpad" source="x_2062828_launch_0">6e8263bd4739c394f301c82f316d4371</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</sys_scope>
+        <sys_update_name>sys_hub_flow_d125606247fdc794f301c82f316d439a</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-03 19:57:24</sys_updated_on>
+        <type>flow</type>
+        <updation_source/>
+        <version>2</version>
+        <version_record>4dcb662a47fd0b94f301c82f316d43d1</version_record>
+    </sys_hub_flow>
+    <sys_translated_text action="delete_multiple" query="documentkey=d125606247fdc794f301c82f316d439a"/>
+    <sys_variable_value action="delete_multiple" query="document_key=d125606247fdc794f301c82f316d439a"/>
+    <sys_flow_catalog_trigger action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <catalog_item/>
+        <name/>
+        <published_version/>
+        <run_flow_in/>
+        <sys_class_name>sys_flow_catalog_trigger</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-03 11:10:17</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>8b13fc2e47310b94f301c82f316d4356</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_overrides/>
+        <sys_scope/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-03 19:15:49</sys_updated_on>
+        <trigger_definition/>
+    </sys_flow_catalog_trigger>
+    <sys_trigger_runner_mapping action="delete_multiple" query="identifier=d125606247fdc794f301c82f316d439a"/>
+    <sys_hub_flow_stage action="delete_multiple" query="flow=d125606247fdc794f301c82f316d439a"/>
+    <sys_flow_cat_variable_model action="delete_multiple" query="id=d125606247fdc794f301c82f316d439a^sys_idNOT IN1d25606247fdc794f301c82f316d439e"/>
+    <sys_flow_cat_variable_model action="INSERT_OR_UPDATE">
+        <id>d125606247fdc794f301c82f316d439a</id>
+        <name>Launchpad Equipment Procurement</name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-03 10:09:16</sys_created_on>
+        <sys_id>1d25606247fdc794f301c82f316d439e</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_scope/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-03 10:09:16</sys_updated_on>
+    </sys_flow_cat_variable_model>
+    <sys_flow_cat_variable action="delete_multiple" query="flow_catalog_model=1d25606247fdc794f301c82f316d439e"/>
+    <sys_hub_flow_input action="delete_multiple" query="model=d125606247fdc794f301c82f316d439a^sys_idNOT IN6e35686247fdc794f301c82f316d43aa,b235686247fdc794f301c82f316d43e2"/>
+    <sys_hub_flow_input action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <array>false</array>
+        <array_denormalized>false</array_denormalized>
+        <attributes>default_search_field=number,element_mapping_provider=com.glide.flow_design.action.data.FlowDesignVariableMapper,uiType=reference,uiTypeLabel=Reference</attributes>
+        <audit>false</audit>
+        <calculation><![CDATA[(function calculatedFieldValue(current) {
+
+	// Add your code here
+	return '';  // return the calculated value
+
+})(current);]]></calculation>
+        <choice/>
+        <choice_field/>
+        <choice_table/>
+        <column_label/>
+        <comments/>
+        <create_roles/>
+        <default_value/>
+        <defaultsort/>
+        <delete_roles/>
+        <dependent/>
+        <dependent_on_field/>
+        <display>false</display>
+        <dynamic_creation>false</dynamic_creation>
+        <dynamic_creation_script/>
+        <dynamic_default_value/>
+        <dynamic_ref_qual/>
+        <element>request_item</element>
+        <element_reference>false</element_reference>
+        <foreign_database/>
+        <formula/>
+        <function_definition/>
+        <function_field>false</function_field>
+        <help/>
+        <hint/>
+        <internal_type display_value="Reference">reference</internal_type>
+        <label>Request Item</label>
+        <mandatory>true</mandatory>
+        <max_length>32</max_length>
+        <model display_value="Launchpad Equipment Procurement">d125606247fdc794f301c82f316d439a</model>
+        <model_id>d125606247fdc794f301c82f316d439a</model_id>
+        <model_table>sys_hub_flow</model_table>
+        <name>var__m_sys_hub_flow_input_d125606247fdc794f301c82f316d439a</name>
+        <next_element/>
+        <order>100</order>
+        <primary>false</primary>
+        <read_only>false</read_only>
+        <read_only_option/>
+        <read_roles/>
+        <reference display_value="" name="sc_req_item">sc_req_item</reference>
+        <reference_cascade_rule/>
+        <reference_floats>false</reference_floats>
+        <reference_key/>
+        <reference_qual/>
+        <reference_qual_condition/>
+        <reference_type/>
+        <sizeclass/>
+        <spell_check>false</spell_check>
+        <staged>false</staged>
+        <sys_class_name>sys_hub_flow_input</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-03 10:09:38</sys_created_on>
+        <sys_id>6e35686247fdc794f301c82f316d43aa</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name/>
+        <sys_package/>
+        <sys_policy/>
+        <sys_scope display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</sys_scope>
+        <sys_update_name/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-03 10:48:08</sys_updated_on>
+        <table_reference>false</table_reference>
+        <text_index>false</text_index>
+        <unique>false</unique>
+        <use_dependent_field>false</use_dependent_field>
+        <use_dynamic_default>false</use_dynamic_default>
+        <use_reference_qualifier>simple</use_reference_qualifier>
+        <virtual>false</virtual>
+        <virtual_type>script</virtual_type>
+        <widget/>
+        <write_roles/>
+        <xml_view>false</xml_view>
+    </sys_hub_flow_input>
+    <sys_hub_action_input_action_instance action="delete_multiple" query="action_input=6e35686247fdc794f301c82f316d43aa"/>
+    <sys_hub_flow_input action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <array>false</array>
+        <array_denormalized>false</array_denormalized>
+        <attributes>element_mapping_provider=com.glide.flow_design.action.data.FlowDesignVariableMapper,test_input_hidden=true,uiType=table_name,uiTypeLabel=Table Name</attributes>
+        <audit>false</audit>
+        <calculation><![CDATA[(function calculatedFieldValue(current) {
+
+	// Add your code here
+	return '';  // return the calculated value
+
+})(current);]]></calculation>
+        <choice/>
+        <choice_field/>
+        <choice_table/>
+        <column_label/>
+        <comments/>
+        <create_roles/>
+        <default_value>sc_req_item</default_value>
+        <defaultsort/>
+        <delete_roles/>
+        <dependent/>
+        <dependent_on_field/>
+        <display>false</display>
+        <dynamic_creation>false</dynamic_creation>
+        <dynamic_creation_script/>
+        <dynamic_default_value/>
+        <dynamic_ref_qual/>
+        <element>table_name</element>
+        <element_reference>false</element_reference>
+        <foreign_database/>
+        <formula/>
+        <function_definition/>
+        <function_field>false</function_field>
+        <help/>
+        <hint/>
+        <internal_type display_value="">table_name</internal_type>
+        <label>Table Name</label>
+        <mandatory>false</mandatory>
+        <max_length>40</max_length>
+        <model display_value="Launchpad Equipment Procurement">d125606247fdc794f301c82f316d439a</model>
+        <model_id>d125606247fdc794f301c82f316d439a</model_id>
+        <model_table>sys_hub_flow</model_table>
+        <name>var__m_sys_hub_flow_input_d125606247fdc794f301c82f316d439a</name>
+        <next_element/>
+        <order>100</order>
+        <primary>false</primary>
+        <read_only>false</read_only>
+        <read_only_option/>
+        <read_roles/>
+        <reference/>
+        <reference_cascade_rule/>
+        <reference_floats>false</reference_floats>
+        <reference_key/>
+        <reference_qual/>
+        <reference_qual_condition/>
+        <reference_type/>
+        <sizeclass/>
+        <spell_check>false</spell_check>
+        <staged>false</staged>
+        <sys_class_name>sys_hub_flow_input</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-03 10:09:38</sys_created_on>
+        <sys_id>b235686247fdc794f301c82f316d43e2</sys_id>
+        <sys_mod_count>17</sys_mod_count>
+        <sys_name/>
+        <sys_package/>
+        <sys_policy/>
+        <sys_scope display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</sys_scope>
+        <sys_update_name/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-03 19:57:20</sys_updated_on>
+        <table_reference>false</table_reference>
+        <text_index>false</text_index>
+        <unique>false</unique>
+        <use_dependent_field>false</use_dependent_field>
+        <use_dynamic_default>false</use_dynamic_default>
+        <use_reference_qualifier>simple</use_reference_qualifier>
+        <virtual>false</virtual>
+        <virtual_type>script</virtual_type>
+        <widget/>
+        <write_roles/>
+        <xml_view>false</xml_view>
+    </sys_hub_flow_input>
+    <sys_hub_action_input_action_instance action="delete_multiple" query="action_input=b235686247fdc794f301c82f316d43e2"/>
+    <sys_hub_flow_output action="delete_multiple" query="model=d125606247fdc794f301c82f316d439a"/>
+    <sys_hub_alias_mapping action="delete_multiple" query="source_id=d125606247fdc794f301c82f316d439a"/>
+    <sys_hub_trigger_instance_v2 action="delete_multiple" query="flow=d125606247fdc794f301c82f316d439a^sys_idNOT IN9235286247fdc794f301c82f316d43c1"/>
+    <sys_hub_trigger_instance_v2 action="INSERT_OR_UPDATE">
+        <comment/>
+        <display_text/>
+        <flow display_value="Launchpad Equipment Procurement">d125606247fdc794f301c82f316d439a</flow>
+        <generation_source/>
+        <name>Service Catalog</name>
+        <published_version/>
+        <remote_sys_id/>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-03 10:09:37</sys_created_on>
+        <sys_id>9235286247fdc794f301c82f316d43c1</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_scope/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-03 11:00:40</sys_updated_on>
+        <trigger_definition display_value="Service Catalog">c43a1011c36813002841b63b12d3ae15</trigger_definition>
+        <trigger_inputs>H4sIAAAAAAAA/61T32vbMBD+V4KeNvDATtZm8dsYFALdCk3Xl1KMIp0SMVlyJdmtF/q/7y62k7TzxqB70/38vrv7dLdjhq/BsJxd13ZyYdzjZGlZwrSN4C03N20FGBRbpwWgv3tc6hBZfrdjagUPNVgM5R+yhKlbbmrKX3PxY+NdbSXWqMsTCEUQ2k6OGZN3EhSvTXxPucuSb6gDvVdgQESQLFfcBEDP93BqfdUhaLvpHc/Jn/ko5+HvfF5mvIHFfcJKbiWPzrfHJO/KGygrwyMcnM5L8CzP0jRhDRFdtWEpO1TLS8L3tS2IYaHpKE0/DT6lDtisvT16xFYb6cHiXZBCxT12iNR/9yqkCeI8XaRiPl3M59N0NktTdbZWQgkx/5Sl59nZAhuOC2OUWHylktPJ4CmClScL+307Hri8subo2KL8uqlK/hT0T2z+MaU8Bb67LsUOZtFvY1gEsQh7fZp/V14zJt1+kJS0NdbrhWqaMbENqyBd9Ghf/j/B7M0Ep0SwW91VFbVDsbAZnZavDdWENnQH9yCwpIhebzZYiEXO1KX9NqaLnv2JSuuA14KKFEEnHr7Hauser4dzXmi7p9QHjRPcHCweEXldR9rfjnHZcKwgRUePGM97VRQPNVXs/8mAVewnooQgvK7iZxF1A4dP+wt8tA/9CQUAAA==</trigger_inputs>
+        <trigger_outputs/>
+        <trigger_type>service_catalog</trigger_type>
+        <updation_source/>
+    </sys_hub_trigger_instance_v2>
+    <sys_hub_action_instance_v2 action="delete_multiple" query="flow=d125606247fdc794f301c82f316d439a^sys_idNOT IN0e18626247fd0b94f301c82f316d43ca,9b6520a247fdc794f301c82f316d43cb,e401a2e247bd0b94f301c82f316d4372,e9d8d6e2477d0b94f301c82f316d43ae"/>
+    <sys_hub_action_instance_v2 action="INSERT_OR_UPDATE">
+        <action_type display_value="Create Catalog Task">af51fd0e73141300612c273ffff6a785</action_type>
+        <action_type_parent display_value="Create Catalog Task">f597c41073081300612c273ffff6a767</action_type_parent>
+        <attributes/>
+        <comment/>
+        <compiled_snapshot/>
+        <display_text/>
+        <flow display_value="Launchpad Equipment Procurement">d125606247fdc794f301c82f316d439a</flow>
+        <generation_source/>
+        <order>6</order>
+        <parent_ui_id/>
+        <sys_class_name>sys_hub_action_instance_v2</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-03 19:41:23</sys_created_on>
+        <sys_id>0e18626247fd0b94f301c82f316d43ca</sys_id>
+        <sys_mod_count>3</sys_mod_count>
+        <sys_scope display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</sys_scope>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-03 19:57:20</sys_updated_on>
+        <ui_id>6e9cff93-206b-49f5-8692-b9c5773b820a</ui_id>
+        <updation_source/>
+        <values>H4sIAAAAAAAA/+1Y30/bMBD+V6I8bVKU9Qe0iLdtVadJG0gDsQeEIje5NBaOHRynHav433dO7DYhJVRQkBDrW+58vu/O3+dcc7lyaeQeuyQ+7MdRD8bD/kF/2OuN+oNwMB7G+BuR8dGR67mcpKBXJoEiMwZB+ey5C8IKbc9DtOfXaIlonjFye9FyhAllkQTuHl9eeW5GJO6gQLrHq3sudZtBwMgMGMaf62zOSZVtV7Bbgx+oQGdDc8MmZKSB9TwX/ijgEWDemLAcPDclPCJKyNu1RQKJTjnbGBLKFe7o6sV/cvoXtz/q6XUxYI0hVL71Y2A6VpnDRNAQTjNFBa8sJTLjFKxI+UlViO41xKRgqt1r45g8dBZFjmkh06VprAZ4fJaI5S+La0p52QXjZCIkbP1ElJJ0VijI9fkBgxQ3ClKSZZTPg0yKBS2DEXLqzxk++DETS0ya0zn3Sajr87GTxJ+ifVKaL4ikutifuA0GYxamY0rYaM71McmiJEKOVkkz25sSlXtXdjW4KTTQqj+mxKBqJi6owj5j/gWYau48I4PxsItZpNcgkYSbAnIFUUAVpDUprFZnIBd4iM5XLI+JedD3zeJyqb+JjIX0YyrRofe9u2vL58m6WR+jlc0OxW1iDUDne1VaR9VGPrKWzqin360efZK7iWc4aIoH+YAwLIBtOmoV8BxVvR25CGxkEEmRZaa4Ui3PVcVw3EmcUYMfeSKk0rDLDXW3N8KYQMbErfODFDxMMhI534BIBzXQpn3X0qfp4QwPgM+tGHaoaR2oK3ImjYq66zWSyG1Go4fB3t4m/UGv9yovlLdC/Wdf/N10CBtHHlNgUV7j9R5v7XNIcR8FTrWTtzM8u8HUgtuC1046JkewMDkMP4d74+fosMXPzeixjabmRemc20lxn5StXjRvjLGUZ4XK/eaw+giL406azAYNViwJVTUO99skNqPWE4mMwZ+m5VTm7YzOBv+usLXAGgLPhGBA+Ia5B3tj7sGrXKums9uHdON8F/fuI5yo/e9cX1qhmanvDd0vOTnvgLJ1f9sbrTlAP1TFw0P04d6ovWWKRhRdU/S9Gt7DIIF0TfQ/Tpw2w2RfA/R41smf2rcJS4uFQfVCU8YZK/LE+VKE16DWM8bjIG245cVFDWVHAXYc1klnNqeh9+j/TLzSHzNivBWwDZu+BRygbIr5tOG9HOFFIbE/tgH6PghE2RnEsHQttdG1jDf4PnzUxOEhKyIIUmwPlZh57QZV+1ij21UDBjJYyir7MwV29Q/9UvxJwBQAAA==</values>
+    </sys_hub_action_instance_v2>
+    <sys_hub_alias_mapping action="delete_multiple" query="source_id=0e18626247fd0b94f301c82f316d43ca"/>
+    <sys_hub_action_instance_v2 action="INSERT_OR_UPDATE">
+        <action_type display_value="Get Catalog Variables">330ba3abc31013002841b63b12d3aee8</action_type>
+        <action_type_parent display_value="Get Catalog Variables">22f0b88cc3c632002841b63b12d3aeff</action_type_parent>
+        <attributes/>
+        <comment/>
+        <compiled_snapshot/>
+        <display_text/>
+        <flow display_value="Launchpad Equipment Procurement">d125606247fdc794f301c82f316d439a</flow>
+        <generation_source/>
+        <order>1</order>
+        <parent_ui_id/>
+        <sys_class_name>sys_hub_action_instance_v2</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-03 10:10:30</sys_created_on>
+        <sys_id>9b6520a247fdc794f301c82f316d43cb</sys_id>
+        <sys_mod_count>3</sys_mod_count>
+        <sys_scope display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</sys_scope>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-03 11:00:40</sys_updated_on>
+        <ui_id>181222ac-27e0-48e4-b6b6-a4f8df06bb62</ui_id>
+        <updation_source/>
+        <values>H4sIAAAAAAAA/+VV224aMRD9FbTPCO2FsoG33iL1oY0UqrxEkWV7x2DVe4nthVCUf+941wsEAkFRIlXt445nPOccz5y9XQcyCyYBEyGjCWU8icIoCcP4YhixUcKiOEsoAA36QUFzwEwN9zUYCxmRFnKML6iq3cF6PQW9kBx6n6mlqpyRaOCTm9THR0zOpKkUXd34GozwuVSZhiKY3N71g4pqbGNBB5P13pFdVUAUZaCw8BoE4AkHvOFcAl3ttGa5tMigd93CO0HONW3i23alzhy8sB/Ag4UiA2wvqDLQD3JaZNSWehVMrK4xoIFmV4VabTLmsrAt75w+GPkbL0/i/s79k8BwgjA6AJsT4qVryHuUvW9tEp+XqPtVZWVZtLdbylQncKnqvPjREnRPAILWyu48QW3wdqgcF4fOQxXTebnc6Hwpi4a2P1Qlp2rzRa3VktUWjHs2UJDjRSSnVSWLGal0uZBNMWLJBzOFHwOhyiU2NXJWDCh3wAcoHR1cYvxLE76hWjoW3/EaLEbhUUiS6bKqPDmncfDYaETua4en5eeZkFYMTDBcy8p+xDYL8KAf+93ks1ODI6LtcKDW+AAWCPfzvbcA4ywZJWn6YZiKMU/GQ5GEEb+IRRKNsmHS3LQ3/l/va1k5rXYm8a324WVaXe1Pz6vb22aqTA9nude9QW8K1rysxPFtid5tWywxK/MEiCF4MVl46MS00J9bpJcJ/x+bJQ1aTl7igzbsyK7AzZLhCiFklJJqPt8G59iP6LqwMgfSrAGRBSkrs5CwfKsFTU9Pcrody24Iuqc3O8sZMzYSKTuynDSduMlB6E4vUsCyP45Dmqbp+PmC8fCggCVwkQh2pEDQg4KMZYyJNHu+IDmAdOgf/wap1zneVNVm3vtU819gO9M7Y1S68m71b3Zm5cQYeWczrinrenpvi097m4+cY25RHIbhU3874lx/nTWhhQj8JaAMW93wfaERJWhKsOl7GdhZRoRDUnBVY2aOUkiNXTZQndtv0pw0OyBAk6VuO21SKo01euH+Lgq4bUh2TlnWmnsnxej+vL/WDu/+AKRbAm6rCwAA</values>
+    </sys_hub_action_instance_v2>
+    <sys_hub_alias_mapping action="delete_multiple" query="source_id=9b6520a247fdc794f301c82f316d43cb"/>
+    <sys_hub_action_instance_v2 action="INSERT_OR_UPDATE">
+        <action_type display_value="Ask For Approval">f8f2e9920b10030085c083eb37673abd</action_type>
+        <action_type_parent display_value="Ask For Approval">bae0a1120b10030085c083eb37673a92</action_type_parent>
+        <attributes/>
+        <comment/>
+        <compiled_snapshot/>
+        <display_text/>
+        <flow display_value="Launchpad Equipment Procurement">d125606247fdc794f301c82f316d439a</flow>
+        <generation_source/>
+        <order>5</order>
+        <parent_ui_id>e87ca813-a5e2-4c11-b4dd-3069d142e818</parent_ui_id>
+        <sys_class_name>sys_hub_action_instance_v2</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-03 19:10:26</sys_created_on>
+        <sys_id>e401a2e247bd0b94f301c82f316d4372</sys_id>
+        <sys_mod_count>3</sys_mod_count>
+        <sys_scope display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</sys_scope>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-03 19:15:44</sys_updated_on>
+        <ui_id>a28b65d8-0e01-4310-a614-b911d6180d4a</ui_id>
+        <updation_source/>
+        <values>H4sIAAAAAAAA/+1Y32/iOBD+V1CeKecQkgbeqqsq9XR3K7XdfSlVZOwJ+GScbOJ0l0P87zeOHUihTVGXVW9X+4I04/nxzfgbx+Z+7QnuTbzzOB3CeDwkM5+QgJA4ZCQOYBacR+cBZcTre4ouAS0LYFnBUX6ksjKK9foWikfBoPc71VRm88QfFPC5glInQsNys0FjLspc0tUn54MathCSF6C8yf1D38tpgeE1FN5kvbekVzkkks5AouNlxqolKN27vsQYx0JvvG8a7Pu1mBwocxc9EUaJSwYP6XvwVYPigNlSKkvoe0uqONVZsfImuqhQUQDlH5RcbS0WQmlb6JJ+LcW/GD4YGrsUsDLmmrAVE9egpjcZ9vNDrkWmrEbTmWwal8lqqf62FZjWQkorqVutrUqMB7mBbEBYhOntIvty0+S7EqouzqGVGaNyK1GtCzGrNJRmN0BC3ZMlzXOh5kleZI+idkYoy8FcojBIZfYFc5ZirgaUGdwDbBAdXKH+slZ/ooUwRfyFYdB5UxeffK5MXluGA5zUNduC0apkhcj1BcZ8BIdw03esnbHOrWe7nbbhdqQtWYIcrfl5yM4by17gvWu7/jau3pmcvXqj+kfjfeJ8iN8RtRYTZUM7nvrdPHWaY4gak/chqkP0gzH1NZLCKApC/DlPA+IPfRJDFMdsTCiLoygcBbtNxnyImEqkJi0x9o6uJzxBb7Fjat4w8ghwjeOFQ9e7adC9CNuxtGxSOYYOT8ZQP/pBKVqJu73eWM2f+7vzfbhs0n1UAo+3a7P70XAWjUnMz3hKZmejOAjPKANyBpEfQsgjFvrBN/Of+F2HHo+fIVIqQLavGM3C4Ri0Vt42Dlcm1ZND+gi8ByNx5QC/VIgbiFrcO7ZPNxQxIe80FT/vDYN1kgFah/c/WVWoDu4mC1HWW/oih1sWp+LyEfAb5z8s/n0q75fVweTgF5P/x0wehZ1UgGdOL5YpLgy+ssVne+ZBeaFWH+9fe/s1AvAkzYoBsoHOodhsHg6n4GRx3zY7u9tNJaFs5ueIpm3fls6vs4luenY3JufkJmh0qqfm+w3Qz3mHZ508SMe7fecVtoPq9ltzPfUsyKk3mXoqUzD1+lPPWCWGELUaLRDcdqHWrTdWrgrq3P2WuPPldFXWliVbAEdK1donGstzpz/lHzK3LkHvElH/dida357Xe7b9V6ey/s+2sXlMNJXYvon2lyc82Zdn9Gts9p4LyfaKjR8aPIDePEsP/wG987YkbBQAAA==</values>
+    </sys_hub_action_instance_v2>
+    <sys_hub_alias_mapping action="delete_multiple" query="source_id=e401a2e247bd0b94f301c82f316d4372"/>
+    <sys_hub_action_instance_v2 action="INSERT_OR_UPDATE">
+        <action_type display_value="Ask For Approval">f8f2e9920b10030085c083eb37673abd</action_type>
+        <action_type_parent display_value="Ask For Approval">bae0a1120b10030085c083eb37673a92</action_type_parent>
+        <attributes/>
+        <comment/>
+        <compiled_snapshot/>
+        <display_text/>
+        <flow display_value="Launchpad Equipment Procurement">d125606247fdc794f301c82f316d439a</flow>
+        <generation_source/>
+        <order>3</order>
+        <parent_ui_id>2099f3e6-9401-497e-8c52-02f9f3c898e5</parent_ui_id>
+        <sys_class_name>sys_hub_action_instance_v2</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-03 18:34:44</sys_created_on>
+        <sys_id>e9d8d6e2477d0b94f301c82f316d43ae</sys_id>
+        <sys_mod_count>5</sys_mod_count>
+        <sys_scope display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</sys_scope>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-03 19:15:44</sys_updated_on>
+        <ui_id>19ae2d65-14e1-46b3-aa66-e28c1a1efe98</ui_id>
+        <updation_source/>
+        <values>H4sIAAAAAAAA/+1YUW/iOBD+KyjPlHMISQNv1VWVerq7ldruvpQqMvYEfDJONnG6yyH++41jB1JoU9Rl1dvVviB57Jn5Zuabic392hPcm3jncTqE8XhIZj4hASFxyEgcwCw4j84DyojX9xRdAp4sgGUFx/UjlZURrNe3UDwKBr3fqaYymyf+oIDPFZQ6ERqWmw0e5qLMJV19cjooYQsheQHKm9w/9L2cFmheQ+FN1ntbepVDIukMJCpeZqxagtK960u0cSz0Rvumwb4fi/GBa+6sJ8IIccvgIX0PvmpQHNBbSmUJfW9JFac6K1beRBcVCgqg/IOSq+2JhVDaBrqkX0vxL5oPhuZcChgZc0nYLhOXoCY3GebzQ65FpqxE05lsEpfJaqn+thGY1EJKK6lbqa1KtAe5gWxAWITp7SL7ctP4uxKqDs6hlRmjcruiWhdiVmkoTTVAQp2TJc1zoeZJXmSPolZGKMvBXOJikMrsC/osxVwNKDO4B5ggOrhC+WUt/kQLYYL4C82g8qYOPvlcGb82DAc4qWO2AeOpkhUi1xdo8xEcwk3fsXbGOkvPdpW25nakLVmCHK35ecjOG8te4L1ru/82rt4Zn726UP2j8T5RPsTviFovE2VNO5763Tx1kmOIGpP3IapD9IMx9TWSwigKQvw5TwPiD30SQxTHbEwoi6MoHAW7IqM/REwlUpOWaHtH1xNO0FvMmJo3jDwCXKN44dD1bhp0L8J2LC0bV46hw5Mx1I9+UIpW4m4vN1by5351vg+XjbuPSuB4uzbVj4azaExifsZTMjsbxUF4RhmQM4j8EEIesdAPvpn/xO8aejx+hkipANm+YjQbh23Q2nlbO1wZV0+G9BF4D1riygF+KRDXEPVyb2yfriliQt6pK37eGwbrJAO0hvc/WVWoDu4mC1HWJX2Rw60Tp+LyEfAb5T8s/n0q74fVweTgF5P/x0wehZ1UgGemF8sUFwZf2eKznXlQXqjVx/vX3n6DDIECT2arATKBzqHYbB4OO+AkNt/WM7tbTSWhbPrmiGRt35ROrzN5rmt2NyWn5DpndKon5vs1zs95d2edPEjHu7rzCtNBdfuNuZ56FuTUm0w9lSmYev2pZ04lhhC1GE8guO1GLVtv7LoqqFP3W8udLqersj5ZsgVwpFQtfSKxPHfyU/4Rc+sc9C4R9W93ovXNeT1n239zKqv/bBqbR0QTic2baH9xwpN9cUa/2mbvmZBsr9b4gcEB9OZeevgPLH7nmWQUAAA=</values>
+    </sys_hub_action_instance_v2>
+    <sys_hub_alias_mapping action="delete_multiple" query="source_id=e9d8d6e2477d0b94f301c82f316d43ae"/>
+    <sys_hub_sub_flow_instance_v2 action="delete_multiple" query="flow=d125606247fdc794f301c82f316d439a"/>
+    <sys_hub_flow_logic_instance_v2 action="delete_multiple" query="flow=d125606247fdc794f301c82f316d439a^sys_idNOT IN56d0e6a247bd0b94f301c82f316d43bb,fea5566e473d0b94f301c82f316d430e"/>
+    <sys_hub_flow_logic_instance_v2 action="INSERT_OR_UPDATE">
+        <attributes/>
+        <block display_value="">b7226a6647bd0b94f301c82f316d43f8</block>
+        <comment/>
+        <connected_to>2099f3e6-9401-497e-8c52-02f9f3c898e5</connected_to>
+        <decision_table/>
+        <display_text/>
+        <flow display_value="Launchpad Equipment Procurement">d125606247fdc794f301c82f316d439a</flow>
+        <flow_variables_assigned/>
+        <generation_source/>
+        <logic_definition display_value="Else">1f781bf3c32232002841b63b12d3aee6</logic_definition>
+        <order>4</order>
+        <outputs_assigned/>
+        <parent_ui_id/>
+        <sys_class_name>sys_hub_flow_logic_instance_v2</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-03 19:09:44</sys_created_on>
+        <sys_id>56d0e6a247bd0b94f301c82f316d43bb</sys_id>
+        <sys_mod_count>7</sys_mod_count>
+        <sys_scope display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</sys_scope>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-03 19:57:20</sys_updated_on>
+        <ui_id>e87ca813-a5e2-4c11-b4dd-3069d142e818</ui_id>
+        <updation_source/>
+        <values>H4sIAAAAAAAA/6tWyi8tKSgtKQ7JdywuzkzPU7KKjtVRyswDiUHYZYlFmYlJOalQbkpqcmZxZn5eCEjME0ldSmVeYm5mMrJQeX5RdlpOfjlCrBYAD1ouqHEAAAA=</values>
+        <workflow_reference/>
+    </sys_hub_flow_logic_instance_v2>
+    <sys_hub_flow_logic_instance_v2 action="INSERT_OR_UPDATE">
+        <attributes/>
+        <block display_value="">7b226a6647bd0b94f301c82f316d43e7</block>
+        <comment/>
+        <connected_to/>
+        <decision_table/>
+        <display_text/>
+        <flow display_value="Launchpad Equipment Procurement">d125606247fdc794f301c82f316d439a</flow>
+        <flow_variables_assigned/>
+        <generation_source/>
+        <logic_definition display_value="If">af4e1945c3e232002841b63b12d3ae3e</logic_definition>
+        <order>2</order>
+        <outputs_assigned/>
+        <parent_ui_id/>
+        <sys_class_name>sys_hub_flow_logic_instance_v2</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-03 18:20:53</sys_created_on>
+        <sys_id>fea5566e473d0b94f301c82f316d430e</sys_id>
+        <sys_mod_count>8</sys_mod_count>
+        <sys_scope display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</sys_scope>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-03 19:57:20</sys_updated_on>
+        <ui_id>2099f3e6-9401-497e-8c52-02f9f3c898e5</ui_id>
+        <updation_source/>
+        <values>H4sIAAAAAAAA/+1WXU/bMBT9K1aeQEor56Oh8AZjsEoUGO3YpI1Fjn3TWrh2SBygq/rfd520wDYQ00B74qFSfXztc87NzVEWnqltUdtqbHarSk60t/P1wvekdhj+X3i5MjdHZiL5QFeWaQ6jeTUQ3o6XA+v1kgTirUjQbDvOIxrwfphHQSLiiILne5rNACu50UJaaXTaAL53zVTtNgY5+SAnU3Lu1uT9VS2LGWiLFUJWhWLz82cL+VQqUcJKd8FKZLBQejuL37bsvIBUsQwU3jeypdQTPC4bJ5TlwTYPeBQmUUhp2I+DLImyIBQRAxZh3frgu7UVctQgT3t0fIhXayZTCicroL4Htxa0AKTOmarA92ZMC2ZNOb9DSmDiRKt7YCrR7o7nueLbSv7Au8NezxXmgB45tJt3y3TVwRbmUyM5nBROYItYlqnVGW5UPdPHrQ/Xe8hZrey694jUFd4HhRPtVKwk5aOpuTlbEx5I3RhcbSrDmbpbMYttyGoLlXswoMA9vXTGigKbkxaluZbNYdQy604ULrpu7pDUzWSXcSe8iz1i3QPE9xv4nJXSuRjiNXi4lZmxSvK0mV+8zpZoYdm0Jb2qnaDW4MpK2nYDCypeysLuIs81rFQv/dcd/gdzv1gE/SAMQ8Y74RbQTtyHuJMlWdJhcd4XOU2yLAm7ihXWFOnMCFDL5bea0kgESUdqPiXDiAzZLf74njGX5LQ0ZCOJD/fIJy1zCYIMYYYD5ZNgvEdGo/3N78cfX0Ib39E6ql9oo/AR2l7g0JcTj3HwL0+ZIKcBOQRNEjI0mVRAPpvyEp9J8y5uDLQFReS2T5oenO0OfXI2/kJi2qebf8bJW///c/9fI6W3WS/vBbT3eErHyWMp/fhr+EQ0h89EswuTv0xmSulbND+MZlmlbcSuvDXk/5zMFy5KW4aqnRsBXFYoZOywwfrrxW3McQBcft9DNzi5zsI9tvwJ7GUpRAcJAAA=</values>
+        <workflow_reference/>
+    </sys_hub_flow_logic_instance_v2>
+    <sys_hub_pill_compound action="delete_multiple" query="attached_to=d125606247fdc794f301c82f316d439a"/>
+    <sys_hub_flow_variable action="delete_multiple" query="model=d125606247fdc794f301c82f316d439a"/>
+    <sys_documentation action="INSERT_OR_UPDATE">
+        <element>request_item</element>
+        <help/>
+        <hint/>
+        <label>Request Item</label>
+        <language>en</language>
+        <name>var__m_sys_hub_flow_input_d125606247fdc794f301c82f316d439a</name>
+        <plural/>
+        <sys_class_name>sys_documentation</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-03 10:09:38</sys_created_on>
+        <sys_id>fa35686247fdc794f301c82f316d43dc</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="Launchpad" source="x_2062828_launch_0">6e8263bd4739c394f301c82f316d4371</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</sys_scope>
+        <sys_update_name/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-03 10:09:38</sys_updated_on>
+        <url/>
+        <url_target/>
+    </sys_documentation>
+    <sys_documentation action="INSERT_OR_UPDATE">
+        <element>table_name</element>
+        <help/>
+        <hint/>
+        <label>Table Name</label>
+        <language>en</language>
+        <name>var__m_sys_hub_flow_input_d125606247fdc794f301c82f316d439a</name>
+        <plural/>
+        <sys_class_name>sys_documentation</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-03 10:09:38</sys_created_on>
+        <sys_id>fe35a86247fdc794f301c82f316d4309</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="Launchpad" source="x_2062828_launch_0">6e8263bd4739c394f301c82f316d4371</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</sys_scope>
+        <sys_update_name/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-03 10:09:38</sys_updated_on>
+        <url/>
+        <url_target/>
+    </sys_documentation>
+    <sys_choice action="delete_multiple" query="name=var__m_sys_hub_flow_input_d125606247fdc794f301c82f316d439a"/>
+    <sys_choice action="delete_multiple" query="name=var__m_sys_hub_flow_output_d125606247fdc794f301c82f316d439a"/>
+    <sys_hub_flow_snapshot action="INSERT_OR_UPDATE">
+        <access>public</access>
+        <acls/>
+        <active>true</active>
+        <allow_high_security_roles>false</allow_high_security_roles>
+        <annotation/>
+        <attributes>browserActivatedIn=chrome,integrationActivatedIn=standalone,labelCacheCleanUpExecuted=true,viewActivatedIn=naturalLanguage</attributes>
+        <authored_on_release_version>29000</authored_on_release_version>
+        <callable_by_client_api>false</callable_by_client_api>
+        <category/>
+        <copied_from/>
+        <copied_from_name/>
+        <description>Automated manager approval routing and IT warehouse fulfillment tasks for onboarding hardware configurations.</description>
+        <flow_priority>MEDIUM</flow_priority>
+        <internal_name>launchpad_equipment_procurement</internal_name>
+        <label_cache>[{"name":"Service Catalog_1.request_item.requested_for.first_name","label":"Trigger - Service Catalog➛Requested Item Record➛Requested for➛First name","reference":"","reference_display":"First name","type":"string","base_type":"string","parent_table_name":"sys_user","column_name":"first_name","usedInstances":{"6e9cff93-206b-49f5-8692-b9c5773b820a":["ah_requested_item"]}},{"name":"Service Catalog_1.request_item.requested_for.manager","label":"Trigger - Service Catalog➛Requested Item Record➛Requested for➛Manager","reference":"sys_user","reference_display":"User","type":"reference","base_type":"reference","parent_table_name":"sys_user","column_name":"manager","usedInstances":{"a28b65d8-0e01-4310-a614-b911d6180d4a":["approval_conditions"]}},{"name":"Service Catalog_1.request_item.opened_by","label":"Trigger - Service Catalog➛Requested Item Record➛Opened by","reference":"sys_user","reference_display":"User","type":"reference","base_type":"reference","parent_table_name":"sc_req_item","column_name":"opened_by","usedInstances":{}},{"name":"Service Catalog_1.request_item.assignment_group.manager","label":"Trigger - Service Catalog➛Requested Item Record➛Assignment group➛Manager","reference":"sys_user","reference_display":"User","type":"reference","base_type":"reference","parent_table_name":"sys_user_group","column_name":"manager","usedInstances":{}},{"name":"181222ac-27e0-48e4-b6b6-a4f8df06bb62.monitor_size","label":"1 - Get Catalog Variables➛monitor_size","reference":"","reference_display":"monitor_size","type":"choice","base_type":"choice","choices":[{"label":"27-inch 4K Color-Accurate Designer Display","value":"27-inch 4K Color-Accurate Designer Display","order":100.0},{"label":"34-inch Curved Ultra-Wide Productivity Display","value":"34-inch Curved Ultra-Wide Productivity Display","order":100.0},{"label":"49-inch Dual-QHD Curved Workspace Monitor","value":"49-inch Dual-QHD Curved Workspace Monitor","order":100.0}],"usedInstances":{},"attributes":{"catalogType":"5","catalogTypeLabel":"Select Box"}},{"name":"181222ac-27e0-48e4-b6b6-a4f8df06bb62.laptop_model","label":"1 - Get Catalog Variables➛laptop_model","reference":"","reference_display":"laptop_model","type":"choice","base_type":"choice","choices":[{"label":"16-inch M3 Max MacBook Pro (64GB Unified Memory, 1TB SSD)","value":"16-inch M3 Max MacBook Pro (64GB Unified Memory, 1TB SSD)","order":100.0},{"label":"14-inch M3 Pro MacBook Pro (32GB Unified Memory, 512GB SSD)","value":"14-inch M3 Pro MacBook Pro (32GB Unified Memory, 512GB SSD)","order":100.0},{"label":"ThinkPad P1 Gen 6 Mobile Workstation (Intel i9, 64GB RAM, RTX 4080)","value":"ThinkPad P1 Gen 6 Mobile Workstation (Intel i9, 64GB RAM, RTX 4080)","order":100.0}],"usedInstances":{"2099f3e6-9401-497e-8c52-02f9f3c898e5":["condition"]},"attributes":{"catalogType":"5","catalogTypeLabel":"Select Box"}},{"name":"Service Catalog_1.request_item.opened_by.manager","label":"Trigger - Service Catalog➛Requested Item Record➛Opened by➛Manager","reference":"sys_user","reference_display":"User","type":"reference","base_type":"reference","parent_table_name":"sys_user","column_name":"manager","usedInstances":{"fcc14250-3cad-49d2-8b67-8fcf6def2b85":["approval_conditions"],"19ae2d65-14e1-46b3-aa66-e28c1a1efe98":["approval_conditions"]}},{"name":"Service Catalog_1.request_item","label":"Trigger - Service Catalog➛Requested Item Record","reference":"sc_req_item","reference_display":"Requested Item","type":"reference","base_type":"reference","usedInstances":{"181222ac-27e0-48e4-b6b6-a4f8df06bb62":["requested_item"],"fcc14250-3cad-49d2-8b67-8fcf6def2b85":["record"],"fcc3c97a-42f3-4b6c-8122-4abbfcac0c38":["ah_requested_item"],"9939b369-1bf7-4478-b2ec-4a997a948f11":["ah_requested_item"],"5975cfb1-e094-4e38-81d1-97c18efab176":["record"],"19ae2d65-14e1-46b3-aa66-e28c1a1efe98":["record"],"a28b65d8-0e01-4310-a614-b911d6180d4a":["record"]},"attributes":{"default_search_field":"number"}}]</label_cache>
+        <master>true</master>
+        <name>Launchpad Equipment Procurement</name>
+        <natlang/>
+        <outputs/>
+        <parent_flow display_value="Launchpad Equipment Procurement">d125606247fdc794f301c82f316d439a</parent_flow>
+        <remote_trigger_id/>
+        <run_as>system</run_as>
+        <run_with_roles/>
+        <sc_callable>false</sc_callable>
+        <status>published</status>
+        <sys_class_name>sys_hub_flow_snapshot</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-03 11:10:14</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>d213bc2e47310b94f301c82f316d43a4</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name/>
+        <sys_overrides/>
+        <sys_package/>
+        <sys_policy/>
+        <sys_scope display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</sys_scope>
+        <sys_update_name/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-03 19:57:23</sys_updated_on>
+        <type>flow</type>
+        <version>2</version>
+    </sys_hub_flow_snapshot>
+    <sys_translated_text action="delete_multiple" query="documentkey=d213bc2e47310b94f301c82f316d43a4"/>
+    <sys_variable_value action="delete_multiple" query="document_key=d213bc2e47310b94f301c82f316d43a4"/>
+    <sys_hub_flow_stage action="delete_multiple" query="flow=d213bc2e47310b94f301c82f316d43a4"/>
+    <sys_flow_cat_variable_model action="delete_multiple" query="id=d213bc2e47310b94f301c82f316d43a4^sys_idNOT IN1213bc2e47310b94f301c82f316d43a6"/>
+    <sys_flow_cat_variable_model action="INSERT_OR_UPDATE">
+        <id>d213bc2e47310b94f301c82f316d43a4</id>
+        <name>Launchpad Equipment Procurement</name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-03 11:10:14</sys_created_on>
+        <sys_id>1213bc2e47310b94f301c82f316d43a6</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_scope/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-03 11:10:14</sys_updated_on>
+    </sys_flow_cat_variable_model>
+    <sys_flow_cat_variable action="delete_multiple" query="flow_catalog_model=1213bc2e47310b94f301c82f316d43a6"/>
+    <sys_hub_flow_input action="delete_multiple" query="model=d213bc2e47310b94f301c82f316d43a4^sys_idNOT IN1e13bc2e47310b94f301c82f316d43a7,ee13bc2e47310b94f301c82f316d43dc"/>
+    <sys_hub_flow_input action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <array>false</array>
+        <array_denormalized>false</array_denormalized>
+        <attributes>element_mapping_provider=com.glide.flow_design.action.data.FlowDesignVariableMapper,test_input_hidden=true,uiType=table_name</attributes>
+        <audit>false</audit>
+        <calculation><![CDATA[(function calculatedFieldValue(current) {
+
+	// Add your code here
+	return '';  // return the calculated value
+
+})(current);]]></calculation>
+        <choice/>
+        <choice_field/>
+        <choice_table/>
+        <column_label/>
+        <comments/>
+        <create_roles/>
+        <default_value>sc_req_item</default_value>
+        <defaultsort/>
+        <delete_roles/>
+        <dependent/>
+        <dependent_on_field/>
+        <display>false</display>
+        <dynamic_creation>false</dynamic_creation>
+        <dynamic_creation_script/>
+        <dynamic_default_value/>
+        <dynamic_ref_qual/>
+        <element>table_name</element>
+        <element_reference>false</element_reference>
+        <foreign_database/>
+        <formula/>
+        <function_definition/>
+        <function_field>false</function_field>
+        <help/>
+        <hint/>
+        <internal_type display_value="">table_name</internal_type>
+        <label>Table Name</label>
+        <mandatory>false</mandatory>
+        <max_length>40</max_length>
+        <model display_value="Launchpad Equipment Procurement">d213bc2e47310b94f301c82f316d43a4</model>
+        <model_id>d213bc2e47310b94f301c82f316d43a4</model_id>
+        <model_table>sys_hub_flow_snapshot</model_table>
+        <name>var__m_sys_hub_flow_input_d213bc2e47310b94f301c82f316d43a4</name>
+        <next_element/>
+        <order>100</order>
+        <primary>false</primary>
+        <read_only>true</read_only>
+        <read_only_option/>
+        <read_roles/>
+        <reference/>
+        <reference_cascade_rule/>
+        <reference_floats>false</reference_floats>
+        <reference_key/>
+        <reference_qual/>
+        <reference_qual_condition/>
+        <reference_type/>
+        <sizeclass/>
+        <spell_check>false</spell_check>
+        <staged>false</staged>
+        <sys_class_name>sys_hub_flow_input</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-03 11:10:14</sys_created_on>
+        <sys_id>1e13bc2e47310b94f301c82f316d43a7</sys_id>
+        <sys_mod_count>9</sys_mod_count>
+        <sys_name/>
+        <sys_package/>
+        <sys_policy/>
+        <sys_scope display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</sys_scope>
+        <sys_update_name/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-03 19:57:22</sys_updated_on>
+        <table_reference>false</table_reference>
+        <text_index>false</text_index>
+        <unique>false</unique>
+        <use_dependent_field>false</use_dependent_field>
+        <use_dynamic_default>false</use_dynamic_default>
+        <use_reference_qualifier>simple</use_reference_qualifier>
+        <virtual>false</virtual>
+        <virtual_type>script</virtual_type>
+        <widget/>
+        <write_roles/>
+        <xml_view>false</xml_view>
+    </sys_hub_flow_input>
+    <sys_hub_action_input_action_instance action="delete_multiple" query="action_input=1e13bc2e47310b94f301c82f316d43a7"/>
+    <sys_hub_flow_input action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <array>false</array>
+        <array_denormalized>false</array_denormalized>
+        <attributes>default_search_field=number,element_mapping_provider=com.glide.flow_design.action.data.FlowDesignVariableMapper,uiType=reference</attributes>
+        <audit>false</audit>
+        <calculation><![CDATA[(function calculatedFieldValue(current) {
+
+	// Add your code here
+	return '';  // return the calculated value
+
+})(current);]]></calculation>
+        <choice/>
+        <choice_field/>
+        <choice_table/>
+        <column_label/>
+        <comments/>
+        <create_roles/>
+        <default_value/>
+        <defaultsort/>
+        <delete_roles/>
+        <dependent/>
+        <dependent_on_field/>
+        <display>false</display>
+        <dynamic_creation>false</dynamic_creation>
+        <dynamic_creation_script/>
+        <dynamic_default_value/>
+        <dynamic_ref_qual/>
+        <element>request_item</element>
+        <element_reference>false</element_reference>
+        <foreign_database/>
+        <formula/>
+        <function_definition/>
+        <function_field>false</function_field>
+        <help/>
+        <hint/>
+        <internal_type display_value="Reference">reference</internal_type>
+        <label>Request Item</label>
+        <mandatory>true</mandatory>
+        <max_length>32</max_length>
+        <model display_value="Launchpad Equipment Procurement">d213bc2e47310b94f301c82f316d43a4</model>
+        <model_id>d213bc2e47310b94f301c82f316d43a4</model_id>
+        <model_table>sys_hub_flow_snapshot</model_table>
+        <name>var__m_sys_hub_flow_input_d213bc2e47310b94f301c82f316d43a4</name>
+        <next_element/>
+        <order>100</order>
+        <primary>false</primary>
+        <read_only>false</read_only>
+        <read_only_option/>
+        <read_roles/>
+        <reference display_value="" name="sc_req_item">sc_req_item</reference>
+        <reference_cascade_rule/>
+        <reference_floats>false</reference_floats>
+        <reference_key/>
+        <reference_qual/>
+        <reference_qual_condition/>
+        <reference_type/>
+        <sizeclass/>
+        <spell_check>false</spell_check>
+        <staged>false</staged>
+        <sys_class_name>sys_hub_flow_input</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-03 11:10:14</sys_created_on>
+        <sys_id>ee13bc2e47310b94f301c82f316d43dc</sys_id>
+        <sys_mod_count>3</sys_mod_count>
+        <sys_name/>
+        <sys_package/>
+        <sys_policy/>
+        <sys_scope display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</sys_scope>
+        <sys_update_name/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-03 19:57:22</sys_updated_on>
+        <table_reference>false</table_reference>
+        <text_index>false</text_index>
+        <unique>false</unique>
+        <use_dependent_field>false</use_dependent_field>
+        <use_dynamic_default>false</use_dynamic_default>
+        <use_reference_qualifier>simple</use_reference_qualifier>
+        <virtual>false</virtual>
+        <virtual_type>script</virtual_type>
+        <widget/>
+        <write_roles/>
+        <xml_view>false</xml_view>
+    </sys_hub_flow_input>
+    <sys_hub_action_input_action_instance action="delete_multiple" query="action_input=ee13bc2e47310b94f301c82f316d43dc"/>
+    <sys_hub_flow_output action="delete_multiple" query="model=d213bc2e47310b94f301c82f316d43a4"/>
+    <sys_hub_alias_mapping action="delete_multiple" query="source_id=d213bc2e47310b94f301c82f316d43a4"/>
+    <sys_hub_trigger_instance_v2 action="delete_multiple" query="flow=d213bc2e47310b94f301c82f316d43a4^sys_idNOT IN7213fc2e47310b94f301c82f316d432c"/>
+    <sys_hub_trigger_instance_v2 action="INSERT_OR_UPDATE">
+        <comment/>
+        <display_text/>
+        <flow display_value="Launchpad Equipment Procurement">d213bc2e47310b94f301c82f316d43a4</flow>
+        <generation_source/>
+        <name>Service Catalog</name>
+        <published_version/>
+        <remote_sys_id/>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-03 11:10:15</sys_created_on>
+        <sys_id>7213fc2e47310b94f301c82f316d432c</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_scope/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-03 11:10:15</sys_updated_on>
+        <trigger_definition display_value="Service Catalog">c43a1011c36813002841b63b12d3ae15</trigger_definition>
+        <trigger_inputs>H4sIAAAAAAAA/61T32vbMBD+V4KeNvDATtZm8dsYFALdCk3Xl1KMIp0SMVlyJdmtF/q/7y62k7TzxqB70/38vrv7dLdjhq/BsJxd13ZyYdzjZGlZwrSN4C03N20FGBRbpwWgv3tc6hBZfrdjagUPNVgM5R+yhKlbbmrKX3PxY+NdbSXWqMsTCEUQ2k6OGZN3EhSvTXxPucuSb6gDvVdgQESQLFfcBEDP93BqfdUhaLvpHc/Jn/ko5+HvfF5mvIHFfcJKbiWPzrfHJO/KGygrwyMcnM5L8CzP0jRhDRFdtWEpO1TLS8L3tS2IYaHpKE0/DT6lDtisvT16xFYb6cHiXZBCxT12iNR/9yqkCeI8XaRiPl3M59N0NktTdbZWQgkx/5Sl59nZAhuOC2OUWHylktPJ4CmClScL+307Hri8subo2KL8uqlK/hT0T2z+MaU8Bb67LsUOZtFvY1gEsQh7fZp/V14zJt1+kJS0NdbrhWqaMbENqyBd9Ghf/j/B7M0Ep0SwW91VFbVDsbAZnZavDdWENnQH9yCwpIhebzZYiEXO1KX9NqaLnv2JSuuA14KKFEEnHr7Hauser4dzXmi7p9QHjRPcHCweEXldR9rfjnHZcKwgRUePGM97VRQPNVXs/8mAVewnooQgvK7iZxF1A4dP+wt8tA/9CQUAAA==</trigger_inputs>
+        <trigger_outputs/>
+        <trigger_type>service_catalog</trigger_type>
+        <updation_source/>
+    </sys_hub_trigger_instance_v2>
+    <sys_hub_action_instance_v2 action="delete_multiple" query="flow=d213bc2e47310b94f301c82f316d43a4^sys_idNOT IN2213fc2e47310b94f301c82f316d430d,43322e6647bd0b94f301c82f316d4357,c0cb262a47fd0b94f301c82f316d4391,cb322e6647bd0b94f301c82f316d4357"/>
+    <sys_hub_action_instance_v2 action="INSERT_OR_UPDATE">
+        <action_type display_value="Get Catalog Variables">330ba3abc31013002841b63b12d3aee8</action_type>
+        <action_type_parent display_value="Get Catalog Variables">22f0b88cc3c632002841b63b12d3aeff</action_type_parent>
+        <attributes/>
+        <comment/>
+        <compiled_snapshot>330ba3abc31013002841b63b12d3aee8</compiled_snapshot>
+        <display_text/>
+        <flow display_value="Launchpad Equipment Procurement">d213bc2e47310b94f301c82f316d43a4</flow>
+        <generation_source/>
+        <order>1</order>
+        <parent_ui_id/>
+        <sys_class_name>sys_hub_action_instance_v2</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-03 11:10:15</sys_created_on>
+        <sys_id>2213fc2e47310b94f301c82f316d430d</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_scope display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</sys_scope>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-03 11:10:15</sys_updated_on>
+        <ui_id>181222ac-27e0-48e4-b6b6-a4f8df06bb62</ui_id>
+        <updation_source/>
+        <values>H4sIAAAAAAAA/91V227bMAz9lUDPRmDHWd3kbetWYMC2AsvQl2EQJJluhMmX6pIsC/rvo2w5cdM2bYF1wPoYmhTPIXlOvm+JzMmc8CLmLGVcpEmcpHE8OZ0m/CTlySRPGQAjEalYCZip4dqBsZBTaaHE+Iop5z9stwvQKylgdMYsU/UVTcYhuU29ucHkXJpGsc1lqMGIWEqVa6jI/PuPiDRMYxsLmsy3B5+eilMxDgpTF46X0iLQ0dcOxREOdtN08QKwn4AQ+hSe+jqI1zr36OKIwC8LVQ4Iq2DKQERKVuXM1npD5lY7DGhg+UWlNruMpaxsR7tkv4z8jU3TSTToOydGUITXA9t9oWFyLZqAfvSxSyre48AX2FJYp3djrXEVphtdDgVzyp4NY13CRWNlXXUllnHVV9fKldWXblpk98Bgbc4gJGj8ADylwK9YLOv1blrnsmpnFT6qWjA1SAWmxfJcgvKLrVzJMTcizFotubMe55aAghIb0JI1jayuaKPrlWwfRYzl+Erhj3Gh6jWCMfKqGjPhCY1xD2x8jvH3bfiSaenZfcZn2i41boXmum6aQNovjNxExGzMmWLG7LnjCui188i7SQTOtBubLxFaNvYtNl5BoHcT9brix+61SPY3iavE/VqgIqjnQF6zPD1Js+zNNCtmIp1NizROxOmkSJOTfJq2Lx2I68O1k42f3kAAz1Tb4+h7tX0L8Hvxt7dpRqiIUT/80QKseZzw87WYvJgWLcV7uAXQUHyYrgIlajpK98n08UG8Ct36Xv9KtdKgN5Y13kzLmQ531QoYxYhEcCse4j64xH5Uu8rKEmgrKCorWjdmJWH9cuLPjssn22uhv7D+rsxA+BPOT4qMPyB8ls39WSIZP0FawTqaTWKWZdns/oLZ9E4BT+E0LfgDBQW7U5DznPMiy+8vSO9AuutNr4PU89z0CefQu2nvHZeDezhyKsEyjXJmyZ34CfbANBf+y+hd/yn45uS4b4bIU4wzmcRxfNs7H3DF/9X2bhscGlGB/104u/0e8CagnSRpS7DpS9ngk+wMj64SymFmiaOQGrvsoPq/n12aH80ABGi61l2nXUqjsUav/N+dAmFbkr3f1k6L4McYPdTI3zPVH38AKVAv4KsMAAA=</values>
+    </sys_hub_action_instance_v2>
+    <sys_hub_alias_mapping action="delete_multiple" query="source_id=2213fc2e47310b94f301c82f316d430d"/>
+    <sys_hub_action_instance_v2 action="INSERT_OR_UPDATE">
+        <action_type display_value="Ask For Approval">f8f2e9920b10030085c083eb37673abd</action_type>
+        <action_type_parent display_value="Ask For Approval">bae0a1120b10030085c083eb37673a92</action_type_parent>
+        <attributes/>
+        <comment/>
+        <compiled_snapshot>f8f2e9920b10030085c083eb37673abd</compiled_snapshot>
+        <display_text/>
+        <flow display_value="Launchpad Equipment Procurement">d213bc2e47310b94f301c82f316d43a4</flow>
+        <generation_source/>
+        <order>3</order>
+        <parent_ui_id>2099f3e6-9401-497e-8c52-02f9f3c898e5</parent_ui_id>
+        <sys_class_name>sys_hub_action_instance_v2</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-03 19:15:47</sys_created_on>
+        <sys_id>43322e6647bd0b94f301c82f316d4357</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_scope display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</sys_scope>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-03 19:15:47</sys_updated_on>
+        <ui_id>19ae2d65-14e1-46b3-aa66-e28c1a1efe98</ui_id>
+        <updation_source/>
+        <values>H4sIAAAAAAAA/+1YXW/iOBT9K8jPlE0ISQNvVVGlruZDKp15KVVk7BvwyjiZOOkMi/jvcxM7JAMthRXz0O28VPL1vc65h3P80Yc1EZyMyGUY92E47Dsz13E8xwl95oQezLzL4NKjzCFdougSMDMDlmQcx09UFmVgvZ5A9iQYdK5pTmUyj9xeBt8K0HkkclhuNpjMhU4lXX21NRhhCyF5BoqMHh67JKUZLp9DRkbrnalj8Uk6A4mpdzXAXcD5Ki3HPGHFEhSCq4MfbOXYznRuxziDRSUcp0vgRw6KA+KIqdTQJUuqOM2TbEVGeVZgIAPKPyu52mYshMpNn0v6Q4t/8cNev8yLARtjloPtMLL8mHA8RiInuDLLi2xLV4IUa0MJh5gWMr9ux0zC5zQXiTIlOZ3JujqRxVJ9MoSQ7QKtn6PQCALSss8SuWkrniyS73c1yBuhKkZsizJhVG5HNM8zMSvyEs6agISK4iVNU6HmUZolT6IqRijL3lzioBfL5Dt+U4u56lFW4u4hq7R3g/FxFf5KM1E28RGXweJNl+iVvpZU66YV5DD6VpRITGO2hahiwVBQ1rFMpPkVfuUJLOZN12p/xg5qizVSMss10tcsQqVXKt/X+J3xAPDOrZk/TfFHoKoVf29h7aC0eq+GUTX3q9yrss4nM2HV7h5Wu400cjc6eUbtofOG1G7bevNyf03pMAg8H/9cxp7j9l0nhCAM2dChLAwCf+A1GkIE2AOVqG+qce1G82fYzI+AUUv7yuLo3NU4XgRo5a7xh1HzHalP6qCVef9Emb+8q7vBexJ6Ie53WDaRPZ5/jyPKz31RAvfV21JHQX8WDJ2QX/DYmV0MQs+/oAycCwhcH3weMN/1foOLHPfQzszDZ0QaC5DtO1M9sW+m1sxppjoC1Z6pbiysl+BaS1XD506Qqn7nBDmftULHeUveek9XJnZQbNA6SP5JikwdcEC0ELpSxotOaGWc5ogjQNaO+Nug3DXELvj/4gfvjx/+/34Y+Ael1rqcb1XNEsVFiVi3XGF2ZtBXavXl4bWHdS9BoMCj2aqHgqJzyDabx30fnWXN05x3BB3b13ohQb9Gj/Vdc+ezRW3vNTdFO2n9NzjX+/2N2e+9vGnYQa3Fw0ZbvECCaN5+wK+nxMCektGUqETBlHSnpMyKSnFVYcxAcNuJKrbemHGRUVvutoZNLacrXWVqtgCOyqyiv0Siygo2fo7/lR3BSO2+cQGdsaFkn6T6QVXjNKyIvVNvYhOqlf66F+3Tzz/b6Tf4Y75zPJ+i7QMDjzbc+87oyMef5aPDuU0WAAA=</values>
+    </sys_hub_action_instance_v2>
+    <sys_hub_alias_mapping action="delete_multiple" query="source_id=43322e6647bd0b94f301c82f316d4357"/>
+    <sys_hub_action_instance_v2 action="INSERT_OR_UPDATE">
+        <action_type display_value="Create Catalog Task">af51fd0e73141300612c273ffff6a785</action_type>
+        <action_type_parent display_value="Create Catalog Task">f597c41073081300612c273ffff6a767</action_type_parent>
+        <attributes/>
+        <comment/>
+        <compiled_snapshot>af51fd0e73141300612c273ffff6a785</compiled_snapshot>
+        <display_text/>
+        <flow display_value="Launchpad Equipment Procurement">d213bc2e47310b94f301c82f316d43a4</flow>
+        <generation_source/>
+        <order>6</order>
+        <parent_ui_id/>
+        <sys_class_name>sys_hub_action_instance_v2</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-03 19:57:22</sys_created_on>
+        <sys_id>c0cb262a47fd0b94f301c82f316d4391</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_scope display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</sys_scope>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-03 19:57:22</sys_updated_on>
+        <ui_id>6e9cff93-206b-49f5-8692-b9c5773b820a</ui_id>
+        <updation_source/>
+        <values>H4sIAAAAAAAA/+1Y227jNhD9FUFPLWC4viR2kLc2hosC210gXqQPi4VASyOLWIrUkpS9rpF/36FE2pLlKHarBFm0etMML2cuh8Php51PI//WJ/H1MI4GMB0Pr4bjwWAyHIWj6TjGb0KmNzd+z+ckBTMyCTRZMgiK/56/Jiw3chWiXH1BSURVxsj2oaEIE8oiCdy//fS552dE4goapH+7O1KdC4mRJTAc+tEA8t6XgJ7AqbeZETdk706tIWRkcA16PnzTwCNAQDFhCnp+SnhEtJDbvUQCiT5whgItc/xPKNe4oG/GflP0b9z2ZmCGxYAWhlDq9r+B9VcpjmdEkwUuFOpc2qFhImgIqvRNBDHJmb6rysoBHzJNBS+nFGba2YLlKX9fesXfL9AMj1XMngpfrhArZMYdxkBrfbxIxObeGTOnvPCcVTIRErb/I1pLusy1gb3zgUGKCwUpyTLKV0EmxZoWkxFy2l8x/OnHTGxwU0VXvE9CY18fvU/6c5TPCvEDkdQY+ycug5NxF2bmFLBRrEzMMSyooAqlkmbONwUq/7Hnq626Y0Spg48wOMHX3EAvPWaNDkr3minFQr8iojVY+x57lkvTcVvikkEtRyV8zUFpiAKqIa3wabdbgFxjWL07NJiJVTDs28HF0P5hZixkP6YSFWbdx8cmBy8m3xk2OPLdOxzeH6UFLcZZEh6oUOfgfUVuKThsp2DJuAMD7YgTFByP6hTEBEF4DtgpNjYMe3VudkG6eAFEhsmcAjOB5Xm6LGnyKmQUGJUgkiLLrNEFF7vn3Hjamq+TWlqqREhtDCkWNHE50G4GGRNb7x3JeZhkJPJ+R/d5yLAmqdqGXsa2M9A7ti0Mdm9Ww95umeWcwnDz1RHhFk5o2Ta6sOA9TbfhaDB4u0XvR6lmL1Cc2lMtrKVTbA4NVWFHF5XleQAu1+du+xOI3HUOUkSjISgRHl3prNJ7sEqb5ePOsnxy3cjyw33pVLLbWu59LIe8gcQvK+gPn/eUZ7lW/fqt/xkuxK2puBzVMm9DqK4wYdikgr1mXkaHMzA4OvxVImhAslRYCsGA8GMOIKhf5sVNd5//V53l/9XbPeJtNE43NVb5H60Bz+RcpdnfH6+h7UGOmpQO6sEZYNjxee5O0XrD8RTYy5uO684IcqLrQHRtXceRbW+gQvz7nqN8VHmdjgOvwNj9F/u/XLsxXbYmbeUZyuXi2uLs+jb1PBDHHpdYDxUkLSBd28BylSzz8AvoI94sjMb7zaksdSb/dxD/sHpQFcR4fKHvDnEIOEDhSftY1Xs52ohcolOdA8wBFYjCM4hh4zs6oGoTH/D99LN5V+MhyyMIUnQPlbjzXg268vxm3FUBBjLYyHL3zmn6+TvagquF1xYAAA==</values>
+    </sys_hub_action_instance_v2>
+    <sys_hub_alias_mapping action="delete_multiple" query="source_id=c0cb262a47fd0b94f301c82f316d4391"/>
+    <sys_hub_action_instance_v2 action="INSERT_OR_UPDATE">
+        <action_type display_value="Ask For Approval">f8f2e9920b10030085c083eb37673abd</action_type>
+        <action_type_parent display_value="Ask For Approval">bae0a1120b10030085c083eb37673a92</action_type_parent>
+        <attributes/>
+        <comment/>
+        <compiled_snapshot>f8f2e9920b10030085c083eb37673abd</compiled_snapshot>
+        <display_text/>
+        <flow display_value="Launchpad Equipment Procurement">d213bc2e47310b94f301c82f316d43a4</flow>
+        <generation_source/>
+        <order>5</order>
+        <parent_ui_id>e87ca813-a5e2-4c11-b4dd-3069d142e818</parent_ui_id>
+        <sys_class_name>sys_hub_action_instance_v2</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-03 19:15:47</sys_created_on>
+        <sys_id>cb322e6647bd0b94f301c82f316d4357</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_scope display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</sys_scope>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-03 19:15:47</sys_updated_on>
+        <ui_id>a28b65d8-0e01-4310-a614-b911d6180d4a</ui_id>
+        <updation_source/>
+        <values>H4sIAAAAAAAA/+1YXW/iOBT9K8jPlE0IpIG3qqhSV/Mhlc68lCoy9g14ZRzGTjrDIv773MQOyUBLYcU8dDsvlXx9r3Pu4Rx/9GFNBCdDchklXRgMut7U97zA86I+86IApsFleBlQ5pE2UXQBmKmBpZrj+InKvAis12PQT4JB65pmVKaz2O9o+JaDyWKRwWKzwWQuzFLS1VdXgxE2F5JrUGT48NgmS6px+Qw0Ga53po7FJ+kUJKbeVQB3AWerZTHmKcsXoBBcFfzgKkdupnU7whksKuB4bQI/MlAcEEdCpYE2WVDFaZbqFRlmOseABso/K7naZsyFymyfC/rDiH/xw0G3yEsAG2OOg+0wdvzYcDJCIse4MstyvaUrRYqNpYRDQnOZXTdjNuHzMhOpsiUZncqqOpX5Qn2yhJDtAo2fIzcIApZFnwVy21Yynqff7yqQN0KVjLgWZcqo3I5olmkxzbMCzpqAhJLiBV0uhZrFS50+ibIYoSw6M4mDTiLT7/hNI2aqQ1mBu4Os0s4Nxkdl+CvVomjiIy6DxZs2MStzLakxdSvIYfwtL5DYxlwLccmCpaCoY1ossyv8yhM4zJu20/6UHdQWq6Vkl6ulb1iMSi9Vvq/xO+sB4K1bO3+a4o9AVSn+3sHaQen0Xg7jcu5XuZdlrU92wqndP6x2F6nlbnXyjNoj7w2p3bX15uX+mtKhFwZ9/HOZBJ7f9b0IwihiA4+yKAz7vaDWECLAHqhEfVODa9eaP8NmfgSMStpXDkfrrsLxIkAnd4M/jJrtSH1cBZ3MuyfK/OVd3Q/fk9Bzcb/Dso3s8fx7HFF87osSuK/eFjoKu9Nw4EX8gife9KIXBf0LysC7gNDvQ5+HrO8Hv8FFnn9oZ+bRMyJNBMjmnama2DdTY+Y0Ux2Bas9UNw7WS3CdpcrhcydIWb9zgpzPWpHnvSVvvacrEzsoNmgcJP+kuVYHHBDPhSmV8aITGhmnOeIIkJUj/rYodw2xC/6/+CH444f/vx96/YNSa1zOt6pmqeKiQGwarrA7M5grtfry8NrDuhoAj5NUd1BUdAZ6s3nc99LZ1j3NgUfQsn215xLMazQ5/9V3P1fU9GB9Y3STzoe9c73j35gN38vbhh3UWjKotcVzJIhmzYf8ekIs7AkZTohKFUxIe0KKrLgQVxnGDAS3nShj640d55q6cr8xrGs5XZky07A5cFRmGf0lEpdWcPFz/M/sCEYq941yaI0sJfskVQ+rCqdlReydfmOXUK70171onoL9s52CvT/mO8czKt4+NPCIw73vjI58/AkK4zGJVRYAAA==</values>
+    </sys_hub_action_instance_v2>
+    <sys_hub_alias_mapping action="delete_multiple" query="source_id=cb322e6647bd0b94f301c82f316d4357"/>
+    <sys_hub_sub_flow_instance_v2 action="delete_multiple" query="flow=d213bc2e47310b94f301c82f316d43a4"/>
+    <sys_hub_flow_logic_instance_v2 action="delete_multiple" query="flow=d213bc2e47310b94f301c82f316d43a4^sys_idNOT IN83322e6647bd0b94f301c82f316d435b,8f322e6647bd0b94f301c82f316d4358"/>
+    <sys_hub_flow_logic_instance_v2 action="INSERT_OR_UPDATE">
+        <attributes/>
+        <block display_value="">b7226a6647bd0b94f301c82f316d43f8</block>
+        <comment/>
+        <connected_to>2099f3e6-9401-497e-8c52-02f9f3c898e5</connected_to>
+        <decision_table/>
+        <display_text/>
+        <flow display_value="Launchpad Equipment Procurement">d213bc2e47310b94f301c82f316d43a4</flow>
+        <flow_variables_assigned/>
+        <generation_source/>
+        <logic_definition display_value="Else">1f781bf3c32232002841b63b12d3aee6</logic_definition>
+        <order>4</order>
+        <outputs_assigned/>
+        <parent_ui_id/>
+        <sys_class_name>sys_hub_flow_logic_instance_v2</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-03 19:15:47</sys_created_on>
+        <sys_id>83322e6647bd0b94f301c82f316d435b</sys_id>
+        <sys_mod_count>5</sys_mod_count>
+        <sys_scope display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</sys_scope>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-03 19:57:23</sys_updated_on>
+        <ui_id>e87ca813-a5e2-4c11-b4dd-3069d142e818</ui_id>
+        <updation_source/>
+        <values>H4sIAAAAAAAA/6tWyi8tKSgtKQ7JdywuzkzPU7KKjtVRyswDiUHYZYlFmYlJOalQbkpqcmZxZn5eCEjME0ldSmVeYm5mMrJQeX5RdlpOfjlCrBYAD1ouqHEAAAA=</values>
+        <workflow_reference/>
+    </sys_hub_flow_logic_instance_v2>
+    <sys_hub_flow_logic_instance_v2 action="INSERT_OR_UPDATE">
+        <attributes/>
+        <block display_value="">7b226a6647bd0b94f301c82f316d43e7</block>
+        <comment/>
+        <connected_to/>
+        <decision_table/>
+        <display_text/>
+        <flow display_value="Launchpad Equipment Procurement">d213bc2e47310b94f301c82f316d43a4</flow>
+        <flow_variables_assigned/>
+        <generation_source/>
+        <logic_definition display_value="If">af4e1945c3e232002841b63b12d3ae3e</logic_definition>
+        <order>2</order>
+        <outputs_assigned/>
+        <parent_ui_id/>
+        <sys_class_name>sys_hub_flow_logic_instance_v2</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-03 19:15:47</sys_created_on>
+        <sys_id>8f322e6647bd0b94f301c82f316d4358</sys_id>
+        <sys_mod_count>5</sys_mod_count>
+        <sys_scope display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</sys_scope>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-03 19:57:23</sys_updated_on>
+        <ui_id>2099f3e6-9401-497e-8c52-02f9f3c898e5</ui_id>
+        <updation_source/>
+        <values>H4sIAAAAAAAA/+1WW0/bMBj9K5afhpRWzqVZ4Y3LYJXoxmjHJu0SObbTWrh2FjtAV/W/73OSll2YGALtiYdK9fFnf+cc26ddYVO7snZ2avatlTON9z59CbDUHoPvK1woc31qZpKNtHVUMzFZ2hHHe7gQdDBIU5G8jDnJd5MiJiEbRkUcpjyJicAB1nQhoJIZzaWTRmcNEOArqmo/MSrQazmbows/Rq++1bJcCO2ggktbKrq8uLeQzaXileh4l7SCDk5UeG/125RsOBNahLssZHGUxhEh0TAJ8zTOw4jHVNAYNlQ0FwpKDzek0WmD/F2NW5Yet66SetaNT7tdJhvQVNyzCkmAxY0TmgvgU1BlRYAXVHPqTLXcIpWg/K1Wt8Bcgto9jH3xjZXfoWE0GPjCQoBEJtrJ7TDrDGzh4og6ClRq5uqqK2VzI5mwrTlcFLRW7vBnrC14W3qp7RJHc7VZbVS90G9aR/B2g815AVJbICFKr9RT73QUk7m5Pt+wPJa6caWbVIZRtR1RB97ltfN8Vlgo4U88W9CyBEezsjJXslkMXBb9mYJB399VaOrvcZ8yT7wPxtL+MeBHDXxBK+lVjGEbWNzSzKmVLGvuPGwHNgm8DrBd2kNFrb0VCe5m32pPsZXcictaf/wSVsnS7UPnK9HpWAdP+4R+ej2rVTgMoyiirBe9FKSXDEXSy9M87dGkGPKCpHmeRn1FS2fKbGG4UOv155qQmIdpT2o2R+MYjekNfNiBMZforDLoRZqcHKD3WhZScDQWC7iXAQqnB2gyOdr5+ubdY9om27a+1S9t4+iOtoPQo49vPIX3c3lGOToL0YnQKEVjk0sl0AdTXcKZNO/8xUg7oZDcDVDjwfn+OEDn048oIUOy82coPfv/n/1/WNbv0kExCMng7qxP0ruy/u4H95CAj+4JeJ8u/5jvhJDngH90wEubtbHcaWuaP2G+f/GB3Pbces2kBWpTj402/6T8xBIul/8VuIWu4f57UbfY+gcJQIb1kwkAAA==</values>
+        <workflow_reference/>
+    </sys_hub_flow_logic_instance_v2>
+    <sys_hub_pill_compound action="delete_multiple" query="attached_to=d213bc2e47310b94f301c82f316d43a4"/>
+    <sys_hub_flow_variable action="delete_multiple" query="model=d213bc2e47310b94f301c82f316d43a4"/>
+    <sys_documentation action="INSERT_OR_UPDATE">
+        <element>table_name</element>
+        <help/>
+        <hint/>
+        <label>Table Name</label>
+        <language>en</language>
+        <name>var__m_sys_hub_flow_input_d213bc2e47310b94f301c82f316d43a4</name>
+        <plural/>
+        <sys_class_name>sys_documentation</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-03 11:10:14</sys_created_on>
+        <sys_id>6a13bc2e47310b94f301c82f316d43d8</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="Launchpad" source="x_2062828_launch_0">6e8263bd4739c394f301c82f316d4371</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</sys_scope>
+        <sys_update_name/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-03 11:10:14</sys_updated_on>
+        <url/>
+        <url_target/>
+    </sys_documentation>
+    <sys_documentation action="INSERT_OR_UPDATE">
+        <element>request_item</element>
+        <help/>
+        <hint/>
+        <label>Request Item</label>
+        <language>en</language>
+        <name>var__m_sys_hub_flow_input_d213bc2e47310b94f301c82f316d43a4</name>
+        <plural/>
+        <sys_class_name>sys_documentation</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-03 11:10:15</sys_created_on>
+        <sys_id>ee13bc2e47310b94f301c82f316d43e3</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="Launchpad" source="x_2062828_launch_0">6e8263bd4739c394f301c82f316d4371</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</sys_scope>
+        <sys_update_name/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-03 11:10:15</sys_updated_on>
+        <url/>
+        <url_target/>
+    </sys_documentation>
+    <sys_choice action="delete_multiple" query="name=var__m_sys_hub_flow_input_d213bc2e47310b94f301c82f316d43a4"/>
+    <sys_choice action="delete_multiple" query="name=var__m_sys_hub_flow_output_d213bc2e47310b94f301c82f316d43a4"/>
+    <sys_hub_flow action="UPDATE">
+        <sys_id>d125606247fdc794f301c82f316d439a</sys_id>
+        <latest_snapshot>d213bc2e47310b94f301c82f316d43a4</latest_snapshot>
+        <compiler_build/>
+        <version_record/>
+    </sys_hub_flow>
+    <sys_flow_trigger_plan action="delete_multiple" query="plan_id=d125606247fdc794f301c82f316d439a^sys_idNOT IN8b13fc2e47310b94f301c82f316d4357"/>
+    <sys_flow_trigger_plan action="INSERT_OR_UPDATE">
+        <binding_strategy>com.snc.process_flow.engine.binding.RunAlways</binding_strategy>
+        <plan/>
+        <plan_id>d125606247fdc794f301c82f316d439a</plan_id>
+        <snapshot>d213bc2e47310b94f301c82f316d43a4</snapshot>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-03 11:10:17</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>8b13fc2e47310b94f301c82f316d4357</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_overrides/>
+        <sys_scope/>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-03 11:10:17</sys_updated_on>
+        <trigger display_value="">8b13fc2e47310b94f301c82f316d4356</trigger>
+    </sys_flow_trigger_plan>
+    <sys_flow_subflow_plan action="delete_multiple" query="plan_id=d125606247fdc794f301c82f316d439a"/>
+</record_update>

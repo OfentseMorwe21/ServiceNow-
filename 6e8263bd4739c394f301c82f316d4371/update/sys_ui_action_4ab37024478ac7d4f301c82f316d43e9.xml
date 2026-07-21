@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_ui_action">
+    <sys_ui_action action="INSERT_OR_UPDATE">
+        <action_name>approve_and_fulfill_action</action_name>
+        <active>true</active>
+        <client>true</client>
+        <client_script_v2><![CDATA[function onClick(g_form) {
+
+}]]></client_script_v2>
+        <comments/>
+        <condition>current.state == 2 &amp;&amp; (gs.hasRole('x_2062828_launch_0.fulfiller') || gs.hasRole('admin'))</condition>
+        <form_action>true</form_action>
+        <form_button>true</form_button>
+        <form_button_icon/>
+        <form_button_v2>false</form_button_v2>
+        <form_context_menu>false</form_context_menu>
+        <form_link>false</form_link>
+        <form_menu_button_v2>false</form_menu_button_v2>
+        <form_style/>
+        <format_for_configurable_workspace>false</format_for_configurable_workspace>
+        <hint/>
+        <isolate_script>false</isolate_script>
+        <list_action>false</list_action>
+        <list_banner_button>false</list_banner_button>
+        <list_button>false</list_button>
+        <list_button_icon/>
+        <list_choice>false</list_choice>
+        <list_context_menu>false</list_context_menu>
+        <list_link>false</list_link>
+        <list_save_with_form_button>false</list_save_with_form_button>
+        <list_style/>
+        <messages/>
+        <name>Approve and Fulfil</name>
+        <onclick>onClickApproveFulfill()</onclick>
+        <order>100</order>
+        <script><![CDATA[// 1. CLIENT-SIDE: This runs in the browser first to catch the click
+function onClickApproveFulfill() {
+    // Show the confirmation pop-up box
+    var confirmApprove = confirm("Are you sure you want to approve and fulfill this request?");
+    
+    // If the user clicks 'Cancel', abort immediately
+    if (!confirmApprove) {
+        return false;
+    }
+    
+    // If they click 'OK', safely submit the form to run the server block
+    gsftSubmit(null, g_form.getFormElement(), 'approve_and_fulfill_action');
+}
+
+// 2. SERVER-SIDE: This block is triggered ONLY after clicking 'OK' on the pop-up
+if (typeof window == 'undefined') {
+    runFulfillmentCode();
+}
+
+function runFulfillmentCode() {
+    var utils = new OnboardingUtils();
+    
+    // Validate using your custom Script Include
+    if (utils.validateRequest(current)) {
+        
+        // Set standard RITM fulfillment values
+        current.state = 3;             // OOTB RITM State 3 = Closed Complete
+        current.stage = 'fulfillment';  // Update workflow stage
+        
+        // Safely handle assigning the closer
+        if (current.isValidField('assigned_to')) {
+            current.assigned_to = gs.getUserID();
+        }
+        
+        // If a custom resolution field exists, track who resolved it
+        if (current.isValidField('u_resolved_by')) {
+            current.u_resolved_by = gs.getUserID();
+        }
+
+        utils.logAction(current, 'Request Approved and Fulfilled');
+        current.update();
+        
+        // Keep the user on the current record page instead of routing to a blank form
+        action.setRedirectURL(current);
+        gs.addInfoMessage(gs.getMessage('Requested Item {0} has been successfully closed and fulfilled.', current.number));
+        
+    } else {
+        // Validation failed - show error banner and stay on page
+        gs.addErrorMessage('Fulfillment failed: Please ensure the required operational fields (Assignment Group, Category, and Due Date) are populated.');
+        action.setRedirectURL(current);
+    }
+}]]></script>
+        <show_form_icon_only>false</show_form_icon_only>
+        <show_insert>false</show_insert>
+        <show_list_icon_only>false</show_list_icon_only>
+        <show_multiple_update>false</show_multiple_update>
+        <show_query>false</show_query>
+        <show_update>true</show_update>
+        <sys_class_name>sys_ui_action</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-09 16:23:36</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>4ab37024478ac7d4f301c82f316d43e9</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>Approve and Fulfil</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="Launchpad" source="x_2062828_launch_0">6e8263bd4739c394f301c82f316d4371</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</sys_scope>
+        <sys_update_name>sys_ui_action_4ab37024478ac7d4f301c82f316d43e9</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-20 08:56:00</sys_updated_on>
+        <table>sc_req_item</table>
+        <ui11_compatible>true</ui11_compatible>
+        <ui16_compatible>false</ui16_compatible>
+    </sys_ui_action>
+</record_update>

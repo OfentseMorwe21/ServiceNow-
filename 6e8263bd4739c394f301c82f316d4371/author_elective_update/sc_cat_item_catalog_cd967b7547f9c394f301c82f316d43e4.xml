@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sc_cat_item_catalog">
+    <sc_cat_item_catalog action="DELETE">
+        <sc_cat_item display_value="Equipment Request">9d36377547f9c394f301c82f316d43f1</sc_cat_item>
+        <sc_catalog display_value="Service Catalog">e0d08b13c3330100c8b837659bba8fb4</sc_catalog>
+        <sys_class_name>sc_cat_item_catalog</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-01 17:28:51</sys_created_on>
+        <sys_id>cd967b7547f9c394f301c82f316d43e4</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Service Catalog.Equipment Request</sys_name>
+        <sys_package display_value="Launchpad" source="x_2062828_launch_0">6e8263bd4739c394f301c82f316d4371</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</sys_scope>
+        <sys_update_name>sc_cat_item_catalog_cd967b7547f9c394f301c82f316d43e4</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-01 17:28:51</sys_updated_on>
+    </sc_cat_item_catalog>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</application>
+        <file_path/>
+        <instance_id>4f244272ebe8039c56eafddacad0cd3d</instance_id>
+        <instance_name>dev396915</instance_name>
+        <name>sc_cat_item_catalog_cd967b7547f9c394f301c82f316d43e4</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sc_cat_item_catalog"><sc_cat_item_catalog action="INSERT_OR_UPDATE"><sc_cat_item display_value="Equipment Request">9d36377547f9c394f301c82f316d43f1</sc_cat_item><sc_catalog display_value="Service Catalog">e0d08b13c3330100c8b837659bba8fb4</sc_catalog><sys_class_name>sc_cat_item_catalog</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2026-07-01 17:28:51</sys_created_on><sys_id>cd967b7547f9c394f301c82f316d43e4</sys_id><sys_mod_count>0</sys_mod_count><sys_name>Service Catalog.Equipment Request</sys_name><sys_package display_value="Launchpad" source="x_2062828_launch_0">6e8263bd4739c394f301c82f316d4371</sys_package><sys_policy/><sys_scope display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</sys_scope><sys_update_name>sc_cat_item_catalog_cd967b7547f9c394f301c82f316d43e4</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2026-07-01 17:28:51</sys_updated_on></sc_cat_item_catalog></record_update>]]></payload>
+        <payload_hash>-2125608695</payload_hash>
+        <record_name>Service Catalog.Equipment Request</record_name>
+        <reverted_from/>
+        <source>6a8263bd4739c394f301c82f316d4375</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-01 17:28:51</sys_created_on>
+        <sys_id>c59633b547f9c394f301c82f316d432f</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>19f1eb9f7ec0000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-01 17:28:51</sys_updated_on>
+        <type>Catalog Items Catalog</type>
+        <update_guid>459633b5bef9c394e8094b132304552e</update_guid>
+        <update_guid_history>459633b5bef9c394e8094b132304552e:-2125608695</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="Service Catalog.Equipment Request">58f361c2470ec318f301c82f316d4347</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-14 11:42:21</sys_created_on>
+        <sys_db_object display_value="" name="sc_cat_item_catalog">sc_cat_item_catalog</sys_db_object>
+        <sys_id>1de25d8d1e4542e884f88791a9780fb9</sys_id>
+        <sys_metadata>cd967b7547f9c394f301c82f316d43e4</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Service Catalog.Equipment Request</sys_name>
+        <sys_package display_value="Launchpad" source="x_2062828_launch_0">6e8263bd4739c394f301c82f316d4371</sys_package>
+        <sys_parent display_value="Equipment Request">9d36377547f9c394f301c82f316d43f1</sys_parent>
+        <sys_policy/>
+        <sys_scope display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</sys_scope>
+        <sys_scope_delete display_value="">c6c3a19153a145709d697dc6ddb23900</sys_scope_delete>
+        <sys_update_name>sc_cat_item_catalog_cd967b7547f9c394f301c82f316d43e4</sys_update_name>
+        <sys_update_version display_value="sc_cat_item_catalog_cd967b7547f9c394f301c82f316d43e4">c59633b547f9c394f301c82f316d432f</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-14 11:42:21</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

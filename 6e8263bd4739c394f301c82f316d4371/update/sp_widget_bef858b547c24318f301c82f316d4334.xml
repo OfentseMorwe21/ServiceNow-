@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[api.controller = function($window) {
+  var c = this;
+
+  c.openArticle = function(article) {
+    $window.location.href = '/kb?id=kb_article&sys_id=' + article.sys_id;
+  };
+};]]></client_script>
+        <controller_as>c</controller_as>
+        <css>/*&#13;
+===============================================================================&#13;
+KB FEATURED ARTICLES — SPAR Futuristic edition&#13;
+Paste into the widget's CSS field&#13;
+Moves the dark-grey/forest-green look to the theme's light glass-card language:&#13;
+white/glass cards, red-to-green gradient accents, bold hover glow.&#13;
+===============================================================================&#13;
+*/&#13;
+&#13;
+/* Container */&#13;
+.kb-featured {&#13;
+  padding: 24px !important;&#13;
+  font-family: 'Inter', 'Segoe UI', sans-serif !important;&#13;
+}&#13;
+&#13;
+/* Header */&#13;
+.kb-header {&#13;
+  margin-bottom: 24px !important;&#13;
+}&#13;
+.kb-title {&#13;
+  font-size: 1.5rem !important;&#13;
+  font-weight: 800 !important;&#13;
+  color: #0F172A !important;&#13;
+  letter-spacing: -0.02em !important;&#13;
+  margin-bottom: 4px !important;&#13;
+  font-family: 'Inter', 'Segoe UI', sans-serif !important;&#13;
+}&#13;
+.kb-subtitle {&#13;
+  font-size: 0.875rem !important;&#13;
+  color: #64748B !important;&#13;
+}&#13;
+&#13;
+/* Grid */&#13;
+.kb-grid {&#13;
+  display: grid !important;&#13;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)) !important;&#13;
+  gap: 16px !important;&#13;
+}&#13;
+&#13;
+/* Card — light glass, gradient top edge revealed on hover, bold lift + glow */&#13;
+.kb-card {&#13;
+  position: relative !important;&#13;
+  background: rgba(255, 255, 255, 0.9) !important;&#13;
+  border: 1px solid #E2E8F0 !important;&#13;
+  border-radius: 12px !important;&#13;
+  padding: 20px !important;&#13;
+  cursor: pointer !important;&#13;
+  overflow: hidden !important;&#13;
+  transition: transform 280ms cubic-bezier(0.34, 1.56, 0.64, 1),&#13;
+              box-shadow 280ms ease,&#13;
+              border-color 280ms ease !important;&#13;
+  display: flex !important;&#13;
+  flex-direction: column !important;&#13;
+  gap: 8px !important;&#13;
+  animation: kbFadeInUp 450ms cubic-bezier(0.16,1,0.3,1) both !important;&#13;
+}&#13;
+.kb-card::before {&#13;
+  content: "" !important;&#13;
+  position: absolute !important;&#13;
+  top: 0 !important;&#13;
+  left: 0 !important;&#13;
+  right: 0 !important;&#13;
+  height: 3px !important;&#13;
+  background: linear-gradient(90deg, $brand-primary 0%, $brand-success 100%) !important;&#13;
+  opacity: 0 !important;&#13;
+  transition: opacity 280ms ease !important;&#13;
+}&#13;
+.kb-card:hover {&#13;
+  background: #ffffff !important;&#13;
+  border-color: rgba(227, 6, 19, 0.25) !important;&#13;
+  transform: translateY(-6px) !important;&#13;
+  box-shadow: 0 14px 28px -6px rgba(227, 6, 19, 0.18) !important;&#13;
+}&#13;
+.kb-card:hover::before {&#13;
+  opacity: 1 !important;&#13;
+}&#13;
+&#13;
+/* Stagger the entrance so the grid cascades in */&#13;
+.kb-grid .kb-card:nth-child(2) { animation-delay: 60ms !important; }&#13;
+.kb-grid .kb-card:nth-child(3) { animation-delay: 120ms !important; }&#13;
+.kb-grid .kb-card:nth-child(4) { animation-delay: 180ms !important; }&#13;
+.kb-grid .kb-card:nth-child(5) { animation-delay: 240ms !important; }&#13;
+.kb-grid .kb-card:nth-child(6) { animation-delay: 300ms !important; }&#13;
+&#13;
+/* Category badge — gradient chip, glows a little brighter on card hover */&#13;
+.kb-card-category {&#13;
+  display: inline-block !important;&#13;
+  background: linear-gradient(135deg, rgba(0, 122, 51, 0.12) 0%, rgba(227, 6, 19, 0.10) 100%) !important;&#13;
+  color: $brand-success !important;&#13;
+  border: 1px solid rgba(0, 122, 51, 0.30) !important;&#13;
+  border-radius: 999px !important;&#13;
+  font-size: 0.7rem !important;&#13;
+  font-weight: 700 !important;&#13;
+  letter-spacing: 0.05em !important;&#13;
+  text-transform: uppercase !important;&#13;
+  padding: 3px 10px !important;&#13;
+  width: fit-content !important;&#13;
+  transition: border-color 220ms ease, box-shadow 220ms ease !important;&#13;
+}&#13;
+.kb-card:hover .kb-card-category {&#13;
+  border-color: rgba(227, 6, 19, 0.45) !important;&#13;
+  box-shadow: 0 0 0 3px rgba(227, 6, 19, 0.08) !important;&#13;
+}&#13;
+&#13;
+/* Title */&#13;
+.kb-card-title {&#13;
+  font-size: 0.95rem !important;&#13;
+  font-weight: 700 !important;&#13;
+  color: #0F172A !important;&#13;
+  line-height: 1.4 !important;&#13;
+  margin: 0 !important;&#13;
+  transition: color 220ms ease !important;&#13;
+}&#13;
+.kb-card:hover .kb-card-title {&#13;
+  color: $brand-primary !important;&#13;
+}&#13;
+&#13;
+/* Description */&#13;
+.kb-card-desc {&#13;
+  font-size: 0.825rem !important;&#13;
+  color: #64748B !important;&#13;
+  line-height: 1.6 !important;&#13;
+  flex: 1 !important;&#13;
+  margin: 0 !important;&#13;
+}&#13;
+&#13;
+/* Read more — bold green, sweeps to red with an animated arrow on hover */&#13;
+.kb-read-more {&#13;
+  display: inline-flex !important;&#13;
+  align-items: center !important;&#13;
+  gap: 4px !important;&#13;
+  font-size: 0.8rem !important;&#13;
+  font-weight: 700 !important;&#13;
+  color: $brand-success !important;&#13;
+  margin-top: auto !important;&#13;
+  transition: color 220ms ease, letter-spacing 220ms ease !important;&#13;
+}&#13;
+.kb-read-more::after {&#13;
+  content: "\2192" !important; /* → */&#13;
+  display: inline-block !important;&#13;
+  transition: transform 220ms cubic-bezier(0.34,1.56,0.64,1) !important;&#13;
+}&#13;
+.kb-card:hover .kb-read-more {&#13;
+  color: $brand-primary !important;&#13;
+  letter-spacing: 0.03em !important;&#13;
+}&#13;
+.kb-card:hover .kb-read-more::after {&#13;
+  transform: translateX(4px) !important;&#13;
+}&#13;
+&#13;
+/* Empty state */&#13;
+.kb-empty {&#13;
+  text-align: center !important;&#13;
+  padding: 48px !important;&#13;
+  color: #94A3B8 !important;&#13;
+  font-size: 0.875rem !important;&#13;
+}&#13;
+&#13;
+/* Entrance animation */&#13;
+@keyframes kbFadeInUp {&#13;
+  from { opacity: 0; transform: translateY(14px) scale(0.98); }&#13;
+  to   { opacity: 1; transform: translateY(0) scale(1); }&#13;
+}&#13;
+&#13;
+/* Responsive */&#13;
+@media (max-width: 768px) {&#13;
+  .kb-grid {&#13;
+    grid-template-columns: 1fr !important;&#13;
+  }&#13;
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>launchpad_kb_featured</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {
+  
+}]]></link>
+        <name>Launchpad KB Featured Articles</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+    var articles = [];
+
+    // Get IT Onboarding KB sys_id
+    var kbGr = new GlideRecord('kb_knowledge_base');
+    kbGr.addQuery('title', 'IT Onboarding KB');
+    kbGr.query();
+
+    if (kbGr.next()) {
+        var kbSysId = kbGr.getUniqueValue();
+
+        var gr = new GlideRecord('kb_knowledge');
+        gr.addQuery('kb_knowledge_base', kbSysId);
+        gr.addQuery('workflow_state', 'published');
+        gr.orderByDesc('sys_updated_on');
+        gr.setLimit(8);
+        gr.query();
+
+        while (gr.next()) {
+            articles.push({
+                sys_id: gr.getUniqueValue(),
+                title: gr.getValue('short_description'),
+                short_description: gr.getValue('text') ?
+                    gr.getValue('text').replace(/<[^>]*>/g, '').substring(0, 120) + '...' :
+                    'Click to read this article',
+                category: gr.getDisplayValue('kb_category') || 'General',
+                number: gr.getValue('number')
+            });
+        }
+    }
+
+    data.articles = articles;
+    data.portalSuffix = 'onboarding';
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-13 11:40:08</sys_created_on>
+        <sys_id>bef858b547c24318f301c82f316d4334</sys_id>
+        <sys_mod_count>15</sys_mod_count>
+        <sys_name>Launchpad KB Featured Articles</sys_name>
+        <sys_package display_value="Launchpad" source="x_2062828_launch_0">6e8263bd4739c394f301c82f316d4371</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</sys_scope>
+        <sys_update_name>sp_widget_bef858b547c24318f301c82f316d4334</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-16 08:50:04</sys_updated_on>
+        <template><![CDATA[<div class="kb-featured">
+  <div class="kb-header">
+    <h3 class="kb-title">Knowledge Base</h3>
+    <p class="kb-subtitle">Browse Our IT Onboarding Featured Articles</p>
+  </div>
+
+  <div class="kb-grid">
+    <div class="kb-card" 
+         ng-repeat="article in c.data.articles"
+         ng-click="c.openArticle(article)">
+      <div class="kb-card-category">{{article.category}}</div>
+      <h4 class="kb-card-title">{{article.title}}</h4>
+      <p class="kb-card-desc">{{article.short_description}}</p>
+      <span class="kb-read-more">Read article →</span>
+    </div>
+  </div>
+
+  <div class="kb-empty" ng-if="c.data.articles.length === 0">
+    <p>No articles available.</p>
+  </div>
+</div>]]></template>
+    </sp_widget>
+</record_update>

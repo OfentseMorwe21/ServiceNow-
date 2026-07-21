@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_css_include">
+    <sp_css_include action="INSERT_OR_UPDATE">
+        <lazy_load>false</lazy_load>
+        <name>Google Loster Font</name>
+        <rtl_css_file_url/>
+        <source>url</source>
+        <sp_css/>
+        <sys_class_name>sp_css_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-20 12:38:17</sys_created_on>
+        <sys_id>243aa40c47964710f301c82f316d4359</sys_id>
+        <sys_mod_count>3</sys_mod_count>
+        <sys_name>Google Loster Font</sys_name>
+        <sys_package display_value="Launchpad" source="x_2062828_launch_0">6e8263bd4739c394f301c82f316d4371</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</sys_scope>
+        <sys_update_name>sp_css_include_243aa40c47964710f301c82f316d4359</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-21 06:30:55</sys_updated_on>
+        <url>https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400..700;1,400..700&amp;family=Playfair+Display:wght@400..900&amp;display=swap</url>
+    </sp_css_include>
+</record_update>

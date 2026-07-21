@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_ui_action">
+    <sys_ui_action action="INSERT_OR_UPDATE">
+        <action_name>reject_with_reason</action_name>
+        <active>true</active>
+        <client>true</client>
+        <client_script_v2><![CDATA[function onClick(g_form) {
+
+}]]></client_script_v2>
+        <comments/>
+        <condition>(current.state == 1 || current.state == 2) &amp;&amp; gs.hasRole('x_2062828_launch_0.fulfiller')</condition>
+        <form_action>true</form_action>
+        <form_button>true</form_button>
+        <form_button_icon/>
+        <form_button_v2>false</form_button_v2>
+        <form_context_menu>false</form_context_menu>
+        <form_link>false</form_link>
+        <form_menu_button_v2>false</form_menu_button_v2>
+        <form_style/>
+        <format_for_configurable_workspace>false</format_for_configurable_workspace>
+        <hint/>
+        <isolate_script>true</isolate_script>
+        <list_action>false</list_action>
+        <list_banner_button>false</list_banner_button>
+        <list_button>false</list_button>
+        <list_button_icon/>
+        <list_choice>false</list_choice>
+        <list_context_menu>false</list_context_menu>
+        <list_link>false</list_link>
+        <list_save_with_form_button>false</list_save_with_form_button>
+        <list_style/>
+        <messages/>
+        <name>Reject with Reason</name>
+        <onclick>onClickReject()</onclick>
+        <order>100</order>
+        <script><![CDATA[// Client side execution
+function onClickReject() {
+    var reason = prompt('Please enter a rejection reason:'); // Standard prompt
+    
+    // If user clicks cancel
+    if (reason === null) {
+        return;
+    }
+    
+    // If user clicks OK but left it blank
+    if (reason.trim() === '') {
+        g_form.addErrorMessage('A rejection reason is required to reject this request.');
+        return;
+    }
+    
+    // Set the value on the form and trigger the server block
+    g_form.setValue('u_rejection_reason', reason);
+    gsftSubmit(null, g_form.getFormElement(), 'reject_with_reason');
+}
+
+// Server side execution (Runs only after gsftSubmit is triggered successfully)
+if (typeof window == 'undefined') {
+    runServerCode();
+}
+
+function runServerCode() {
+    current.approval = 'rejected'; // Set approval status to Rejected
+    current.stage = 'request_cancelled'; // Optional: update the stage cleanly
+    current.state = 4; // Closed Incomplete / Rejected state
+    current.update();
+    
+    // Keep the user on the exact same RITM record page instead of sending them to a new blank form
+    action.setRedirectURL(current);
+}]]></script>
+        <show_form_icon_only>false</show_form_icon_only>
+        <show_insert>false</show_insert>
+        <show_list_icon_only>false</show_list_icon_only>
+        <show_multiple_update>false</show_multiple_update>
+        <show_query>false</show_query>
+        <show_update>true</show_update>
+        <sys_class_name>sys_ui_action</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-09 16:38:17</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>d80534e4478ac7d4f301c82f316d4330</sys_id>
+        <sys_mod_count>3</sys_mod_count>
+        <sys_name>Reject with Reason</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="Launchpad" source="x_2062828_launch_0">6e8263bd4739c394f301c82f316d4371</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</sys_scope>
+        <sys_update_name>sys_ui_action_d80534e4478ac7d4f301c82f316d4330</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-20 08:41:43</sys_updated_on>
+        <table>sc_req_item</table>
+        <ui11_compatible>true</ui11_compatible>
+        <ui16_compatible>false</ui16_compatible>
+    </sys_ui_action>
+</record_update>

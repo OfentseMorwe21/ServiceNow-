@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="m2m_sp_widget_dependency">
+    <m2m_sp_widget_dependency action="INSERT_OR_UPDATE">
+        <sp_dependency display_value="sp_codemirror_includes">016f19255b301200e39fc7ad31f91abd</sp_dependency>
+        <sp_widget display_value="Copy of SC Catalog Item">07bdf19a478e4718f301c82f316d4314</sp_widget>
+        <sys_class_name>m2m_sp_widget_dependency</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-15 08:13:32</sys_created_on>
+        <sys_id>43bdf19a478e4718f301c82f316d431d</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>sp_codemirror_includes.Copy of SC Catalog Item</sys_name>
+        <sys_package display_value="Launchpad" source="x_2062828_launch_0">6e8263bd4739c394f301c82f316d4371</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</sys_scope>
+        <sys_update_name>m2m_sp_widget_dependency_43bdf19a478e4718f301c82f316d431d</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-15 08:13:32</sys_updated_on>
+    </m2m_sp_widget_dependency>
+</record_update>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sc_cat_item_category">
+    <sc_cat_item_category action="INSERT_OR_UPDATE">
+        <sc_cat_item display_value="IT Help Request">9c34086e47b9c794f301c82f316d4395</sc_cat_item>
+        <sc_category display_value="IT Onboarding Services">fbf2ed02470ec318f301c82f316d4339</sc_category>
+        <sys_class_name>sc_cat_item_category</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-14 11:45:49</sys_created_on>
+        <sys_id>3eb4ad06470ec318f301c82f316d43ac</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>IT Onboarding Services.IT Help Request</sys_name>
+        <sys_package display_value="Launchpad" source="x_2062828_launch_0">6e8263bd4739c394f301c82f316d4371</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</sys_scope>
+        <sys_update_name>sc_cat_item_category_3eb4ad06470ec318f301c82f316d43ac</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-14 11:45:49</sys_updated_on>
+    </sc_cat_item_category>
+</record_update>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_user_role">
+    <sys_user_role action="INSERT_OR_UPDATE">
+        <assignable_by/>
+        <can_delegate>true</can_delegate>
+        <description>Assigned to new employees; permissions restricted to viewing and submitting their own transactional records.</description>
+        <elevated_privilege>false</elevated_privilege>
+        <federated_id>+P/AXwo3vODD/MS3gMBhKFKHt76th86jidddDH92tCc=</federated_id>
+        <grantable>true</grantable>
+        <includes_roles/>
+        <name>x_2062828_launch_0.employee</name>
+        <scoped_admin>false</scoped_admin>
+        <suffix>employee</suffix>
+        <sys_class_name>sys_user_role</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-01 16:06:15</sys_created_on>
+        <sys_id>b89327314779c394f301c82f316d4383</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>x_2062828_launch_0.employee</sys_name>
+        <sys_package display_value="Launchpad" source="x_2062828_launch_0">6e8263bd4739c394f301c82f316d4371</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</sys_scope>
+        <sys_update_name>sys_user_role_b89327314779c394f301c82f316d4383</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-01 16:10:29</sys_updated_on>
+    </sys_user_role>
+</record_update>

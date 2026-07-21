@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element attributes="global_search_config_handler=RequestItemSearchConfig,hasWorkflow=true" audit="true" create_roles="catalog_admin" db_object_id="1d5a1868f54403100a22c0b3dfa1516a" extends="task" label="Requested Item" max_length="40" name="sc_req_item" text_index="true" type="collection">
+        <element label="Rejection Reason" max_length="1000" name="x_2062828_launch_0_u_rejection_reason" type="string"/>
+        <element label="Fulfiller Notes" max_length="100" name="x_2062828_launch_0_fulfiller_notes" type="string_full_utf8"/>
+    </element>
+</database>

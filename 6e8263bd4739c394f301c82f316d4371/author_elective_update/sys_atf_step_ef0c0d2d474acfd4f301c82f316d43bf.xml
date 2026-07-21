@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_atf_step">
+    <sys_atf_step action="DELETE">
+        <active>true</active>
+        <callable_outputs/>
+        <copied_from/>
+        <description>Run Server Side Validation Script</description>
+        <display_name>Run Server Side Script</display_name>
+        <inputs/>
+        <mugshots_cache_json/>
+        <notes/>
+        <order>4</order>
+        <step_config display_value="Run Server Side Script">41de4a935332120028bc29cac2dc349a</step_config>
+        <sys_class_name>sys_atf_step</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-12 20:41:40</sys_created_on>
+        <sys_id>ef0c0d2d474acfd4f301c82f316d43bf</sys_id>
+        <sys_mod_count>12</sys_mod_count>
+        <sys_name>Run Server Side Script</sys_name>
+        <sys_package display_value="Launchpad" source="x_2062828_launch_0">6e8263bd4739c394f301c82f316d4371</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</sys_scope>
+        <sys_update_name>sys_atf_step_ef0c0d2d474acfd4f301c82f316d43bf</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-13 06:37:45</sys_updated_on>
+        <table/>
+        <test display_value="ATF-01 Submit Equipment Request">52224129470acfd4f301c82f316d431c</test>
+        <timeout/>
+        <warning_message/>
+    </sys_atf_step>
+    <sys_variable_value action="DELETE" query="document_key=ef0c0d2d474acfd4f301c82f316d43bf"/>
+    <sys_variable_value action="DELETE">
+        <document>sys_atf_step</document>
+        <document_key>ef0c0d2d474acfd4f301c82f316d43bf</document_key>
+        <order>100</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-12 20:41:40</sys_created_on>
+        <sys_id>783c05ad474acfd4f301c82f316d4314</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-12 20:41:40</sys_updated_on>
+        <value>3.1</value>
+        <variable display_value="Jasmine version">42f2564b73031300440211d8faf6a777</variable>
+    </sys_variable_value>
+    <sys_variable_value action="DELETE">
+        <document>sys_atf_step</document>
+        <document_key>ef0c0d2d474acfd4f301c82f316d43bf</document_key>
+        <order>200</order>
+        <sys_class_name>sys_variable_value</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-12 20:41:40</sys_created_on>
+        <sys_id>bc3c05ad474acfd4f301c82f316d4314</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-12 20:41:40</sys_updated_on>
+        <value>(function() {&#13;
+    var gr = new GlideRecord('sc_req_item');&#13;
+    gr.addQuery('cat_item.name', 'Equipment Loadout');&#13;
+    gr.orderByDesc('sys_created_on');&#13;
+    gr.setLimit(1);&#13;
+    gr.query();&#13;
+&#13;
+    if (gr.next()) {&#13;
+        var assignmentGroup = gr.getDisplayValue('assignment_group');&#13;
+        gs.info('Assignment Group: ' + assignmentGroup);&#13;
+        &#13;
+        assertEqual({&#13;
+            name: 'Auto Assignment Check — Equipment should go to IT Hardware',&#13;
+            expected: 'IT Hardware',&#13;
+            actual: assignmentGroup&#13;
+        });&#13;
+    } else {&#13;
+        fail('No Equipment Loadout request found in sc_req_item');&#13;
+    }&#13;
+})();</value>
+        <variable display_value="Test script">989d9e235324220002c6435723dc3484</variable>
+    </sys_variable_value>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</application>
+        <file_path/>
+        <instance_id>4f244272ebe8039c56eafddacad0cd3d</instance_id>
+        <instance_name>dev396915</instance_name>
+        <name>sys_atf_step_ef0c0d2d474acfd4f301c82f316d43bf</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_atf_step"><sys_atf_step action="INSERT_OR_UPDATE"><active>true</active><callable_outputs/><copied_from/><description>Run Server Side Validation Script</description><display_name>Run Server Side Script</display_name><inputs/><mugshots_cache_json/><notes/><order>4</order><step_config display_value="Run Server Side Script">41de4a935332120028bc29cac2dc349a</step_config><sys_class_name>sys_atf_step</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2026-07-12 20:41:40</sys_created_on><sys_id>ef0c0d2d474acfd4f301c82f316d43bf</sys_id><sys_mod_count>12</sys_mod_count><sys_name>Run Server Side Script</sys_name><sys_package display_value="Launchpad" source="x_2062828_launch_0">6e8263bd4739c394f301c82f316d4371</sys_package><sys_policy/><sys_scope display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</sys_scope><sys_update_name>sys_atf_step_ef0c0d2d474acfd4f301c82f316d43bf</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2026-07-13 06:37:45</sys_updated_on><table/><test display_value="ATF-01 Submit Equipment Request">52224129470acfd4f301c82f316d431c</test><timeout/><warning_message/></sys_atf_step><sys_variable_value action="delete_multiple" query="document_key=ef0c0d2d474acfd4f301c82f316d43bf"/><sys_variable_value action="INSERT_OR_UPDATE"><document>sys_atf_step</document><document_key>ef0c0d2d474acfd4f301c82f316d43bf</document_key><order>100</order><sys_class_name>sys_variable_value</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2026-07-12 20:41:40</sys_created_on><sys_id>783c05ad474acfd4f301c82f316d4314</sys_id><sys_mod_count>0</sys_mod_count><sys_updated_by>admin</sys_updated_by><sys_updated_on>2026-07-12 20:41:40</sys_updated_on><value>3.1</value><variable display_value="Jasmine version">42f2564b73031300440211d8faf6a777</variable></sys_variable_value><sys_variable_value action="INSERT_OR_UPDATE"><document>sys_atf_step</document><document_key>ef0c0d2d474acfd4f301c82f316d43bf</document_key><order>200</order><sys_class_name>sys_variable_value</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2026-07-12 20:41:40</sys_created_on><sys_id>bc3c05ad474acfd4f301c82f316d4314</sys_id><sys_mod_count>0</sys_mod_count><sys_updated_by>admin</sys_updated_by><sys_updated_on>2026-07-12 20:41:40</sys_updated_on><value>(function() {&#13;
+    var gr = new GlideRecord('sc_req_item');&#13;
+    gr.addQuery('cat_item.name', 'Equipment Loadout');&#13;
+    gr.orderByDesc('sys_created_on');&#13;
+    gr.setLimit(1);&#13;
+    gr.query();&#13;
+&#13;
+    if (gr.next()) {&#13;
+        var assignmentGroup = gr.getDisplayValue('assignment_group');&#13;
+        gs.info('Assignment Group: ' + assignmentGroup);&#13;
+        &#13;
+        assertEqual({&#13;
+            name: 'Auto Assignment Check — Equipment should go to IT Hardware',&#13;
+            expected: 'IT Hardware',&#13;
+            actual: assignmentGroup&#13;
+        });&#13;
+    } else {&#13;
+        fail('No Equipment Loadout request found in sc_req_item');&#13;
+    }&#13;
+})();</value><variable display_value="Test script">989d9e235324220002c6435723dc3484</variable></sys_variable_value></record_update>]]></payload>
+        <payload_hash>-1938752652</payload_hash>
+        <record_name>Run Server Side Script</record_name>
+        <reverted_from/>
+        <source>6a8263bd4739c394f301c82f316d4375</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-13 06:37:45</sys_created_on>
+        <sys_id>eca493a9478a0318f301c82f316d43d8</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>19f5a322e460000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-13 06:37:45</sys_updated_on>
+        <type>Test Step</type>
+        <update_guid>aca493a9598a0318313a87c55c4bd3d7</update_guid>
+        <update_guid_history>aca493a9598a0318313a87c55c4bd3d7:-1938752652,3924d369428a03187e5d226103e5a6f2:-93381709,24735fe5458a031879ef7dfe29b21da3:1751989234,0c531be5318a0318b83a7a477b247533:-93381709,e75fc965fb8acfd457c32bf34e751f04:-1938752652,060f0165358acfd40b4150442c7ef127:-93381709,703c05ada04acfd45857d19b532c8b19:-1938752652</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-13 06:38:25</sys_created_on>
+        <sys_db_object display_value="" name="sys_atf_step">sys_atf_step</sys_db_object>
+        <sys_id>1dad005ab78a40ac935ce4f4529579c4</sys_id>
+        <sys_metadata>ef0c0d2d474acfd4f301c82f316d43bf</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Run Server Side Script</sys_name>
+        <sys_package display_value="Launchpad" source="x_2062828_launch_0">6e8263bd4739c394f301c82f316d4371</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</sys_scope>
+        <sys_scope_delete display_value="">c6c3a19153a145709d697dc6ddb23900</sys_scope_delete>
+        <sys_update_name>sys_atf_step_ef0c0d2d474acfd4f301c82f316d43bf</sys_update_name>
+        <sys_update_version display_value="sys_atf_step_ef0c0d2d474acfd4f301c82f316d43bf">eca493a9478a0318f301c82f316d43d8</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-13 06:38:25</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

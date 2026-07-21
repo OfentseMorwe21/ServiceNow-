@@ -1,0 +1,652 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[api.controller = function() {
+  var c = this;
+};]]></client_script>
+        <controller_as>c</controller_as>
+        <css>/*&#13;
+===============================================================================&#13;
+MANAGER DASHBOARD — SPAR Futuristic edition&#13;
+Paste into the widget's CSS field&#13;
+Same move as the other widgets: dark cyan/teal panel look → light glass cards,&#13;
+red-to-green gradient accents, animated stat cards and bars.&#13;
+HTML/ng-repeat structure is untouched — only the CSS below needs to change.&#13;
+===============================================================================&#13;
+*/&#13;
+&#13;
+/* Dashboard Container */&#13;
+.manager-dashboard {&#13;
+  padding: 24px;&#13;
+  font-family: 'Inter', 'Segoe UI', sans-serif;&#13;
+}&#13;
+&#13;
+/* Header */&#13;
+.dashboard-header {&#13;
+  margin-bottom: 32px;&#13;
+}&#13;
+.dashboard-title {&#13;
+  font-size: 2rem;&#13;
+  font-weight: 800;&#13;
+  color: #0F172A;&#13;
+  letter-spacing: -0.02em;&#13;
+  margin-bottom: 4px;&#13;
+}&#13;
+.dashboard-subtitle {&#13;
+  font-size: 0.875rem;&#13;
+  color: #64748B;&#13;
+}&#13;
+&#13;
+/* Stats Row */&#13;
+.stats-row {&#13;
+  display: grid;&#13;
+  grid-template-columns: repeat(4, 1fr);&#13;
+  gap: 16px;&#13;
+  margin-bottom: 32px;&#13;
+}&#13;
+&#13;
+.stat-card {&#13;
+  position: relative;&#13;
+  overflow: hidden;&#13;
+  background: rgba(255, 255, 255, 0.9);&#13;
+  border: 1px solid #E2E8F0;&#13;
+  border-radius: 14px;&#13;
+  padding: 24px;&#13;
+  text-align: center;&#13;
+  transition: transform 280ms cubic-bezier(0.34, 1.56, 0.64, 1),&#13;
+              box-shadow 280ms ease,&#13;
+              border-color 280ms ease;&#13;
+  animation: statFadeInUp 450ms cubic-bezier(0.16,1,0.3,1) both;&#13;
+}&#13;
+.stats-row .stat-card:nth-child(2) { animation-delay: 60ms; }&#13;
+.stats-row .stat-card:nth-child(3) { animation-delay: 120ms; }&#13;
+.stats-row .stat-card:nth-child(4) { animation-delay: 180ms; }&#13;
+&#13;
+.stat-card::before {&#13;
+  content: "";&#13;
+  position: absolute;&#13;
+  top: 0;&#13;
+  left: 0;&#13;
+  right: 0;&#13;
+  height: 3px;&#13;
+  background: linear-gradient(90deg, $brand-primary 0%, $brand-success 100%);&#13;
+  opacity: 0;&#13;
+  transition: opacity 280ms ease;&#13;
+}&#13;
+.stat-card:hover {&#13;
+  transform: translateY(-6px);&#13;
+  box-shadow: 0 14px 28px -6px rgba(15, 23, 42, 0.14);&#13;
+  border-color: #CBD5E1;&#13;
+}&#13;
+.stat-card:hover::before {&#13;
+  opacity: 1;&#13;
+}&#13;
+&#13;
+/* Default stat value — bold gradient text, ties every number back to the brand */&#13;
+.stat-value {&#13;
+  font-size: 2.5rem;&#13;
+  font-weight: 800;&#13;
+  letter-spacing: -0.03em;&#13;
+  margin-bottom: 8px;&#13;
+  background: linear-gradient(135deg, $brand-primary 0%, $brand-success 100%);&#13;
+  -webkit-background-clip: text;&#13;
+  background-clip: text;&#13;
+  color: transparent;&#13;
+}&#13;
+.stat-label {&#13;
+  font-size: 0.8rem;&#13;
+  font-weight: 700;&#13;
+  color: #64748B;&#13;
+  text-transform: uppercase;&#13;
+  letter-spacing: 0.05em;&#13;
+}&#13;
+&#13;
+/* Overdue variant */&#13;
+.stat-card.overdue {&#13;
+  border-color: rgba(227, 6, 19, 0.20);&#13;
+  background: rgba(227, 6, 19, 0.04);&#13;
+}&#13;
+.stat-card.overdue:hover {&#13;
+  box-shadow: 0 14px 28px -6px rgba(227, 6, 19, 0.22);&#13;
+}&#13;
+.stat-card.overdue .stat-value {&#13;
+  background: none;&#13;
+  -webkit-background-clip: unset;&#13;
+  background-clip: unset;&#13;
+  color: $brand-danger;&#13;
+  animation: overduePulseText 2.4s ease-in-out infinite;&#13;
+}&#13;
+@keyframes overduePulseText {&#13;
+  0%, 100% { opacity: 1; }&#13;
+  50%      { opacity: 0.65; }&#13;
+}&#13;
+&#13;
+/* Success variant */&#13;
+.stat-card.success {&#13;
+  border-color: rgba(0, 122, 51, 0.20);&#13;
+  background: rgba(0, 122, 51, 0.04);&#13;
+}&#13;
+.stat-card.success:hover {&#13;
+  box-shadow: 0 14px 28px -6px rgba(0, 122, 51, 0.22);&#13;
+}&#13;
+.stat-card.success .stat-value {&#13;
+  background: none;&#13;
+  -webkit-background-clip: unset;&#13;
+  background-clip: unset;&#13;
+  color: $brand-success;&#13;
+}&#13;
+&#13;
+/* Sections */&#13;
+.section {&#13;
+  position: relative;&#13;
+  margin-bottom: 32px;&#13;
+  background: rgba(255, 255, 255, 0.9);&#13;
+  border: 1px solid #E2E8F0;&#13;
+  border-radius: 14px;&#13;
+  padding: 24px;&#13;
+  overflow: hidden;&#13;
+  transition: box-shadow 280ms ease;&#13;
+}&#13;
+.section::before {&#13;
+  content: "";&#13;
+  position: absolute;&#13;
+  top: 0;&#13;
+  left: 0;&#13;
+  right: 0;&#13;
+  height: 3px;&#13;
+  background: linear-gradient(90deg, $brand-primary 0%, $brand-success 100%);&#13;
+  opacity: 0.85;&#13;
+}&#13;
+.section:hover {&#13;
+  box-shadow: 0 10px 24px -6px rgba(15, 23, 42, 0.10);&#13;
+}&#13;
+.section-title {&#13;
+  position: relative;&#13;
+  display: inline-block;&#13;
+  padding-left: 14px;&#13;
+  font-size: 0.75rem;&#13;
+  font-weight: 800;&#13;
+  color: $brand-primary;&#13;
+  text-transform: uppercase;&#13;
+  letter-spacing: 0.10em;&#13;
+  margin-bottom: 20px;&#13;
+}&#13;
+.section-title::before {&#13;
+  content: "";&#13;
+  position: absolute;&#13;
+  left: 0;&#13;
+  top: 2px;&#13;
+  bottom: 2px;&#13;
+  width: 4px;&#13;
+  border-radius: 999px;&#13;
+  background: linear-gradient(180deg, $brand-primary, $brand-success);&#13;
+}&#13;
+&#13;
+/* Category Breakdown */&#13;
+.category-list {&#13;
+  display: flex;&#13;
+  flex-direction: column;&#13;
+  gap: 16px;&#13;
+}&#13;
+.category-item {&#13;
+  display: flex;&#13;
+  flex-direction: column;&#13;
+  gap: 6px;&#13;
+}&#13;
+.category-info {&#13;
+  display: flex;&#13;
+  justify-content: space-between;&#13;
+}&#13;
+.category-name {&#13;
+  font-size: 0.875rem;&#13;
+  font-weight: 600;&#13;
+  color: #0F172A;&#13;
+}&#13;
+.category-count {&#13;
+  font-size: 0.875rem;&#13;
+  font-weight: 700;&#13;
+  color: $brand-success;&#13;
+}&#13;
+.category-bar-container {&#13;
+  width: 100%;&#13;
+  height: 9px;&#13;
+  background: #F1F5F9;&#13;
+  border: 1px solid #E2E8F0;&#13;
+  border-radius: 999px;&#13;
+  overflow: hidden;&#13;
+}&#13;
+.category-bar-fill {&#13;
+  position: relative;&#13;
+  height: 100%;&#13;
+  background: linear-gradient(135deg, $brand-primary 0%, $brand-success 100%);&#13;
+  border-radius: 999px;&#13;
+  overflow: hidden;&#13;
+  transition: width 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);&#13;
+}&#13;
+.category-bar-fill::after {&#13;
+  content: "";&#13;
+  position: absolute;&#13;
+  inset: 0;&#13;
+  background: linear-gradient(120deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.5) 50%, rgba(255,255,255,0) 100%);&#13;
+  transform: translateX(-100%);&#13;
+  animation: barShimmer 2.4s ease-in-out infinite;&#13;
+}&#13;
+@keyframes barShimmer {&#13;
+  to { transform: translateX(100%); }&#13;
+}&#13;
+&#13;
+/* Overdue Items */&#13;
+.overdue-list {&#13;
+  display: flex;&#13;
+  flex-direction: column;&#13;
+  gap: 12px;&#13;
+}&#13;
+.overdue-item {&#13;
+  display: flex;&#13;
+  justify-content: space-between;&#13;
+  align-items: center;&#13;
+  padding: 16px;&#13;
+  background: rgba(227, 6, 19, 0.04);&#13;
+  border: 1px solid rgba(227, 6, 19, 0.18);&#13;
+  border-radius: 10px;&#13;
+  transition: transform 250ms cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 250ms ease, border-color 250ms ease;&#13;
+}&#13;
+.overdue-item:hover {&#13;
+  transform: translateY(-2px);&#13;
+  box-shadow: 0 8px 18px -4px rgba(227, 6, 19, 0.20);&#13;
+  border-color: rgba(227, 6, 19, 0.35);&#13;
+}&#13;
+.overdue-number {&#13;
+  font-size: 0.75rem;&#13;
+  font-weight: 700;&#13;
+  color: $brand-success;&#13;
+  margin-bottom: 4px;&#13;
+}&#13;
+.overdue-desc {&#13;
+  font-size: 0.875rem;&#13;
+  color: #0F172A;&#13;
+}&#13;
+.overdue-meta {&#13;
+  text-align: right;&#13;
+}&#13;
+.overdue-badge {&#13;
+  display: inline-block;&#13;
+  background: rgba(227, 6, 19, 0.12);&#13;
+  color: $brand-danger;&#13;
+  border: 1px solid rgba(227, 6, 19, 0.30);&#13;
+  border-radius: 999px;&#13;
+  font-size: 0.7rem;&#13;
+  font-weight: 700;&#13;
+  padding: 3px 10px;&#13;
+  margin-bottom: 4px;&#13;
+  animation: badgePulse 2.2s ease-in-out infinite;&#13;
+}&#13;
+@keyframes badgePulse {&#13;
+  0%, 100% { box-shadow: 0 0 0 0 rgba(227, 6, 19, 0.25); }&#13;
+  50%      { box-shadow: 0 0 0 5px rgba(227, 6, 19, 0); }&#13;
+}&#13;
+.overdue-assignee {&#13;
+  font-size: 0.75rem;&#13;
+  color: #94A3B8;&#13;
+}&#13;
+&#13;
+/* Empty State */&#13;
+.empty-state {&#13;
+  text-align: center;&#13;
+  padding: 24px;&#13;
+  color: $brand-success;&#13;
+  font-size: 0.9rem;&#13;
+  font-weight: 600;&#13;
+}&#13;
+/* =============================================================================&#13;
+   ACCESS DENIED&#13;
+   ============================================================================= */&#13;
+&#13;
+.access-denied {&#13;
+  text-align: center;&#13;
+  padding: 80px 32px;&#13;
+  background: rgba(227, 6, 19, 0.03);&#13;
+  border: 1px solid rgba(227, 6, 19, 0.15);&#13;
+  border-radius: 14px;&#13;
+  margin: 24px 0;&#13;
+  animation: statFadeInUp 450ms cubic-bezier(0.16,1,0.3,1) both;&#13;
+}&#13;
+&#13;
+.access-denied-icon {&#13;
+  font-size: 4rem;&#13;
+  margin-bottom: 16px;&#13;
+}&#13;
+&#13;
+.access-denied-title {&#13;
+  font-size: 1.8rem !important;&#13;
+  font-weight: 800 !important;&#13;
+  color: #0F172A !important;&#13;
+  letter-spacing: -0.02em !important;&#13;
+  margin-bottom: 12px !important;&#13;
+}&#13;
+&#13;
+.access-denied-msg {&#13;
+  font-size: 1rem !important;&#13;
+  color: #334155 !important;&#13;
+  margin-bottom: 8px !important;&#13;
+  max-width: 480px;&#13;
+  margin-left: auto;&#13;
+  margin-right: auto;&#13;
+}&#13;
+&#13;
+.access-denied-sub {&#13;
+  font-size: 0.875rem !important;&#13;
+  color: #64748B !important;&#13;
+  margin-bottom: 32px !important;&#13;
+}&#13;
+&#13;
+.access-denied-sub strong {&#13;
+  color: $brand-primary;&#13;
+  font-weight: 700;&#13;
+}&#13;
+&#13;
+.access-denied-btn {&#13;
+  display: inline-block;&#13;
+  background: linear-gradient(135deg, $brand-primary 0%, $brand-success 100%);&#13;
+  color: #FFFFFF !important;&#13;
+  font-weight: 700;&#13;
+  font-size: 0.9rem;&#13;
+  padding: 12px 32px;&#13;
+  border-radius: 999px;&#13;
+  text-decoration: none !important;&#13;
+  transition: all 0.22s ease;&#13;
+  box-shadow: 0 4px 16px rgba(0, 122, 51, 0.20);&#13;
+}&#13;
+&#13;
+.access-denied-btn:hover {&#13;
+  opacity: 0.88;&#13;
+  transform: translateY(-2px);&#13;
+  box-shadow: 0 8px 24px rgba(0, 122, 51, 0.30);&#13;
+  color: #FFFFFF !important;&#13;
+}&#13;
+/* Access Denied Buttons */&#13;
+.access-denied-actions {&#13;
+  display: flex;&#13;
+  justify-content: center;&#13;
+  gap: 16px;&#13;
+  flex-wrap: wrap;&#13;
+}&#13;
+&#13;
+.access-denied-btn.primary {&#13;
+  background: linear-gradient(135deg, $brand-primary 0%, $brand-success 100%);&#13;
+  color: #FFFFFF !important;&#13;
+  box-shadow: 0 4px 16px rgba(0, 122, 51, 0.20);&#13;
+}&#13;
+&#13;
+.access-denied-btn.primary:hover {&#13;
+  opacity: 0.88;&#13;
+  transform: translateY(-2px);&#13;
+  box-shadow: 0 8px 24px rgba(0, 122, 51, 0.30);&#13;
+  color: #FFFFFF !important;&#13;
+}&#13;
+&#13;
+.access-denied-btn.secondary {&#13;
+  background: transparent !important;&#13;
+  color: #334155 !important;&#13;
+  border: 1px solid #CBD5E1;&#13;
+  box-shadow: none !important;&#13;
+}&#13;
+&#13;
+.access-denied-btn.secondary:hover {&#13;
+  background: #F8FAFC !important;&#13;
+  border-color: #94A3B8;&#13;
+  transform: translateY(-2px);&#13;
+  color: #0F172A !important;&#13;
+}&#13;
+&#13;
+/* Entrance animation */&#13;
+@keyframes statFadeInUp {&#13;
+  from { opacity: 0; transform: translateY(14px) scale(0.98); }&#13;
+  to   { opacity: 1; transform: translateY(0) scale(1); }&#13;
+}&#13;
+&#13;
+/* Responsive */&#13;
+@media (max-width: 900px) {&#13;
+  .stats-row {&#13;
+    grid-template-columns: repeat(2, 1fr);&#13;
+  }&#13;
+}&#13;
+@media (max-width: 560px) {&#13;
+  .stats-row {&#13;
+    grid-template-columns: 1fr;&#13;
+  }&#13;
+  .overdue-item {&#13;
+    flex-direction: column;&#13;
+    align-items: flex-start;&#13;
+    gap: 10px;&#13;
+  }&#13;
+  .overdue-meta {&#13;
+    text-align: left;&#13;
+  }&#13;
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>manager_dashboard_widget</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {
+  
+}]]></link>
+        <name>Manager Dashboard</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+    // Check if user has manager role OR is in IT Manager group
+    var hasRole = gs.hasRole('x_2062828_it_onb_0.manager');
+    
+    var inGroup = false;
+    var groupGr = new GlideRecord('sys_user_grmember');
+    groupGr.addQuery('user', gs.getUserID());
+    groupGr.addQuery('group.name', 'IT Manager');
+    groupGr.query();
+    if (groupGr.next()) {
+        inGroup = true;
+    }
+    
+    data.hasAccess = hasRole || inGroup;
+
+    // Stop here if no access
+    if (!data.hasAccess) return;
+
+    var now = new GlideDateTime();
+    var thirtyDaysAgo = new GlideDateTime();
+    thirtyDaysAgo.addDaysUTC(-30);
+
+    // Total requests in last 30 days
+    var totalGr = new GlideRecord('sc_req_item');
+    totalGr.addQuery('sys_created_on', '>=', thirtyDaysAgo);
+    totalGr.query();
+    data.totalRequests = totalGr.getRowCount();
+
+    // Resolved count
+    var resolvedGr = new GlideRecord('sc_req_item');
+    resolvedGr.addQuery('sys_created_on', '>=', thirtyDaysAgo);
+    resolvedGr.addQuery('state', '3');
+    resolvedGr.query();
+    data.resolvedCount = resolvedGr.getRowCount();
+
+    // Average resolution time
+    var avgGr = new GlideRecord('sc_req_item');
+    avgGr.addQuery('sys_created_on', '>=', thirtyDaysAgo);
+    avgGr.addQuery('state', '3');
+    avgGr.query();
+
+    var totalDays = 0;
+    var resolvedItems = 0;
+    while (avgGr.next()) {
+        if (avgGr.getValue('closed_at') && avgGr.getValue('sys_created_on')) {
+            var created = new GlideDateTime(avgGr.getValue('sys_created_on'));
+            var closed = new GlideDateTime(avgGr.getValue('closed_at'));
+            var diff = GlideDateTime.subtract(created, closed);
+            totalDays += Math.round(diff.getRoundedDayPart());
+            resolvedItems++;
+        }
+    }
+    data.avgResolutionTime = resolvedItems > 0 ? 
+        Math.round(totalDays / resolvedItems) : 0;
+
+    // Overdue requests
+    var overdueItems = [];
+    var overdueGr = new GlideRecord('sc_req_item');
+    overdueGr.addQuery('sys_created_on', '>=', thirtyDaysAgo);
+    overdueGr.addQuery('due_date', '<', now);
+    overdueGr.addQuery('state', 'NOT IN', '3,4,7');
+    overdueGr.query();
+
+    data.overdueCount = overdueGr.getRowCount();
+
+    overdueGr = new GlideRecord('sc_req_item');
+    overdueGr.addQuery('sys_created_on', '>=', thirtyDaysAgo);
+    overdueGr.addQuery('due_date', '<', now);
+    overdueGr.addQuery('state', 'NOT IN', '3,4,7');
+    overdueGr.setLimit(10);
+    overdueGr.query();
+
+    while (overdueGr.next()) {
+        var dueDate = new GlideDateTime(overdueGr.getValue('due_date'));
+        var diff = GlideDateTime.subtract(dueDate, now);
+        var daysOverdue = Math.abs(Math.round(diff.getRoundedDayPart()));
+
+        overdueItems.push({
+            number: overdueGr.getValue('number'),
+            short_description: overdueGr.getValue('short_description'),
+            assigned_to: overdueGr.getDisplayValue('assigned_to'),
+            days_overdue: daysOverdue
+        });
+    }
+    data.overdueItems = overdueItems;
+
+    // Category breakdown
+    var categories = {};
+    var catGr = new GlideRecord('sc_req_item');
+    catGr.addQuery('sys_created_on', '>=', thirtyDaysAgo);
+    catGr.query();
+
+    while (catGr.next()) {
+        var itemName = catGr.getDisplayValue('cat_item') || 'General';
+        var category = 'General';
+
+        if (itemName.indexOf('Equipment') > -1) category = 'Equipment';
+        else if (itemName.indexOf('Access') > -1 || 
+                 itemName.indexOf('Permission') > -1) category = 'System Access';
+        else if (itemName.indexOf('Workplace') > -1) category = 'Workplace';
+        else if (itemName.indexOf('Support') > -1) category = 'IT Support';
+
+        categories[category] = (categories[category] || 0) + 1;
+    }
+
+    var categoryList = [];
+    for (var cat in categories) {
+        categoryList.push({ name: cat, count: categories[cat] });
+    }
+    categoryList.sort(function(a, b) { return b.count - a.count; });
+    data.categories = categoryList;
+
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-12 19:15:51</sys_created_on>
+        <sys_id>8d87f8e147c6cfd4f301c82f316d43e1</sys_id>
+        <sys_mod_count>7</sys_mod_count>
+        <sys_name>Manager Dashboard</sys_name>
+        <sys_package display_value="Launchpad" source="x_2062828_launch_0">6e8263bd4739c394f301c82f316d4371</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</sys_scope>
+        <sys_update_name>sp_widget_8d87f8e147c6cfd4f301c82f316d43e1</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-20 07:56:17</sys_updated_on>
+        <template><![CDATA[<div class="manager-dashboard">
+
+<!-- Access Denied Message -->
+<div class="access-denied" ng-if="!c.data.hasAccess">
+  <div class="access-denied-icon">]]>🔒<![CDATA[</div>
+  <h2 class="access-denied-title">Access Restricted</h2>
+  <p class="access-denied-msg">You do not meet the required access role to view the Manager Dashboard.</p>
+  <p class="access-denied-sub">Please contact your IT administrator to request the <strong>Manager</strong> role.</p>
+  <div class="access-denied-actions">
+    <a href="/onboarding?id=launchpad_home" class="access-denied-btn secondary">Return to Home</a>
+    <a href="/onboarding?id=sc_cat_item&sys_id=7f538486473dc394f301c82f316d4338" class="access-denied-btn primary">Request Access</a>
+  </div>
+</div>
+
+  <!-- Dashboard Content — only shown to managers -->
+  <div ng-if="c.data.hasAccess">
+
+    <!-- Header -->
+    <div class="dashboard-header">
+      <h1 class="dashboard-title">Manager Dashboard</h1>
+      <p class="dashboard-subtitle">IT Onboarding Hub — Last 30 Days</p>
+    </div>
+
+    <!-- Stats Row -->
+    <div class="stats-row">
+      <div class="stat-card">
+        <p class="stat-value">{{c.data.totalRequests}}</p>
+        <p class="stat-label">Total Requests</p>
+      </div>
+      <div class="stat-card">
+        <p class="stat-value">{{c.data.avgResolutionTime}}</p>
+        <p class="stat-label">Avg Resolution (days)</p>
+      </div>
+      <div class="stat-card overdue">
+        <p class="stat-value">{{c.data.overdueCount}}</p>
+        <p class="stat-label">Overdue Requests</p>
+      </div>
+      <div class="stat-card success">
+        <p class="stat-value">{{c.data.resolvedCount}}</p>
+        <p class="stat-label">Resolved</p>
+      </div>
+    </div>
+
+    <!-- Category Breakdown -->
+    <div class="section">
+      <h3 class="section-title">Requests by Category</h3>
+      <div class="category-list">
+        <div class="category-item" ng-repeat="cat in c.data.categories">
+          <div class="category-info">
+            <span class="category-name">{{cat.name}}</span>
+            <span class="category-count">{{cat.count}}</span>
+          </div>
+          <div class="category-bar-container">
+            <div class="category-bar-fill"
+                 ng-style="{'width': (cat.count / c.data.totalRequests * 100) + '%'}">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Overdue Requests -->
+    <div class="section">
+      <h3 class="section-title">Overdue Requests</h3>
+      <div class="overdue-list" ng-if="c.data.overdueItems.length > 0">
+        <div class="overdue-item" ng-repeat="item in c.data.overdueItems">
+          <div class="overdue-info">
+            <p class="overdue-number">{{item.number}}</p>
+            <p class="overdue-desc">{{item.short_description}}</p>
+          </div>
+          <div class="overdue-meta">
+            <span class="overdue-badge">{{item.days_overdue}} days overdue</span>
+            <p class="overdue-assignee">{{item.assigned_to}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="empty-state" ng-if="c.data.overdueItems.length === 0">
+        <p>No overdue requests!</p>
+      </div>
+    </div>
+
+  </div>
+</div>]]></template>
+    </sp_widget>
+</record_update>
