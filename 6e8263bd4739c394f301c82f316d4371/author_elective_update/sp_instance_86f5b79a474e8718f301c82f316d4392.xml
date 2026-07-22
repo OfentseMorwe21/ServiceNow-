@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_instance">
+    <sp_instance action="DELETE">
+        <active>true</active>
+        <advanced_placeholder_dimensions>false</advanced_placeholder_dimensions>
+        <async_load>false</async_load>
+        <async_load_device_type>desktop,tablet,mobile</async_load_device_type>
+        <async_load_trigger>viewport</async_load_trigger>
+        <class_name/>
+        <color>default</color>
+        <css/>
+        <glyph>envelope-o</glyph>
+        <id/>
+        <order>2</order>
+        <placeholder_dimensions>{&#13;	"mobile": {&#13;		"height": "250px",&#13;		"width": "100%"&#13;	},&#13;	"desktop": {&#13;		"height": "250px",&#13;		"width": "100%"&#13;	},&#13;	"tablet": {&#13;		"height": "250px",&#13;		"width": "100%"&#13;	}&#13;}</placeholder_dimensions>
+        <placeholder_dimensions_script><![CDATA[function evaluateConfig(options) { return {	"mobile": {		"height": "250px",		"width": "100%"	},	"desktop": {		"height": "250px",		"width": "100%"	},	"tablet": {		"height": "250px",		"width": "100%"	}}; }]]></placeholder_dimensions_script>
+        <placeholder_template>&lt;!-- 
+	AngularJS template with configurable options.
+	Use the `options` object to control dynamic behavior.
+	Example: Display an element when max row count is 10:
+	&lt;div ng-if="options.maxRowCount === 10"&gt;&lt;/div&gt;
+	The `skeleton-container` class is used for loading placeholders.
+--&gt;
+	&lt;div class="skeleton-container"&gt;
+	&lt;!-- Header Skeleton --&gt;
+	&lt;div class="skeleton-box skeleton-header"&gt;&lt;/div&gt;
+	&lt;!-- Body Skeleton --&gt;
+	&lt;div class="skeleton-box skeleton-line"&gt;&lt;/div&gt;
+	&lt;div class="skeleton-box skeleton-line small"&gt;&lt;/div&gt;
+	&lt;div class="skeleton-box skeleton-line medium"&gt;&lt;/div&gt;
+&lt;/div&gt;</placeholder_template>
+        <preserve_placeholder_size>false</preserve_placeholder_size>
+        <roles/>
+        <short_description/>
+        <size>md</size>
+        <sp_column display_value="2">52ad5a0647c20718f301c82f316d43d7</sp_column>
+        <sp_widget display_value="Announcements">94c300c7e777320075c2a117c2f6a9e7</sp_widget>
+        <sys_class_name>sp_instance</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-15 16:58:51</sys_created_on>
+        <sys_id>86f5b79a474e8718f301c82f316d4392</sys_id>
+        <sys_mod_count>12</sys_mod_count>
+        <sys_name>Announcements </sys_name>
+        <sys_package display_value="Launchpad" source="x_2062828_launch_0">6e8263bd4739c394f301c82f316d4371</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</sys_scope>
+        <sys_update_name>sp_instance_86f5b79a474e8718f301c82f316d4392</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-22 10:16:13</sys_updated_on>
+        <title>Announcements </title>
+        <url/>
+        <widget_parameters><![CDATA[{
+	"title": {
+		"value": "Announcements ",
+		"displayValue": "Announcements "
+	},
+	"glyph": {
+		"value": "envelope-o",
+		"displayValue": ""
+	},
+	"type": {
+		"value": "67eaf134e7a3320075c2a117c2f6a9d2,52fa79f8e763320075c2a117c2f6a991",
+		"displayValue": "Widget, Banner"
+	},
+	"paginate": {
+		"value": "true",
+		"displayValue": "true"
+	},
+	"max_records": {
+		"value": 5,
+		"displayValue": "5"
+	},
+	"view_all_page": {
+		"value": "ecc828d3e733320075c2a117c2f6a91f",
+		"displayValue": "announcements"
+	},
+	"use_display_style": {
+		"value": "false",
+		"displayValue": "false"
+	}
+}]]></widget_parameters>
+    </sp_instance>
+    <sys_translated_text action="DELETE" query="documentkey=86f5b79a474e8718f301c82f316d4392"/>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</application>
+        <file_path/>
+        <instance_id>4f244272ebe8039c56eafddacad0cd3d</instance_id>
+        <instance_name>dev396915</instance_name>
+        <name>sp_instance_86f5b79a474e8718f301c82f316d4392</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sp_instance"&gt;&lt;sp_instance action="INSERT_OR_UPDATE"&gt;&lt;active&gt;true&lt;/active&gt;&lt;advanced_placeholder_dimensions&gt;false&lt;/advanced_placeholder_dimensions&gt;&lt;async_load&gt;false&lt;/async_load&gt;&lt;async_load_device_type&gt;desktop,tablet,mobile&lt;/async_load_device_type&gt;&lt;async_load_trigger&gt;viewport&lt;/async_load_trigger&gt;&lt;class_name/&gt;&lt;color&gt;default&lt;/color&gt;&lt;css/&gt;&lt;glyph&gt;envelope-o&lt;/glyph&gt;&lt;id/&gt;&lt;order&gt;2&lt;/order&gt;&lt;placeholder_dimensions&gt;{&amp;#13;	"mobile": {&amp;#13;		"height": "250px",&amp;#13;		"width": "100%"&amp;#13;	},&amp;#13;	"desktop": {&amp;#13;		"height": "250px",&amp;#13;		"width": "100%"&amp;#13;	},&amp;#13;	"tablet": {&amp;#13;		"height": "250px",&amp;#13;		"width": "100%"&amp;#13;	}&amp;#13;}&lt;/placeholder_dimensions&gt;&lt;placeholder_dimensions_script&gt;&lt;![CDATA[function evaluateConfig(options) { return {	"mobile": {		"height": "250px",		"width": "100%"	},	"desktop": {		"height": "250px",		"width": "100%"	},	"tablet": {		"height": "250px",		"width": "100%"	}}; }]]&gt;&lt;/placeholder_dimensions_script&gt;&lt;placeholder_template&gt;&amp;lt;!-- 
+	AngularJS template with configurable options.
+	Use the `options` object to control dynamic behavior.
+	Example: Display an element when max row count is 10:
+	&amp;lt;div ng-if="options.maxRowCount === 10"&amp;gt;&amp;lt;/div&amp;gt;
+	The `skeleton-container` class is used for loading placeholders.
+--&amp;gt;
+	&amp;lt;div class="skeleton-container"&amp;gt;
+	&amp;lt;!-- Header Skeleton --&amp;gt;
+	&amp;lt;div class="skeleton-box skeleton-header"&amp;gt;&amp;lt;/div&amp;gt;
+	&amp;lt;!-- Body Skeleton --&amp;gt;
+	&amp;lt;div class="skeleton-box skeleton-line"&amp;gt;&amp;lt;/div&amp;gt;
+	&amp;lt;div class="skeleton-box skeleton-line small"&amp;gt;&amp;lt;/div&amp;gt;
+	&amp;lt;div class="skeleton-box skeleton-line medium"&amp;gt;&amp;lt;/div&amp;gt;
+&amp;lt;/div&amp;gt;&lt;/placeholder_template&gt;&lt;preserve_placeholder_size&gt;false&lt;/preserve_placeholder_size&gt;&lt;roles/&gt;&lt;short_description/&gt;&lt;size&gt;md&lt;/size&gt;&lt;sp_column display_value="2"&gt;52ad5a0647c20718f301c82f316d43d7&lt;/sp_column&gt;&lt;sp_widget display_value="Announcements"&gt;94c300c7e777320075c2a117c2f6a9e7&lt;/sp_widget&gt;&lt;sys_class_name&gt;sp_instance&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2026-07-15 16:58:51&lt;/sys_created_on&gt;&lt;sys_id&gt;86f5b79a474e8718f301c82f316d4392&lt;/sys_id&gt;&lt;sys_mod_count&gt;12&lt;/sys_mod_count&gt;&lt;sys_name&gt;Announcements &lt;/sys_name&gt;&lt;sys_package display_value="Launchpad" source="x_2062828_launch_0"&gt;6e8263bd4739c394f301c82f316d4371&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="Launchpad"&gt;6e8263bd4739c394f301c82f316d4371&lt;/sys_scope&gt;&lt;sys_update_name&gt;sp_instance_86f5b79a474e8718f301c82f316d4392&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2026-07-22 10:16:13&lt;/sys_updated_on&gt;&lt;title&gt;Announcements &lt;/title&gt;&lt;url/&gt;&lt;widget_parameters&gt;&lt;![CDATA[{
+	"title": {
+		"value": "Announcements ",
+		"displayValue": "Announcements "
+	},
+	"glyph": {
+		"value": "envelope-o",
+		"displayValue": ""
+	},
+	"type": {
+		"value": "67eaf134e7a3320075c2a117c2f6a9d2,52fa79f8e763320075c2a117c2f6a991",
+		"displayValue": "Widget, Banner"
+	},
+	"paginate": {
+		"value": "true",
+		"displayValue": "true"
+	},
+	"max_records": {
+		"value": 5,
+		"displayValue": "5"
+	},
+	"view_all_page": {
+		"value": "ecc828d3e733320075c2a117c2f6a91f",
+		"displayValue": "announcements"
+	},
+	"use_display_style": {
+		"value": "false",
+		"displayValue": "false"
+	}
+}]]&gt;&lt;/widget_parameters&gt;&lt;/sp_instance&gt;&lt;sys_translated_text action="delete_multiple" query="documentkey=86f5b79a474e8718f301c82f316d4392"/&gt;&lt;/record_update&gt;</payload>
+        <payload_hash>1516708601</payload_hash>
+        <record_name>Announcements </record_name>
+        <reverted_from/>
+        <source>ad69b61447120310f301c82f316d4331</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-22 10:16:13</sys_created_on>
+        <sys_id>d0fc562847960310f301c82f316d43e9</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>19f89536b830000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-22 10:16:13</sys_updated_on>
+        <type>Instance</type>
+        <update_guid>10fc5628c996031077dfebd031c23fe8</update_guid>
+        <update_guid_history>10fc5628c996031077dfebd031c23fe8:1516708601,1cfc5628a5960310c35bf3d57864efdf:1572434842,f1dc92282b960310fcadc1ba3b898d4e:628974508,75dc9228ae9603105315fe86e8fcc640:1572434842,33a873128c8e871887ad55467b2ce3ee:628974508,a71833deeb4e8718a0aa9edab1519876:2085960643,ea97ff5eef4e871882b6daa42f87db2a:-1851748539,24973f5e364e871838ccbeceb9793be3:1963376124,73773b5e784e871827ae185c4226244c:412957679,3177f75e084e8718fb8fca553da63d70:-752093157,f177f75e2f4e87181e48183b7c979e4d:1963376124,f517bb1e184e8718e0032123e2e7ca21:-752093157,4af5b79a4a4e87180921d2b110e08395:412957679</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="Announcements ">a1fcd62847960310f301c82f316d431b</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-22 10:16:18</sys_created_on>
+        <sys_db_object display_value="" name="sp_instance">sp_instance</sys_db_object>
+        <sys_id>5d0bb32ae1a0436ea60c3f10f95b04a4</sys_id>
+        <sys_metadata>86f5b79a474e8718f301c82f316d4392</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Announcements </sys_name>
+        <sys_package display_value="Launchpad" source="x_2062828_launch_0">6e8263bd4739c394f301c82f316d4371</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</sys_scope>
+        <sys_scope_delete display_value="">c6c3a19153a145709d697dc6ddb23900</sys_scope_delete>
+        <sys_update_name>sp_instance_86f5b79a474e8718f301c82f316d4392</sys_update_name>
+        <sys_update_version display_value="sp_instance_86f5b79a474e8718f301c82f316d4392">d0fc562847960310f301c82f316d43e9</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-22 10:16:18</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_embedded_tour_guide">
+    <sys_embedded_tour_guide action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <additional_parameters/>
+        <autolaunch_order>0</autolaunch_order>
+        <context>onboarding?id=launchpad_home&amp;gtd_portal_title=Launchpad&amp;gtd_page_title=Launchpad Home</context>
+        <description/>
+        <has_concl>false</has_concl>
+        <has_intro>true</has_intro>
+        <name>Launchpad Service Portal</name>
+        <options/>
+        <roles/>
+        <route_parameters/>
+        <sn_created>false</sn_created>
+        <sp_page display_value="launchpad_home">da1c277147b9c394f301c82f316d43c5</sp_page>
+        <sp_portal display_value="Launchpad">c6566b754779c394f301c82f316d43cf</sp_portal>
+        <status>published</status>
+        <sys_class_name>sys_embedded_tour_guide</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-22 09:43:19</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>5665562847560310f301c82f316d436f</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>Launchpad Service Portal</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="Launchpad" source="x_2062828_launch_0">6e8263bd4739c394f301c82f316d4371</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</sys_scope>
+        <sys_update_name>sys_embedded_tour_guide_5665562847560310f301c82f316d436f</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-22 09:55:40</sys_updated_on>
+        <tour_id>TOUR0000048</tour_id>
+        <type>service_portal</type>
+    </sys_embedded_tour_guide>
+</record_update>

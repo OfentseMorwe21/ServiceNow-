@@ -1,8 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
     <sp_widget action="INSERT_OR_UPDATE">
         <category>custom</category>
-        <client_script><![CDATA[api.controller = function() {
+        <client_script><![CDATA[api.controller = function($timeout) {
   var c = this;
+
+  c.chartColors = [
+    '#E30613',
+    '#007A33',
+    '#E8A200',
+    '#3FA66B',
+    '#B10510',
+    '#0F5C36'
+  ];
+
+  c.renderDonut = function() {
+    if (!c.data.hasAccess || !c.data.categories || c.data.categories.length === 0) return;
+
+    $timeout(function() {
+      var canvas = document.getElementById('categoryDonut');
+      if (!canvas) return;
+
+      var ctx = canvas.getContext('2d');
+      var categories = c.data.categories;
+      var values = categories.map(function(cat) { return cat.count; });
+      var labels = categories.map(function(cat) { return cat.name; });
+      var colors = categories.map(function(cat, i) {
+        return c.chartColors[i % c.chartColors.length];
+      });
+
+      // Clear previous chart
+      if (window._managerDonutChart) {
+        window._managerDonutChart.destroy();
+      }
+
+      // Draw donut manually using Canvas API
+      var total = values.reduce(function(a, b) { return a + b; }, 0);
+      var cx = canvas.width / 2;
+      var cy = canvas.height / 2;
+      var radius = Math.min(cx, cy) - 10;
+      var innerRadius = radius * 0.60;
+      var startAngle = -Math.PI / 2;
+
+      canvas.width = 220;
+      canvas.height = 220;
+      cx = 110;
+      cy = 110;
+
+      values.forEach(function(value, i) {
+        var sliceAngle = (value / total) * 2 * Math.PI;
+        ctx.beginPath();
+        ctx.moveTo(cx, cy);
+        ctx.arc(cx, cy, radius, startAngle, startAngle + sliceAngle);
+        ctx.closePath();
+        ctx.fillStyle = colors[i];
+        ctx.fill();
+        startAngle += sliceAngle;
+      });
+
+      // Draw inner circle for donut hole
+      ctx.beginPath();
+      ctx.arc(cx, cy, innerRadius, 0, 2 * Math.PI);
+      ctx.fillStyle = '#FFFFFF';
+      ctx.fill();
+
+    }, 300);
+  };
+
+  // Render chart on load
+  c.renderDonut();
 };]]></client_script>
         <controller_as>c</controller_as>
         <css>/*&#13;
@@ -423,6 +488,114 @@ HTML/ng-repeat structure is untouched — only the CSS below needs to change.&#1
   .overdue-meta {&#13;
     text-align: left;&#13;
   }&#13;
+}&#13;
+/* =============================================================================&#13;
+   Chart Section&#13;
+   ============================================================================= */&#13;
+&#13;
+.chart-section {&#13;
+  padding: 24px !important;&#13;
+}&#13;
+&#13;
+.chart-layout {&#13;
+  display: grid;&#13;
+  grid-template-columns: 280px 1fr;&#13;
+  gap: 32px;&#13;
+  align-items: start;&#13;
+}&#13;
+&#13;
+/* Donut Container */&#13;
+.donut-container {&#13;
+  display: flex;&#13;
+  flex-direction: column;&#13;
+  align-items: center;&#13;
+}&#13;
+&#13;
+.donut-wrapper {&#13;
+  position: relative;&#13;
+  width: 220px;&#13;
+  height: 220px;&#13;
+  margin: 16px auto;&#13;
+}&#13;
+&#13;
+.donut-wrapper canvas {&#13;
+  border-radius: 50%;&#13;
+}&#13;
+&#13;
+.donut-center {&#13;
+  position: absolute;&#13;
+  top: 50%;&#13;
+  left: 50%;&#13;
+  transform: translate(-50%, -50%);&#13;
+  text-align: center;&#13;
+  pointer-events: none;&#13;
+}&#13;
+&#13;
+.donut-total {&#13;
+  font-size: 2rem !important;&#13;
+  font-weight: 800 !important;&#13;
+  color: #0F172A !important;&#13;
+  line-height: 1 !important;&#13;
+  margin: 0 !important;&#13;
+}&#13;
+&#13;
+.donut-label {&#13;
+  font-size: 0.75rem !important;&#13;
+  font-weight: 600 !important;&#13;
+  color: #64748B !important;&#13;
+  text-transform: uppercase !important;&#13;
+  letter-spacing: 0.05em !important;&#13;
+  margin: 0 !important;&#13;
+}&#13;
+&#13;
+/* Legend */&#13;
+.donut-legend {&#13;
+  width: 100%;&#13;
+  display: flex;&#13;
+  flex-direction: column;&#13;
+  gap: 8px;&#13;
+  margin-top: 8px;&#13;
+}&#13;
+&#13;
+.legend-item {&#13;
+  display: flex;&#13;
+  align-items: center;&#13;
+  gap: 8px;&#13;
+  font-size: 0.825rem;&#13;
+}&#13;
+&#13;
+.legend-dot {&#13;
+  width: 10px;&#13;
+  height: 10px;&#13;
+  border-radius: 50%;&#13;
+  flex-shrink: 0;&#13;
+}&#13;
+&#13;
+.legend-name {&#13;
+  flex: 1;&#13;
+  color: #334155 !important;&#13;
+  font-weight: 500;&#13;
+}&#13;
+&#13;
+.legend-count {&#13;
+  font-weight: 700;&#13;
+  color: #0F172A !important;&#13;
+}&#13;
+&#13;
+/* Category Bars */&#13;
+.category-bars {&#13;
+  flex: 1;&#13;
+}&#13;
+&#13;
+/* Responsive */&#13;
+@media (max-width: 768px) {&#13;
+  .chart-layout {&#13;
+    grid-template-columns: 1fr;&#13;
+  }&#13;
+  .donut-wrapper {&#13;
+    width: 180px;&#13;
+    height: 180px;&#13;
+  }&#13;
 }</css>
         <data_table>sp_instance</data_table>
         <demo_data/>
@@ -557,16 +730,15 @@ HTML/ng-repeat structure is untouched — only the CSS below needs to change.&#1
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2026-07-12 19:15:51</sys_created_on>
         <sys_id>8d87f8e147c6cfd4f301c82f316d43e1</sys_id>
-        <sys_mod_count>7</sys_mod_count>
+        <sys_mod_count>8</sys_mod_count>
         <sys_name>Manager Dashboard</sys_name>
         <sys_package display_value="Launchpad" source="x_2062828_launch_0">6e8263bd4739c394f301c82f316d4371</sys_package>
         <sys_policy/>
         <sys_scope display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</sys_scope>
         <sys_update_name>sp_widget_8d87f8e147c6cfd4f301c82f316d43e1</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2026-07-20 07:56:17</sys_updated_on>
+        <sys_updated_on>2026-07-22 09:34:30</sys_updated_on>
         <template><![CDATA[<div class="manager-dashboard">
-
 <!-- Access Denied Message -->
 <div class="access-denied" ng-if="!c.data.hasAccess">
   <div class="access-denied-icon">]]>🔒<![CDATA[</div>
@@ -579,9 +751,8 @@ HTML/ng-repeat structure is untouched — only the CSS below needs to change.&#1
   </div>
 </div>
 
-  <!-- Dashboard Content — only shown to managers -->
+  <!-- Dashboard Content -->
   <div ng-if="c.data.hasAccess">
-
     <!-- Header -->
     <div class="dashboard-header">
       <h1 class="dashboard-title">Manager Dashboard</h1>
@@ -608,21 +779,49 @@ HTML/ng-repeat structure is untouched — only the CSS below needs to change.&#1
       </div>
     </div>
 
-    <!-- Category Breakdown -->
-    <div class="section">
-      <h3 class="section-title">Requests by Category</h3>
-      <div class="category-list">
-        <div class="category-item" ng-repeat="cat in c.data.categories">
-          <div class="category-info">
-            <span class="category-name">{{cat.name}}</span>
-            <span class="category-count">{{cat.count}}</span>
+    <!-- Donut Chart + Category Breakdown side by side -->
+    <div class="section chart-section">
+      <div class="chart-layout">
+
+        <!-- Donut Chart -->
+        <div class="donut-container">
+          <h3 class="section-title">Requests by Category</h3>
+          <div class="donut-wrapper">
+            <canvas id="categoryDonut"></canvas>
+            <div class="donut-center">
+              <p class="donut-total">{{c.data.totalRequests}}</p>
+              <p class="donut-label">Total</p>
+            </div>
           </div>
-          <div class="category-bar-container">
-            <div class="category-bar-fill"
-                 ng-style="{'width': (cat.count / c.data.totalRequests * 100) + '%'}">
+          <!-- Legend -->
+          <div class="donut-legend">
+            <div class="legend-item" ng-repeat="cat in c.data.categories">
+              <span class="legend-dot" ng-style="{'background-color': c.chartColors[$index % c.chartColors.length]}"></span>
+              <span class="legend-name">{{cat.name}}</span>
+              <span class="legend-count">{{cat.count}}</span>
             </div>
           </div>
         </div>
+
+        <!-- Category Bars -->
+        <div class="category-bars">
+          <h3 class="section-title">Breakdown</h3>
+          <div class="category-list">
+            <div class="category-item" ng-repeat="cat in c.data.categories">
+              <div class="category-info">
+                <span class="category-name">{{cat.name}}</span>
+                <span class="category-count">{{cat.count}}</span>
+              </div>
+              <div class="category-bar-container">
+                <div class="category-bar-fill"
+                     ng-style="{'width': (cat.count / c.data.totalRequests * 100) + '%',
+                                'background': c.chartColors[$index % c.chartColors.length]}">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
 
@@ -642,10 +841,9 @@ HTML/ng-repeat structure is untouched — only the CSS below needs to change.&#1
         </div>
       </div>
       <div class="empty-state" ng-if="c.data.overdueItems.length === 0">
-        <p>No overdue requests!</p>
+        <p>✅ No overdue requests!</p>
       </div>
     </div>
-
   </div>
 </div>]]></template>
     </sp_widget>

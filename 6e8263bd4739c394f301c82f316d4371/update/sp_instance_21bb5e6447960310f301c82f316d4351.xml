@@ -32,32 +32,23 @@
         <roles/>
         <short_description/>
         <size>md</size>
-        <sp_column display_value="1">4f00f37d4779c394f301c82f316d4306</sp_column>
-        <sp_widget display_value="Performance Analytics">70a4b9396773220032468aaad485ef4b</sp_widget>
+        <sp_column display_value="1">db9b5a6447960310f301c82f316d43f8</sp_column>
+        <sp_widget display_value="Onboarding Progress Tracker">f0e8e0a54746cfd4f301c82f316d43ea</sp_widget>
         <sys_class_name>sp_instance</sys_class_name>
         <sys_created_by>admin</sys_created_by>
-        <sys_created_on>2026-07-15 17:02:44</sys_created_on>
-        <sys_id>4fd6b31e474e8718f301c82f316d4376</sys_id>
-        <sys_mod_count>6</sys_mod_count>
+        <sys_created_on>2026-07-22 10:10:50</sys_created_on>
+        <sys_id>21bb5e6447960310f301c82f316d4351</sys_id>
+        <sys_mod_count>0</sys_mod_count>
         <sys_name/>
         <sys_package display_value="Launchpad" source="x_2062828_launch_0">6e8263bd4739c394f301c82f316d4371</sys_package>
         <sys_policy/>
         <sys_scope display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</sys_scope>
-        <sys_update_name>sp_instance_4fd6b31e474e8718f301c82f316d4376</sys_update_name>
+        <sys_update_name>sp_instance_21bb5e6447960310f301c82f316d4351</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2026-07-15 17:33:02</sys_updated_on>
+        <sys_updated_on>2026-07-22 10:10:50</sys_updated_on>
         <title/>
         <url/>
-        <widget_parameters><![CDATA[{
-	"widget_id": {
-		"value": "d6f3c5a167622200b733808bd485ef8e",
-		"displayValue": []
-	},
-	"show_title": {
-		"value": "false",
-		"displayValue": "false"
-	}
-}]]></widget_parameters>
+        <widget_parameters/>
     </sp_instance>
-    <sys_translated_text action="delete_multiple" query="documentkey=4fd6b31e474e8718f301c82f316d4376"/>
+    <sys_translated_text action="delete_multiple" query="documentkey=21bb5e6447960310f301c82f316d4351"/>
 </record_update>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_container">
+    <sp_container action="INSERT_OR_UPDATE">
+        <aria_label/>
+        <background_color/>
+        <background_image/>
+        <background_style>default</background_style>
+        <bootstrap_alt>false</bootstrap_alt>
+        <class_name/>
+        <container_class_name/>
+        <name>Check List - Container 2</name>
+        <order>2</order>
+        <semantic_tag/>
+        <sp_page display_value="check_list_items">383ad6a047960310f301c82f316d43b3</sp_page>
+        <subheader>false</subheader>
+        <sys_class_name>sp_container</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-22 10:07:37</sys_created_on>
+        <sys_id>dafa1ea847920310f301c82f316d4340</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>Check List - Container 2</sys_name>
+        <sys_package display_value="Launchpad" source="x_2062828_launch_0">6e8263bd4739c394f301c82f316d4371</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</sys_scope>
+        <sys_update_name>sp_container_dafa1ea847920310f301c82f316d4340</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-22 10:09:50</sys_updated_on>
+        <title/>
+        <width>container</width>
+    </sp_container>
+</record_update>

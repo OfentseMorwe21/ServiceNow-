@@ -8,9 +8,9 @@
         <class_name/>
         <color>default</color>
         <css/>
-        <glyph>envelope-o</glyph>
+        <glyph/>
         <id/>
-        <order>2</order>
+        <order>1</order>
         <placeholder_dimensions>{&#13;	"mobile": {&#13;		"height": "250px",&#13;		"width": "100%"&#13;	},&#13;	"desktop": {&#13;		"height": "250px",&#13;		"width": "100%"&#13;	},&#13;	"tablet": {&#13;		"height": "250px",&#13;		"width": "100%"&#13;	}&#13;}</placeholder_dimensions>
         <placeholder_dimensions_script><![CDATA[function evaluateConfig(options) { return {	"mobile": {		"height": "250px",		"width": "100%"	},	"desktop": {		"height": "250px",		"width": "100%"	},	"tablet": {		"height": "250px",		"width": "100%"	}}; }]]></placeholder_dimensions_script>
         <placeholder_template>&lt;!-- 
@@ -32,52 +32,23 @@
         <roles/>
         <short_description/>
         <size>md</size>
-        <sp_column display_value="2">0700bf3947b9c394f301c82f316d43ac</sp_column>
-        <sp_widget display_value="Announcements">94c300c7e777320075c2a117c2f6a9e7</sp_widget>
+        <sp_column display_value="1">fb7b566447960310f301c82f316d439e</sp_column>
+        <sp_widget display_value="breadcrumbs">0fb269305b3212000d7ec7ad31f91ae2</sp_widget>
         <sys_class_name>sp_instance</sys_class_name>
         <sys_created_by>admin</sys_created_by>
-        <sys_created_on>2026-07-15 16:58:51</sys_created_on>
-        <sys_id>86f5b79a474e8718f301c82f316d4392</sys_id>
-        <sys_mod_count>8</sys_mod_count>
-        <sys_name>Announcements </sys_name>
+        <sys_created_on>2026-07-22 10:10:02</sys_created_on>
+        <sys_id>2d8b966447960310f301c82f316d430e</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
         <sys_package display_value="Launchpad" source="x_2062828_launch_0">6e8263bd4739c394f301c82f316d4371</sys_package>
         <sys_policy/>
         <sys_scope display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</sys_scope>
-        <sys_update_name>sp_instance_86f5b79a474e8718f301c82f316d4392</sys_update_name>
+        <sys_update_name>sp_instance_2d8b966447960310f301c82f316d430e</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2026-07-15 17:10:43</sys_updated_on>
-        <title>Announcements </title>
+        <sys_updated_on>2026-07-22 10:10:02</sys_updated_on>
+        <title/>
         <url/>
-        <widget_parameters><![CDATA[{
-	"title": {
-		"value": "Announcements ",
-		"displayValue": "Announcements "
-	},
-	"glyph": {
-		"value": "envelope-o",
-		"displayValue": ""
-	},
-	"type": {
-		"value": "67eaf134e7a3320075c2a117c2f6a9d2,52fa79f8e763320075c2a117c2f6a991",
-		"displayValue": "Widget, Banner"
-	},
-	"paginate": {
-		"value": "true",
-		"displayValue": "true"
-	},
-	"max_records": {
-		"value": 5,
-		"displayValue": "5"
-	},
-	"view_all_page": {
-		"value": "ecc828d3e733320075c2a117c2f6a91f",
-		"displayValue": "announcements"
-	},
-	"use_display_style": {
-		"value": "false",
-		"displayValue": "false"
-	}
-}]]></widget_parameters>
+        <widget_parameters/>
     </sp_instance>
-    <sys_translated_text action="delete_multiple" query="documentkey=86f5b79a474e8718f301c82f316d4392"/>
+    <sys_translated_text action="delete_multiple" query="documentkey=2d8b966447960310f301c82f316d430e"/>
 </record_update>
