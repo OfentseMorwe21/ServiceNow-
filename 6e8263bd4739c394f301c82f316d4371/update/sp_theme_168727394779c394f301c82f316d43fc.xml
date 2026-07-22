@@ -662,9 +662,9 @@ h1,h2,h3,h4,h5,p{&#13;
   font-weight: &lt;weight&gt;;&#13;
   font-style: normal;&#13;
 }</css_variables>
-        <footer/>
+        <footer display_value="Employee Center Footer">ce046d5773603010c94f54eb7df6a7ec</footer>
         <footer_fixed>true</footer_fixed>
-        <header display_value="Stock Header">bf5ec2f2cb10120000f8d856634c9c0c</header>
+        <header display_value="Employee Center Header">d0009941eb103010ed7966d6475228c1</header>
         <icon/>
         <logo/>
         <logo_alt_text/>
@@ -675,14 +675,14 @@ h1,h2,h3,h4,h5,p{&#13;
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2026-07-01 16:23:51</sys_created_on>
         <sys_id>168727394779c394f301c82f316d43fc</sys_id>
-        <sys_mod_count>50</sys_mod_count>
+        <sys_mod_count>51</sys_mod_count>
         <sys_name>Launchpad Minimalist Design Theme</sys_name>
         <sys_package display_value="Launchpad" source="x_2062828_launch_0">6e8263bd4739c394f301c82f316d4371</sys_package>
         <sys_policy/>
         <sys_scope display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</sys_scope>
         <sys_update_name>sp_theme_168727394779c394f301c82f316d43fc</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2026-07-21 06:32:42</sys_updated_on>
+        <sys_updated_on>2026-07-22 07:07:29</sys_updated_on>
         <turn_off_scss_compilation>false</turn_off_scss_compilation>
     </sp_theme>
     <sys_translated_text action="delete_multiple" query="documentkey=168727394779c394f301c82f316d43fc"/>
