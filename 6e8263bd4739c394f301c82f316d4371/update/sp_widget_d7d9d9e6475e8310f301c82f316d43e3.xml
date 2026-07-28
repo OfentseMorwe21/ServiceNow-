@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>other</category>
+        <client_script><![CDATA[api.controller=function($rootScope, $timeout) {
+  // widget controller
+  var c = this;
+	var bc = [{label: c.data.widgetTitle, url: '#'}];
+	$timeout(function() {
+		$rootScope.$broadcast('sp.update.breadcrumbs', bc);
+	});
+	
+	function handleToolTip() {
+		$timeout(function() {
+			$(".tool-tip-title").each(function(index) {
+				if (this.offsetWidth >= this.scrollWidth) {
+					$(this).removeAttr("title");
+					$(this).removeAttr("data-original-title");
+				}
+			});
+		}, 100);
+	}
+	
+	handleToolTip();
+	
+	$timeout(function() {
+		$('.survey-title a').first().focus();
+	});
+
+	$(document).on('mousedown', ".survey-title a[aria-describedby]", function() {
+    	$(".survey-title a[aria-describedby]").tooltip('hide');
+	});
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css>/*&#13;
+===============================================================================&#13;
+SURVEY / ASSESSMENT WIDGET — Modern Glassmorphism Theme&#13;
+Paste into the CSS field of your survey/assessment widget&#13;
+===============================================================================&#13;
+*/&#13;
+&#13;
+/* Instance Display / Subtitle Text */&#13;
+.instance-display-text {&#13;
+  padding: 2px 0;&#13;
+  color: $brand-primary !important;&#13;
+  font-size: 0.8rem !important;&#13;
+  font-weight: 700 !important;&#13;
+  letter-spacing: 0.02em;&#13;
+  text-transform: uppercase;&#13;
+}&#13;
+&#13;
+/* Panel / Card Spacing */&#13;
+.survey-panel-spacer {&#13;
+  margin: 16px 0;&#13;
+  padding: 18px 20px;&#13;
+  background: rgba(255, 255, 255, 0.95);&#13;
+  backdrop-filter: blur(8px);&#13;
+  border: 1px solid #E2E8F0;&#13;
+  border-radius: 12px;&#13;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04);&#13;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;&#13;
+}&#13;
+&#13;
+.survey-panel-spacer:hover {&#13;
+  transform: translateY(-2px);&#13;
+  border-color: #CBD5E1;&#13;
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);&#13;
+}&#13;
+&#13;
+/* Survey Title &amp; Links */&#13;
+.survey-title {&#13;
+  font-weight: 800 !important;&#13;
+  font-size: 1rem !important;&#13;
+  line-height: 1.4;&#13;
+  margin-bottom: 4px;&#13;
+}&#13;
+&#13;
+.survey-title a {&#13;
+  color: #0F172A !important;&#13;
+  text-decoration: none !important;&#13;
+  transition: color 0.2s ease;&#13;
+}&#13;
+&#13;
+.survey-title a:hover {&#13;
+  color: $brand-primary !important;&#13;
+}&#13;
+&#13;
+/* Card Bottom Metadata */&#13;
+.card-bottom {&#13;
+  margin-top: 12px;&#13;
+  display: flex;&#13;
+  align-items: center;&#13;
+  justify-content: space-between;&#13;
+}&#13;
+&#13;
+/* Progress Bar Track */&#13;
+.progress-bar {&#13;
+  width: 100%;&#13;
+  height: 8px;&#13;
+  border-radius: 999px;&#13;
+  background: #E2E8F0; /* Soft modern neutral gray track */&#13;
+  margin-top: 8px;&#13;
+  overflow: hidden;&#13;
+  box-shadow: inset 0 1px 2px rgba(15, 23, 42, 0.06);&#13;
+}&#13;
+&#13;
+/* Progress Bar Fill */&#13;
+.progress-bar-inner {&#13;
+  height: 100%;&#13;
+  border-radius: 999px;&#13;
+  background: linear-gradient(90deg, $brand-primary 0%, $brand-success 100%); /* SPAR Brand Gradient Fill */&#13;
+  transition: width 0.4s ease-in-out;&#13;
+}&#13;
+&#13;
+/* Flexible Container Height */&#13;
+.container-height {&#13;
+  min-height: 20px;&#13;
+  display: flex;&#13;
+  align-items: center;&#13;
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>launchpad_my_surveys</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>Launchpad My Surveys</name>
+        <option_schema>[{"name":"maxRecords","section":"Presentation","label":"Max Records","type":"integer"},{"name":"widgetTitle","section":"Presentation","label":"Title of the Widget","type":"string"}]</option_schema>
+        <public>false</public>
+        <roles>snc_external,snc_internal</roles>
+        <script><![CDATA[(function() {
+  // populate the 'data' object
+  data.maxRecords = options.maxRecords || 5;
+  
+  // Explicitly call SPSurveyAPI from the sn_portal_surveys scope
+  var sp = new sn_portal_surveys.SPSurveyAPI();
+  
+  options.showAll = $sp.getParameter('id') == 'my_surveys';
+  if ($sp.getParameter('id') != 'my_surveys') {
+      if (options.widgetTitle && options.widgetTitle.length > 0) {
+          data.widgetTitle = gs.getMessage(options.widgetTitle);
+      } else {
+          data.widgetTitle = gs.getMessage("My Assessments and Surveys");
+      }
+      data.encodedWidgetTitle = encodeURIComponent(data.widgetTitle);
+  } else {
+      data.widgetTitle = $sp.getParameter('title') ? gs.getMessage($sp.getParameter('title')) : gs.getMessage("My Assessments and Surveys");
+  }
+  
+  sp.getSurveys(data.maxRecords, options.showAll, data, true);
+  
+  if (data.instances) {
+      data.instances.forEach(function(instance) {
+          if (!!instance.description)
+              instance.description = $sp.stripHTML(instance.description);
+          
+          var percentAnswered = parseInt(instance.portal_progress).toFixed(0) + '%';
+          instance.progress_text = gs.getMessage("{0} complete", percentAnswered);
+          instance.due_display_message = instance.due_display;
+          
+          if (instance.due_days < -1)
+              instance.due_display_message = gs.getMessage("Due in {0} days", (0 - instance.due_days) + '');
+          else if (instance.due_days == -1)
+              instance.due_display_message = gs.getMessage("Due in 1 day");
+      });
+  }
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-28 10:31:00</sys_created_on>
+        <sys_id>d7d9d9e6475e8310f301c82f316d43e3</sys_id>
+        <sys_mod_count>4</sys_mod_count>
+        <sys_name>Launchpad My Surveys</sys_name>
+        <sys_package display_value="Launchpad" source="x_2062828_launch_0">6e8263bd4739c394f301c82f316d4371</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</sys_scope>
+        <sys_update_name>sp_widget_d7d9d9e6475e8310f301c82f316d43e3</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-28 10:37:10</sys_updated_on>
+        <template><![CDATA[<div ng-if="!(options.showAll && options.showAll != 'false' && data.instances.length && data.totalRecords == data.maxRecords && data.totalRecords != 0)">
+	<div class="panel panel-{{::options.color}} b">
+		<div class="panel-heading">
+			<h2 class="panel-title"><fa ng-if="::options.glyph.length" name="{{::options.glyph}}" class="m-r-sm"></fa>{{::data.widgetTitle}}</h2>
+		</div>
+			<div class="list-group" ng-if="data.instances.length && data.totalRecords > 0">
+				<div class="list-group-item" ng-repeat="instance in data.instances track by $index">
+					<div>
+						<a href="?id=take_survey&instance_id={{::instance.sys_id}}" title = "Take {{::instance.evaluation_method_display}}">
+                          <span  class = "survey-icon icon-article-document"
+                                  ng-if="(instance.evaluation_method == 'assessment' || instance.evaluation_method == 'attestation_v2' || instance.evaluation_method == 'risk_assessment')"></span>
+                            <span ng-if="(instance.evaluation_method == 'survey' || instance.evaluation_method == 'quiz')" class="survey-icon icon-form"></span>
+                          <span class="instance-display-text" data-toggle="tooltip" data-container="body" title="{{::instance.display}}">{{::instance.display}}</span>
+                      </a>
+					</div>
+					<div>
+						<small ng-if="instance.trigger_id">
+							<a style="color:inherit;text-decoration:underline" href="?id=ticket&table={{::instance.trigger_table}}&sys_id={{::instance.trigger_id}}">{{::instance.trigger_display}}</a>
+							<span> • </span>
+						</small>
+						<small>
+							<span aria-hidden="true" class="ng-binding">{{::instance.due_display}}</span>
+							<span class="sr-only">{{instance.due_display_message}}</span>
+						</small>
+					</div>
+
+				</div>
+			</div>
+			<div ng-if="data.totalRecords ==0" class="panel-body ng-scope">
+				${No assessments or surveys for you at the moment}
+			</div>
+			<div class="panel-footer" ng-if="data.totalRecords > data.maxRecords">
+				<h4 class="panel-title row">
+					<div class="col-xs-6">
+						<span>{{::data.recordsShownMsg}}</span>
+					</div>
+					<div class="col-xs-6 text-right">
+						<a href="?id=my_surveys&title={{::data.encodedWidgetTitle}}">${View all}</a>
+					</div>
+			 	</h4>
+			</div>
+	</div>
+</div>
+
+<div ng-if="options.showAll && options.showAll != 'false' && data.instances.length && data.totalRecords == data.maxRecords && data.totalRecords != 0">
+  <div class = "survey-panel-spacer"/>
+  <h2>{{::data.widgetTitle}}</h2>
+  <div class="row">
+    <div class="col-sm-6 col-md-4 wrapper-xs" ng-repeat="instance in data.instances track by $index">
+      <div class="panel panel-default wrapper-sm">
+
+        <div class="row">
+          <div class="col-xs-12 survey-title" style="height:34px;padding-top:4px;">
+            <a href="?id=take_survey&instance_id={{::instance.sys_id}}" class="text-overflow-ellipsis block tool-tip-title" data-toggle="tooltip" data-container="body" title="{{::instance.display}}" data-placement="top">
+                          <span  class = "survey-icon icon-article-document"
+                                  ng-if="(instance.evaluation_method == 'assessment' || instance.evaluation_method == 'attestation_v2' || instance.evaluation_method == 'risk_assessment')"></span>
+                            <span ng-if="(instance.evaluation_method == 'survey' || instance.evaluation_method == 'quiz')" class="survey-icon icon-form"></span>
+                          <span class="instance-display-text">{{::instance.display}}</span>
+          </a>    
+          </div>
+          <div class="col-xs-12 text-overflow-ellipsis tool-tip-title" ng-if="instance.trigger_description" style="height:34px;" data-toggle="tooltip" data-container="body" title="{{::instance.trigger_description}}" data-placement="top">
+            {{::instance.trigger_description}}
+          </div>
+          <div class="col-xs-12 text-overflow-ellipsis tool-tip-title" ng-if="!instance.trigger_description" style="height:34px;" data-toggle="tooltip" data-container="body" title="{{::instance.description}}" data-placement="top">
+            {{::instance.description}}
+          </div>
+        </div>
+
+        <div class="card-bottom" style="font-size:12px;">
+
+          <div class="row">
+            <div class="col-xs-8 container-height">
+							<span ng-if="instance.can_retake">${Completed. Do you want to retake?}</span>
+            </div>
+            <div class="col-xs-4 text-right container-height">
+              <a  ng-if="instance.trigger_table_display" href="?id=ticket&table={{::instance.trigger_table}}&sys_id={{::instance.trigger_id}}" class="col-xs-12.5 text-overflow-ellipsis" data-toggle="tooltip" data-container="body" title="{{::instance.trigger_display}}" data-placement="top">
+               {{::instance.trigger_display}}
+              </a>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-xs-8">
+              <div class="progress-bar" ng-if="instance.portal_progress > '0'">
+                <div class="progress-bar-inner" ng-style="{width: instance.portal_progress + '%'}"></div>
+              </div>
+            </div>
+            <div class="col-xs-4 text-right">
+              <div class="due-date">
+			   <span aria-hidden="true" class="ng-binding">{{::instance.due_display}}</span>
+			   <span class="sr-only">{{instance.due_display_message}}</span>
+              </div>
+            </div>
+            <div class="col-xs-12 container-height">
+            	<span ng-if="instance.portal_progress > '0'">{{instance.progress_text}}</span>
+            </div>
+          </div>
+
+        </div> <!-- end div.card-bottom -->
+
+      </div>
+    </div>
+  </div>
+</div>]]></template>
+    </sp_widget>
+</record_update>

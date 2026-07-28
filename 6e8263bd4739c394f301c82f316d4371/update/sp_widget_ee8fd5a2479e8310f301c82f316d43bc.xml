@@ -1,0 +1,741 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>other</category>
+        <client_script><![CDATA[api.controller=function ($scope, spUtil, spUIActionsExecuter, $timeout, i18n, spModal, $q) {
+	var c = this;
+
+	$scope.$on('commentEntered', function(event, comment) {
+    	if ($scope.comment !== comment)
+        	$scope.comment = comment;
+	});
+
+	var ESIGNATURE = {
+		TYPE: "form",
+		APPROVE_SYS: "cbfe291147220100ba13a5554ee4904d",
+		REJECT_SYS: "580f711147220100ba13a5554ee4904b"
+	};
+
+	if ($scope.options.portal == true || $scope.options.portal == 'true') {
+		$scope.contentColClass = "col-xs-12";
+		$scope.options.portal = true;
+	} else {
+		$scope.options.portal = false;
+		$scope.contentColClass = "col-sm-8";
+	}
+
+	$scope.data.op = "";
+	var filter = "state=requested";
+	if ($scope.data.delegatedApprovals && $scope.data.delegatedApprovals.length > 0)
+		filter += "^sys_idIN" + $scope.data.delegatedApprovals.toString();
+	if ($scope.data.approvers && $scope.data.approvers.length > 0) {
+		if ($scope.data.delegatedApprovals && $scope.data.delegatedApprovals.length > 0)
+			filter += "^OR";
+		else
+			filter += "^";
+		filter += "approverIN" + $scope.data.approvers.toString();
+	}
+	spUtil.recordWatch($scope, "sysapproval_approver", filter, function(data) {
+		// don't double-roundtrip if update came from record just approved/rejected
+		if (data.data.sys_id != $scope.data.target)
+			spUtil.update($scope);
+	});
+
+	$scope.approvalsInProgressFor = [];
+  
+	function get(id) {
+		return $q(function(resolve) {
+			var target = $scope.data.target;
+			var operation = $scope.data.op;
+			var taskNumber = getTaskNumber(target);
+			spUtil.update($scope).then(function(result) {
+				updateInProgressApprovals(target);
+				$timeout(function () {
+					var approvalIds = result && result.ids;
+					// Set focus on last element
+					if (id == -1)
+						id = approvalIds[approvalIds.length - 1];
+					// set focus on first element
+					else if (id == 0)
+						id = approvalIds[0];
+					var key = id == "no-approval" ? "no-approval" : ("approval_task_" + id);
+					setFocus(key, operation, taskNumber);
+					resolve();
+				}, 500);
+			});
+		});	
+	}
+	
+	function updateInProgressApprovals(id) {
+		if (id)
+			$scope.approvalsInProgressFor.splice($scope.approvalsInProgressFor.indexOf(id), 1);
+	}
+
+	function getTaskNumber(id) {
+    		var currentApproval = $scope.data.approvals.find(function(item){
+			return item.sys_id === id;
+		});
+		var taskNumber = currentApproval && currentApproval.task.number;
+		return taskNumber;
+	}
+
+	function setFocus(id, operation, taskNumber) {
+		var nextApprovalElement = document.getElementById(id);
+		if (nextApprovalElement) {
+			var message = operation === 'approved' ? 
+				i18n.getMessage("{0} has been approved").withValues([taskNumber]) : 
+				i18n.getMessage("{0} has been rejected").withValues([taskNumber]);
+
+			// Add visual notification
+			if (operation === 'approved')
+				spUtil.addInfoMessage(message);
+			else
+				spUtil.addErrorMessage(message);
+
+			$( "<span/>", {
+				"class": 'sr-only',
+				"text": message
+			}).prependTo(nextApprovalElement);
+			nextApprovalElement.focus();
+			$(nextApprovalElement).one('blur', function() {
+				$(nextApprovalElement).find('.sr-only').remove();
+			});
+		}
+	}
+
+	function getNextApproval(id) {
+		var approvals = $scope.data.ids,
+		currentIndex = approvals.indexOf(id),
+		hasNext = $scope.data.pagination.hasNext,
+		hasPrevious = $scope.data.pagination.hasPrevious;
+
+		// Action on only approval and no approval left
+		if (approvals.length == 1 && !hasNext && !hasPrevious)
+			return "no-approval";
+		// Action on only approval in last page
+		if (approvals.length == 1 && !hasNext)
+			return 0;
+		// Action on last approval item in current page
+		if (currentIndex == approvals.length - 1 && hasNext)
+			return -1;
+		// Action on last approval item in last page
+		if (currentIndex == approvals.length - 1)
+			return approvals[currentIndex - 1];
+
+		if (currentIndex >= 0 && currentIndex < approvals.length - 1)
+			return approvals[currentIndex + 1]
+	}
+
+	$scope.approve = function(id, esigRequired) {
+		var requestParams = {
+			username: $scope.data.esignature.username,
+			userSysId: $scope.data.esignature.userSysId
+		};
+
+		if($scope.data.esignature.e_sig_required && esigRequired) {
+			spUIActionsExecuter.executeFormAction(ESIGNATURE.APPROVE_SYS, "sysapproval_approver" , id, [] , "", requestParams).then(function(response) {
+			});			
+		} else {
+			$scope.approvalsInProgressFor.push(id);
+			$scope.data.op = "approved";
+			$scope.data.target = id;
+			get(getNextApproval(id));
+		}
+  	}
+
+	$scope.reject = function(id, esigRequired) {
+		var requestParams = {
+			username: $scope.data.esignature.username,
+			userSysId: $scope.data.esignature.userSysId
+		};
+		$scope.data.op = "rejected";
+		$scope.data.target = id;
+		$scope.comment = '';
+
+		var openRejectionModal = function() {
+			spModal.open({
+				title: $scope.data.reject_record_message,
+				widget: 'reject_comment_text_area',
+				buttons: [
+					{label: i18n.getMessage('Cancel'), cancel: true},
+					{label: i18n.getMessage('Reject'), primary: true}
+				],
+				onSubmit: function() {
+					return postComment(id, esigRequired, requestParams).then(function(result) {
+						return { status: 'success' };
+					});
+				}
+			}).then(function() {
+			// Modal submit handler
+			}, function() {
+				// Reset button state if modal is canceled
+				var index = $scope.approvalsInProgressFor.indexOf(id);
+				if (index > -1) {
+					$scope.approvalsInProgressFor.splice(index, 1);
+				};
+			});
+		};
+
+		if ($scope.data.esignature.e_sig_required && esigRequired) {
+			if ($scope.data.mandatory_comment === "true")
+				openRejectionModal();
+			else {
+				spUIActionsExecuter.executeFormAction(ESIGNATURE.REJECT_SYS, "sysapproval_approver" , id, [] , "", requestParams).then(function(response) {
+					$scope.approvalsInProgressFor.push(id);
+					get(getNextApproval(id));
+				});
+			}
+		} else {
+			if ($scope.data.mandatory_comment === "true") {
+				$scope.approvalsInProgressFor.push(id);
+				openRejectionModal();
+			}
+			else {
+				$scope.approvalsInProgressFor.push(id);
+				get(getNextApproval(id));
+			}
+		}
+	}
+
+	$scope.isSubmitting = false;
+	function postComment(id, esigRequired, requestParams) {
+		return $q(function(resolve, reject) {
+			if ($scope.isSubmitting) 
+				return resolve({ status: 'success' });
+
+			if ($scope.comment) {
+				$scope.data.journalEntry = $scope.comment;
+				$scope.data.journalEntryField = $scope.data.primaryJournalField.name;
+				$scope.data.isPosting = true;
+				$scope.isSubmitting = true;
+				var updatePromise;
+
+				if ($scope.data.esignature.e_sig_required && esigRequired) {
+					$rootScope.$broadcast('closeSpModal');
+					updatePromise = spUIActionsExecuter.executeFormAction(
+						ESIGNATURE.REJECT_SYS,
+						"sysapproval_approver",
+						id,
+						[],
+						"",
+						requestParams
+					).then(function() {
+						return spUtil.update($scope);
+					});
+				} else
+					updatePromise = get(getNextApproval(id));
+
+				updatePromise.then(function(result) {
+					$scope.data.isPosting = false;
+					$scope.isSubmitting = false;
+					$scope.comment = '';
+					resolve(result);
+				})
+			} else
+				$rootScope.$broadcast('commentRequired');
+		});
+	}
+	// pagination
+	$scope.previousPage = function() {
+		if ($scope.data.pagination.currentPage > 1)
+			$scope.data.pagination.currentPage = $scope.data.pagination.currentPage - 1;
+		else
+			$scope.data.pagination.currentPage = 0;
+      
+		$scope.data.op = "previous";
+		$scope.data.target = null;
+
+		get(0);
+	}
+
+	$scope.nextPage = function() {
+		$scope.data.op = "next";
+		$scope.data.target = null;
+		$scope.data.pagination.currentPage = $scope.data.pagination.currentPage+1;
+		get(0);
+	}
+	
+	$scope.getItemDisplay = function(task) {
+		if (task.number && task.short_description)
+			return task.number + " - " + task.short_description;
+		
+		return task.number || task.short_description || "";
+	}
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css>/*&#13;
+===============================================================================&#13;
+MY APPROVALS WIDGET — Modern Glassmorphism Theme&#13;
+Paste into the CSS field of your cloned Approvals Widget&#13;
+===============================================================================&#13;
+*/&#13;
+&#13;
+/* Remove default Bootstrap panel wrapper styling */&#13;
+.panel {&#13;
+  background: transparent !important;&#13;
+  border: none !important;&#13;
+  box-shadow: none !important;&#13;
+}&#13;
+&#13;
+.panel-heading {&#13;
+  background: transparent !important;&#13;
+  border-bottom: 1px solid #E2E8F0 !important;&#13;
+  padding: 12px 4px 16px 4px !important;&#13;
+}&#13;
+&#13;
+.panel-title {&#13;
+  font-size: 1.15rem !important;&#13;
+  font-weight: 800 !important;&#13;
+  color: #0F172A !important;&#13;
+  letter-spacing: -0.01em;&#13;
+}&#13;
+&#13;
+.panel-body {&#13;
+  padding: 16px 0 !important;&#13;
+}&#13;
+&#13;
+/* Individual Approval Card */&#13;
+.sp-approval {&#13;
+  background: rgba(255, 255, 255, 0.95) !important;&#13;
+  backdrop-filter: blur(8px);&#13;
+  border: 1px solid #E2E8F0 !important;&#13;
+  border-radius: 12px !important;&#13;
+  padding: 20px !important;&#13;
+  margin-bottom: 16px !important;&#13;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04);&#13;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;&#13;
+}&#13;
+&#13;
+.sp-approval:hover {&#13;
+  transform: translateY(-2px);&#13;
+  border-color: #CBD5E1 !important;&#13;
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);&#13;
+}&#13;
+&#13;
+/* Approval Task Link / Title */&#13;
+.sp-approval a {&#13;
+  color: #0F172A !important;&#13;
+  font-weight: 700 !important;&#13;
+  font-size: 1.05rem !important;&#13;
+  text-decoration: none !important;&#13;
+  transition: color 0.2s ease;&#13;
+}&#13;
+&#13;
+.sp-approval a:hover {&#13;
+  color: $brand-primary !important;&#13;
+}&#13;
+&#13;
+/* Field Labels &amp; Metadata */&#13;
+.sp-approval label {&#13;
+  color: #64748B !important;&#13;
+  font-weight: 600 !important;&#13;
+  font-size: 0.85rem !important;&#13;
+  margin-right: 4px;&#13;
+}&#13;
+&#13;
+.sp-approval div {&#13;
+  color: #334155 !important;&#13;
+  font-size: 0.9rem !important;&#13;
+  margin-bottom: 4px;&#13;
+}&#13;
+&#13;
+/* Button Styling — Primary Approve Action */&#13;
+.sp-approval .btn-primary {&#13;
+  background-color: $brand-primary !important;&#13;
+  border-color: $brand-primary !important;&#13;
+  color: #FFFFFF !important;&#13;
+  font-weight: 700 !important;&#13;
+  border-radius: 8px !important;&#13;
+  padding: 8px 16px !important;&#13;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);&#13;
+  transition: all 0.2s ease;&#13;
+}&#13;
+&#13;
+.sp-approval .btn-primary:hover {&#13;
+  filter: brightness(0.9);&#13;
+  transform: translateY(-1px);&#13;
+}&#13;
+&#13;
+/* Button Styling — Secondary Reject Action */&#13;
+.sp-approval .btn-default {&#13;
+  background-color: #F1F5F9 !important;&#13;
+  border: 1px solid #CBD5E1 !important;&#13;
+  color: #475569 !important;&#13;
+  font-weight: 700 !important;&#13;
+  border-radius: 8px !important;&#13;
+  padding: 8px 16px !important;&#13;
+  transition: all 0.2s ease;&#13;
+}&#13;
+&#13;
+.sp-approval .btn-default:hover {&#13;
+  background-color: #E2E8F0 !important;&#13;
+  color: #0F172A !important;&#13;
+}&#13;
+&#13;
+/* Status Badges (Approved / Rejected) */&#13;
+.sp-approval .btn-success {&#13;
+  background-color: rgba(34, 197, 94, 0.1) !important;&#13;
+  border: 1px solid rgba(34, 197, 94, 0.3) !important;&#13;
+  color: #166534 !important;&#13;
+  font-weight: 700 !important;&#13;
+  border-radius: 8px !important;&#13;
+  cursor: default;&#13;
+}&#13;
+&#13;
+.sp-approval .btn-danger {&#13;
+  background-color: rgba(239, 68, 68, 0.1) !important;&#13;
+  border: 1px solid rgba(239, 68, 68, 0.3) !important;&#13;
+  color: #991B1B !important;&#13;
+  font-weight: 700 !important;&#13;
+  border-radius: 8px !important;&#13;
+  cursor: default;&#13;
+}&#13;
+&#13;
+/* Pagination Footer */&#13;
+.panel-footer {&#13;
+  background: transparent !important;&#13;
+  border-top: 1px solid #E2E8F0 !important;&#13;
+  padding: 12px 4px !important;&#13;
+}&#13;
+&#13;
+/* Utility Helpers */&#13;
+.pre-wrap {&#13;
+  white-space: pre-wrap;&#13;
+}&#13;
+&#13;
+.col-sm-4 {&#13;
+  padding-left: 0px;&#13;
+}&#13;
+&#13;
+@media screen and (max-width: 992px) {&#13;
+  .col-sm-4 {&#13;
+    padding-right: 0px;&#13;
+  }&#13;
+  .col-sm-8 {&#13;
+    padding-left: 0px;&#13;
+  }&#13;
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list>color,glyph</field_list>
+        <has_preview>false</has_preview>
+        <id>launchpad_of_approvals</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>Launchpad of Approvals</name>
+        <option_schema>[{"hint":"If false, buttons are stacked on the right; if true, they are side-by-side","name":"portal","section":"Presentation","label":"Buttons stacked side by side","type":"boolean"},{"hint":"Maximum number of elements that are shown in the list of approvals","name":"max_number_of_elements_shown_on_the_list","default_value":"10","section":"Presentation","label":"Max number of elements shown in the list (only positive numbers &gt; 0, 10 otherwise)","type":"integer"},{"hint":"If checked, comments will be mandatory for rejecting a record","name":"mandatory_comment","section":"Behavior","default_value":"false","label":"Comments mandatory for rejection","type":"boolean"}]</option_schema>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[g_approval_form_request = true;
+
+// 1. Pagination Setup
+var maxNumberOfItemsInTheList = parseInt(options.max_number_of_elements_shown_on_the_list, 10);
+maxNumberOfItemsInTheList = maxNumberOfItemsInTheList > 0 ? maxNumberOfItemsInTheList : 10; 
+var initRow = 0;
+var lastRow = maxNumberOfItemsInTheList;
+var currentPage = 0;
+
+data.mandatory_comment = options.mandatory_comment;
+data.reject_record_message = gs.getMessage("Provide additional information");
+
+// 2. Handle Inputs (Approve / Reject Actions)
+if (input) {
+    currentPage = input.pagination ? input.pagination.currentPage : 0;
+    initRow = (currentPage * maxNumberOfItemsInTheList);
+    lastRow = initRow + maxNumberOfItemsInTheList;
+    
+    if (input.op == 'approved' || input.op == 'rejected') {
+        var app = new global.GlideRecord("sysapproval_approver");
+        if (app.get(input.target)) {
+            if (input.isPosting && input.journalEntry && input.journalEntryField) {
+                if (app.canWrite(input.journalEntryField)) {
+                    var displayValue = gs.getMessage('Reason for rejection: {0}', [input.journalEntry]);
+                    app[input.journalEntryField].setDisplayValue(displayValue);
+                }
+            }
+            var isMine = gs.hasRole("approval_admin") || new global.ApprovalDelegationUtil().isMyApproval(app);
+            if (isMine) {
+                app.state = input.op;
+                app.update();
+                if (currentPage > 0 && !input.pagination.hasNext && input.approvals && input.approvals.length == 1) {
+                    currentPage--;
+                    initRow = (currentPage * maxNumberOfItemsInTheList);
+                    lastRow = initRow + maxNumberOfItemsInTheList;
+                }
+            }
+        }
+    }
+}
+
+data.ViewApprovalPageMsg = String(gs.getMessage("View approval page"));
+
+// 3. Scope-Safe Plugin Check (Replaces GlidePluginManager)
+var isEsigActive = false;
+var pluginGR = new global.GlideRecord('sys_plugins');
+pluginGR.addQuery('source', 'com.glide.e_signature_approvals');
+pluginGR.addQuery('active', 'active');
+pluginGR.query();
+if (pluginGR.hasNext()) {
+    isEsigActive = true;
+}
+
+data.esignature = {
+    username: String(gs.getUserName()),
+    userSysId: String(gs.getUserID()),
+    e_sig_required: isEsigActive
+};
+
+// 4. E-Signature Table Mapping
+var esigRequiredMap = {};
+if (data.esignature.e_sig_required) {
+    var esigRegistryGR = new global.GlideRecord("e_signature_registry");
+    esigRegistryGR.addQuery("enabled", "true");
+    esigRegistryGR.query();
+    while (esigRegistryGR.next()) {
+        esigRequiredMap[String(esigRegistryGR.getValue("table_name"))] = true;
+    }
+}
+
+// 5. Delegation & Approvals Fetching
+var approvalUtil = new global.ApprovalDelegationUtil();
+var rawMyApprovals = approvalUtil.getAllMyRequestedApprovals();
+var myApprovalsStr = rawMyApprovals ? String(rawMyApprovals) : '';
+var myApprovalsList = myApprovalsStr.length > 0 ? myApprovalsStr.split(',') : [];
+
+var gr = new global.GlideRecord('sysapproval_approver');
+gr.chooseWindow(initRow, lastRow);
+
+if (myApprovalsList.length > 0) {
+    gr.addQuery("sys_id", "IN", myApprovalsList.join(','));
+} else {
+    gr.addQuery("approver", String(gs.getUserID()));
+    gr.addQuery("state", "requested");
+}
+
+gr.orderBy("sys_created_on");
+gr.query();
+
+var rowCount = gr.getRowCount();
+var approvals = [];
+var ids = [];
+
+// 6. Loop Approvals Safely
+while (gr.next()) {
+    var appSysId = String(gr.getUniqueValue());
+    
+    // Resolve Target Task
+    var targetTable = String(gr.getValue('source_table'));
+    var targetSysId = String(gr.getValue('document_id'));
+
+    if (!targetSysId || targetSysId === 'null') {
+        targetSysId = String(gr.getValue('sysapproval'));
+        if (targetSysId && targetSysId !== 'null') {
+            var sysAppGr = new global.GlideRecord('task');
+            if (sysAppGr.get(targetSysId)) {
+                targetTable = String(sysAppGr.getRecordClassName());
+            }
+        }
+    }
+
+    if (!targetTable || !targetSysId || targetSysId === 'null') {
+        continue;
+    }
+
+    var task = new global.GlideRecord(targetTable);
+    if (!task.get(targetSysId)) {
+        continue;
+    }
+
+    ids.push(appSysId);
+    var t = {};
+    t.number = String(task.getDisplayValue());
+    t.short_description = task.getValue('short_description') ? String(task.getValue('short_description')) : '';
+    
+    if (String(gr.getValue("approver")) !== String(gs.getUserID())) {
+        t.approver = String(gr.approver.getDisplayValue());
+    }
+    
+    if (task.isValidField("opened_by") && !task.opened_by.nil()) {
+        t.opened_by = String(task.opened_by.getDisplayValue());
+    }
+
+    if (task.isValidField("requested_by") && !isDateTypeField(task.requested_by) && !task.requested_by.nil()) {
+        t.opened_by = String(task.requested_by.getDisplayValue());
+    }
+
+    t.start_date = task.getValue('start_date') ? String(task.start_date.getDisplayValue()) : '';
+    t.end_date = task.getValue('end_date') ? String(task.end_date.getDisplayValue()) : '';
+    t.quantity = task.getValue('quantity') ? String(task.quantity.getDisplayValue()) : '';
+    t.table = String(task.getLabel());
+    
+    if (parseFloat(task.getValue("price")) > 0) {
+        t.price = String(task.getDisplayValue("price"));
+    }
+    if (parseFloat(task.getValue("recurring_price")) > 0) {
+        t.recurring_price = String(task.getDisplayValue("recurring_price"));
+    }
+
+    t.recurring_frequency = task.getValue('recurring_frequency') ? String(task.getDisplayValue("recurring_frequency")) : '';
+
+    // Item Breakdown for Requests (sc_request)
+    var items = [];
+    var idx = 0;
+    if (targetTable === "sc_request") {
+        var itemsGR = new global.GlideRecord("sc_req_item");
+        itemsGR.addQuery("request", targetSysId);
+        itemsGR.query();
+        
+        if (itemsGR.getRowCount() > 1) {
+            t.short_description = itemsGR.getRowCount() + " requested items";
+        }
+
+        while (itemsGR.next()) {
+            var item = {};
+            item.short_description = itemsGR.getValue('short_description') ? String(itemsGR.getValue('short_description')) : '';
+            if (parseFloat(itemsGR.getValue("price")) > 0) {
+                item.price = String(itemsGR.getDisplayValue("price"));
+            }
+            if (parseFloat(itemsGR.getValue("recurring_price")) > 0) {
+                item.recurring_price = String(itemsGR.getDisplayValue("recurring_price"));
+                item.recurring_frequency = String(itemsGR.getDisplayValue("recurring_frequency"));
+            }
+            if (itemsGR.getRowCount() == 1) {
+                item.variables = new global.GlobalServiceCatalogUtil().getVariablesForTask(itemsGR, true);
+                item.variableSummarizerWidget = $sp.getWidget('sc-variable-summarizer', { 'variables': item.variables, 'toggle': false, 'task': t.number });
+                t.short_description = item.short_description;
+            }
+            items[idx] = item;
+            idx++;
+        }
+    }
+
+    var j = {};
+    j.sys_id = appSysId;
+    j.table = String(gr.getRecordClassName());
+    j.approval_source_table = gr.getValue("source_table") ? String(gr.getValue("source_table")) : targetTable;
+    j.requireEsigApproval = !!esigRequiredMap[j.approval_source_table];
+    j.task = t;
+    
+    // Variables Summarizer
+    j.variables = new global.GlobalServiceCatalogUtil().getVariablesForTask(task, true);
+    j.variableSummarizerWidget = $sp.getWidget('sc-variable-summarizer', { 'variables': j.variables, 'toggle': false, 'task': t.number });
+    
+    j.items = items;
+    j.state = String(gr.getValue("state"));
+    j.stateLabel = String(gr.state.getDisplayValue());
+    approvals.push(j);
+}
+
+data.ids = ids;
+data.approvals = approvals;
+data.showApprovals = true;
+
+// 7. Pagination Metadata
+data.pagination = {};
+data.pagination.hasNext = (approvals.length == (parseInt(lastRow, 10) - parseInt(initRow, 10)) && lastRow < rowCount);
+data.pagination.hasPrevious = parseInt(initRow, 10) > 0;
+data.pagination.from = parseInt(initRow, 10) + 1;
+data.pagination.to = parseInt(lastRow, 10) < parseInt(rowCount, 10) ? parseInt(lastRow, 10) : parseInt(rowCount, 10);
+data.pagination.of = parseInt(rowCount, 10);
+data.pagination.showPagination = data.pagination.hasPrevious || data.pagination.hasNext;
+data.pagination.currentPage = data.pagination.from > data.pagination.to ? currentPage - 1 : currentPage;
+
+delete g_approval_form_request;
+
+// Helper Function
+function isDateTypeField(f) {
+    if (!f) return false;
+    return String(f.getED().getInternalType()) == "glide_date";
+}]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-28 10:55:47</sys_created_on>
+        <sys_id>ee8fd5a2479e8310f301c82f316d43bc</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>Launchpad of Approvals</sys_name>
+        <sys_package display_value="Launchpad" source="x_2062828_launch_0">6e8263bd4739c394f301c82f316d4371</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</sys_scope>
+        <sys_update_name>sp_widget_ee8fd5a2479e8310f301c82f316d43bc</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-28 11:01:28</sys_updated_on>
+        <template><![CDATA[
+<div class="panel panel-{{::options.color}} b" ng-if="data.showApprovals">
+  <div class="panel-heading">
+    <h2 class="h4 panel-title">
+      <fa ng-if="::options.glyph.length" name="{{::options.glyph}}" class="m-r-sm" ></fa>
+      ${My Approvals}
+      <label ng-if="data.pagination.showPagination && (data.pagination.from <= data.pagination.to)" class="pull-right text-info">
+        <span ng-if="data.pagination.from != data.pagination.to">
+          {{data.pagination.from}} ${to_lower}
+        </span>
+        {{data.pagination.to}} ${of} {{data.pagination.of}}
+      </label>
+    </h2>
+  </div>
+  <div class="panel-body" ng-class="{'padder-b-none': data.approvals.length != 0}">
+    <div ng-if="data.approvals.length == 0 && data.pagination.of == 0" tabindex="-1" id="no-approval">
+      ${You have no pending approvals}
+    </div>
+    <div ng-if="data.approvals.length == 0 && data.pagination.of != 0">
+      ${Loading approvals...}
+    </div>
+    <div ng-repeat="approval in data.approvals" class="sp-approval m-b-xl">
+      <div class="row">
+        <div ng-class="contentColClass">
+          <div ng-if="approval.task.number || approval.task.short_description">
+            <a ng-href="?id=approval&table=sysapproval_approver&sys_id={{::approval.sys_id}}" id="approval_task_{{::approval.sys_id}}"title="{{data.ViewApprovalPageMsg}}">
+              <span ng-if="approval.task.number">{{::approval.task.number}}</span>
+              <span ng-if="approval.task.number && approval.task.short_description"> - </span>
+              <span ng-if="approval.task.short_description">{{::approval.task.short_description}}</span>
+            </a>
+          </div>
+          <div ng-if="approval.task.opened_by"><label>${Requestor}</label> {{::approval.task.opened_by}}</div>
+          <div ng-if="approval.task.approver"><label>${Approver}</label> {{::approval.task.approver}}</div>
+          <div ng-if="approval.task.start_date"><label>${Start}</label> {{::approval.task.start_date}}</div>
+          <div ng-if="approval.task.end_date"><label>${End}</label> {{::approval.task.end_date}}</div>
+          <div ng-if="approval.task.quantity"><label>${Quantity}</label> {{::approval.task.quantity}}</div>
+          <div ng-if="approval.task.price"><label>${Price}</label> {{::approval.task.price}}
+            <span ng-if="approval.task.recurring_price"><label>${Recurring price}</label> {{::approval.task.recurring_price}} {{::approval.task.recurring_frequency}}</span>
+            <label ng-if="approval.task.quantity && approval.task.quantity > 1"> ${each}</label>
+          </div>
+          <div ng-if="approval.items.length == 1">
+            <div ng-repeat="item in approval.items">
+             <sp-widget ng-if="item.variableSummarizerWidget" widget="item.variableSummarizerWidget"></sp-widget> 
+            </div>
+          </div>
+          <sp-widget ng-if="approval.variableSummarizerWidget" widget="approval.variableSummarizerWidget"></sp-widget>
+          
+          </div>
+        <div ng-if="!options.portal" class="col-sm-4">
+          <button name="approve" ng-disabled="approvalsInProgressFor.indexOf(approval.sys_id) > -1" id="approve_button_{{::approval.sys_id}}" aria-labelledby=" approve_button_{{::approval.sys_id}} approval_task_{{::approval.sys_id}}" ng-if="approval.state == 'requested'" class="btn btn-primary btn-block" style="border-width:1px;" ng-click="approve(approval.sys_id, approval.requireEsigApproval);">${Approve}</button>
+          <button name="reject" ng-disabled="approvalsInProgressFor.indexOf(approval.sys_id) > -1" id="reject_button_{{::approval.sys_id}}" aria-labelledby=" reject_button_{{::approval.sys_id}} approval_task_{{::approval.sys_id}}" ng-if="approval.state == 'requested'" class="btn btn-default btn-block" ng-click="reject(approval.sys_id, approval.requireEsigApproval);">${Reject}</button>
+          <button ng-if="approval.state == 'approved'" class="btn btn-success btn-block">{{approval.stateLabel}}</button>
+          <button ng-if="approval.state == 'rejected'" class="btn btn-danger btn-block">{{approval.stateLabel}}</button>
+          <button ng-if="approval.state != 'requested'" class="btn btn-default btn-block" style="visibility:hidden">{{approval.stateLabel}}</button>
+        </div>
+        <div ng-if="options.portal && approval.state == 'requested'" class="col-xs-6">
+          <button name="reject" ng-disabled="approvalsInProgressFor.indexOf(approval.sys_id) > -1" id="reject_button_{{::approval.sys_id}}" aria-labelledby=" reject_button_{{::approval.sys_id}} approval_task_{{::approval.sys_id}}" class="btn btn-default btn-block" ng-click="reject(approval.sys_id, approval.requireEsigApproval);">${Reject}</button>
+        </div>
+        <div ng-if="options.portal && approval.state == 'requested'" class="col-xs-6">
+          <button name="approve" ng-disabled="approvalsInProgressFor.indexOf(approval.sys_id) > -1" id="approve_button_{{::approval.sys_id}}" aria-labelledby=" approve_button_{{::approval.sys_id}} approval_task_{{::approval.sys_id}}" class="btn btn-primary btn-block" ng-click="approve(approval.sys_id, approval.requireEsigApproval);">${Approve}</button>
+        </div>
+        <div ng-if="options.portal && approval.state != 'requested'" class="col-xs-12">
+          <button ng-if="approval.state == 'approved'" class="btn btn-success btn-block">{{approval.stateLabel}}</button>
+          <button ng-if="approval.state == 'rejected'" class="btn btn-danger btn-block">{{approval.stateLabel}}</button>
+        </div>
+      </div>
+    </div> <!-- body -->
+       
+  </div> 
+  <div class="panel-footer clearfix" ng-if="data.pagination.showPagination">
+    <a id="previous-btn" href="javascript:void(0)" ng-click="previousPage()" ng-show="data.pagination.hasPrevious" class="pull-left btn btn-sm btn-default" aria-label="${Pagination button Previous}">
+      <i class="fa fa-arrow-left flip-icon-rtl m-r-sm" aria-hidden="true"></i>${Previous}</a>
+    <a id="next_btn" href="javascript:void(0)" ng-click="nextPage()" ng-show="data.pagination.hasNext" class="pull-right btn btn-sm btn-default " aria-label="${Pagination button Next}">
+      ${Next}<i class="fa fa-arrow-right flip-icon-rtl m-l-sm col-md-offset-3" aria-hidden="true"></i></a>
+</div>
+</div>]]></template>
+    </sp_widget>
+</record_update>

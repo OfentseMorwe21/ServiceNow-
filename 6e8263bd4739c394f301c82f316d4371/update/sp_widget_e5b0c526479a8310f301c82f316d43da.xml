@@ -1,0 +1,637 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[api.controller = function($scope, $location, $window) {
+  /* =========================================================================
+     CLIENT CONTROLLER
+     ========================================================================= */
+  var c = this;
+
+  c.isOpen = false;
+  c.activeTab = 'all';
+
+  // Toggle notification popup panel
+  c.togglePanel = function() {
+    c.isOpen = !c.isOpen;
+  };
+
+  // Recalculate badge total dynamically based on unread items
+  c.updateTotalCount = function() {
+    var unreadAnn = c.data.announcements.filter(function(i) { return !i.read; }).length;
+    var unreadReq = c.data.requests.filter(function(i) { return !i.read; }).length;
+    c.data.totalCount = unreadAnn + unreadReq;
+  };
+
+  // Mark all notifications as read
+  c.markAllRead = function() {
+    c.data.announcements.forEach(function(item) { item.read = true; });
+    c.data.requests.forEach(function(item) { item.read = true; });
+    c.updateTotalCount();
+  };
+
+  // Handle clicking an Announcement item
+  c.openAnnouncement = function(item) {
+    item.read = true;
+    c.updateTotalCount();
+    c.isOpen = false;
+
+    if (item.target_url) {
+      $window.open(item.target_url, '_blank');
+    }
+  };
+
+  // Handle clicking a Request item
+  c.openRequest = function(item) {
+    item.read = true;
+    c.updateTotalCount();
+    c.isOpen = false;
+
+    // Navigate to ticket details page in Service Portal
+    $location.search({
+      id: 'ticket',
+      table: item.table,
+      sys_id: item.sys_id
+    });
+  };
+};]]></client_script>
+        <controller_as>c</controller_as>
+        <css>/*&#13;
+===============================================================================&#13;
+NOTIFICATION BELL WIDGET — SPAR Futuristic Edition&#13;
+Paste into the Notification Bell widget's CSS field&#13;
+Matches the Light Glass / SPAR brand palette ($brand-primary, $brand-success, $brand-danger)&#13;
+===============================================================================&#13;
+*/&#13;
+&#13;
+/* Wrapper */&#13;
+.notif-bell-wrapper {&#13;
+  position: relative;&#13;
+  display: inline-block;&#13;
+}&#13;
+&#13;
+/* Bell Button */&#13;
+.notif-bell {&#13;
+  position: relative;&#13;
+  width: 40px;&#13;
+  height: 40px;&#13;
+  border-radius: 50%;&#13;
+  background: rgba(255, 255, 255, 0.9);&#13;
+  border: 1px solid #E2E8F0;&#13;
+  display: flex;&#13;
+  align-items: center;&#13;
+  justify-content: center;&#13;
+  cursor: pointer;&#13;
+  transition: transform 280ms cubic-bezier(0.34, 1.56, 0.64, 1),&#13;
+              box-shadow 280ms ease,&#13;
+              border-color 280ms ease,&#13;
+              background-color 280ms ease;&#13;
+}&#13;
+&#13;
+.notif-bell:hover {&#13;
+  background: #FFFFFF;&#13;
+  border-color: #CBD5E1;&#13;
+  transform: translateY(-2px);&#13;
+  box-shadow: 0 8px 18px -4px rgba(15, 23, 42, 0.12);&#13;
+}&#13;
+&#13;
+.notif-bell i {&#13;
+  font-size: 1.1rem;&#13;
+  color: $brand-primary !important;&#13;
+  transition: all 0.22s ease;&#13;
+}&#13;
+&#13;
+.notif-bell-wrapper.open .notif-bell {&#13;
+  background: #FFFFFF;&#13;
+  border-color: $brand-primary;&#13;
+  box-shadow: 0 0 0 3px rgba(0, 122, 51, 0.15);&#13;
+}&#13;
+&#13;
+/* Shake animation on new notifications / hover */&#13;
+@keyframes bellShake {&#13;
+  0%, 100% { transform: rotate(0deg); }&#13;
+  20%       { transform: rotate(-15deg); }&#13;
+  40%       { transform: rotate(15deg); }&#13;
+  60%       { transform: rotate(-10deg); }&#13;
+  80%       { transform: rotate(10deg); }&#13;
+}&#13;
+&#13;
+.notif-bell:hover i {&#13;
+  animation: bellShake 0.5s ease;&#13;
+  color: $brand-success !important;&#13;
+}&#13;
+&#13;
+/* Badge */&#13;
+.notif-badge {&#13;
+  position: absolute;&#13;
+  top: -3px;&#13;
+  right: -3px;&#13;
+  background: linear-gradient(135deg, $brand-primary 0%, $brand-danger 100%);&#13;
+  color: #FFFFFF !important;&#13;
+  font-size: 0.65rem;&#13;
+  font-weight: 800;&#13;
+  min-width: 18px;&#13;
+  height: 18px;&#13;
+  border-radius: 999px;&#13;
+  display: flex;&#13;
+  align-items: center;&#13;
+  justify-content: center;&#13;
+  padding: 0 4px;&#13;
+  border: 2px solid #FFFFFF;&#13;
+  box-shadow: 0 2px 6px rgba(227, 6, 19, 0.3);&#13;
+  animation: badgePop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);&#13;
+}&#13;
+&#13;
+@keyframes badgePop {&#13;
+  from { transform: scale(0); }&#13;
+  to   { transform: scale(1); }&#13;
+}&#13;
+&#13;
+/* Panel */&#13;
+.notif-panel {&#13;
+  position: absolute;&#13;
+  top: calc(100% + 12px);&#13;
+  right: 0;&#13;
+  width: 360px;&#13;
+  background: rgba(255, 255, 255, 0.98);&#13;
+  backdrop-filter: blur(12px);&#13;
+  border: 1px solid #E2E8F0;&#13;
+  border-radius: 14px;&#13;
+  box-shadow: 0 16px 40px -8px rgba(15, 23, 42, 0.18);&#13;
+  z-index: 9999;&#13;
+  overflow: hidden;&#13;
+  animation: panelSlideIn 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);&#13;
+}&#13;
+&#13;
+.notif-panel::before {&#13;
+  content: "";&#13;
+  position: absolute;&#13;
+  top: 0;&#13;
+  left: 0;&#13;
+  right: 0;&#13;
+  height: 3px;&#13;
+  background: linear-gradient(90deg, $brand-primary 0%, $brand-success 100%);&#13;
+}&#13;
+&#13;
+@keyframes panelSlideIn {&#13;
+  from { opacity: 0; transform: translateY(-10px) scale(0.97); }&#13;
+  to   { opacity: 1; transform: translateY(0) scale(1); }&#13;
+}&#13;
+&#13;
+/* Panel Header */&#13;
+.notif-panel-header {&#13;
+  display: flex;&#13;
+  justify-content: space-between;&#13;
+  align-items: center;&#13;
+  padding: 18px 20px 14px;&#13;
+  border-bottom: 1px solid #F1F5F9;&#13;
+}&#13;
+&#13;
+.notif-panel-title {&#13;
+  font-size: 1rem !important;&#13;
+  font-weight: 800 !important;&#13;
+  color: #0F172A !important;&#13;
+  letter-spacing: -0.01em;&#13;
+  margin: 0 !important;&#13;
+}&#13;
+&#13;
+.notif-mark-read {&#13;
+  font-size: 0.75rem;&#13;
+  color: $brand-primary !important;&#13;
+  cursor: pointer;&#13;
+  font-weight: 700;&#13;
+  transition: color 0.2s ease;&#13;
+}&#13;
+&#13;
+.notif-mark-read:hover {&#13;
+  color: $brand-success !important;&#13;
+}&#13;
+&#13;
+/* Tabs */&#13;
+.notif-tabs {&#13;
+  display: flex;&#13;
+  gap: 6px;&#13;
+  padding: 8px 12px;&#13;
+  border-bottom: 1px solid #F1F5F9;&#13;
+  background: #F8FAFC;&#13;
+}&#13;
+&#13;
+.notif-tab {&#13;
+  flex: 1;&#13;
+  background: transparent;&#13;
+  border: 1px solid transparent;&#13;
+  border-radius: 8px;&#13;
+  padding: 6px 8px;&#13;
+  font-size: 0.75rem;&#13;
+  font-weight: 700;&#13;
+  color: #64748B !important;&#13;
+  cursor: pointer;&#13;
+  transition: all 0.2s ease;&#13;
+  display: flex;&#13;
+  align-items: center;&#13;
+  justify-content: center;&#13;
+  gap: 6px;&#13;
+}&#13;
+&#13;
+.notif-tab:hover {&#13;
+  background: #FFFFFF;&#13;
+  color: #0F172A !important;&#13;
+  border-color: #E2E8F0;&#13;
+}&#13;
+&#13;
+.notif-tab.active {&#13;
+  background: #FFFFFF;&#13;
+  color: $brand-primary !important;&#13;
+  border-color: #CBD5E1;&#13;
+  box-shadow: 0 2px 4px rgba(15, 23, 42, 0.04);&#13;
+}&#13;
+&#13;
+.tab-count {&#13;
+  background: #E2E8F0;&#13;
+  color: #475569 !important;&#13;
+  border-radius: 999px;&#13;
+  padding: 1px 7px;&#13;
+  font-size: 0.65rem;&#13;
+  font-weight: 800;&#13;
+}&#13;
+&#13;
+.notif-tab.active .tab-count {&#13;
+  background: rgba(0, 122, 51, 0.12);&#13;
+  color: $brand-success !important;&#13;
+}&#13;
+&#13;
+/* Notification List */&#13;
+.notif-list {&#13;
+  max-height: 380px;&#13;
+  overflow-y: auto;&#13;
+  padding: 6px 0;&#13;
+}&#13;
+&#13;
+.notif-list::-webkit-scrollbar {&#13;
+  width: 5px;&#13;
+}&#13;
+&#13;
+.notif-list::-webkit-scrollbar-track {&#13;
+  background: transparent;&#13;
+}&#13;
+&#13;
+.notif-list::-webkit-scrollbar-thumb {&#13;
+  background: #CBD5E1;&#13;
+  border-radius: 999px;&#13;
+}&#13;
+&#13;
+/* Section Label */&#13;
+.notif-section-label {&#13;
+  font-size: 0.68rem;&#13;
+  font-weight: 800;&#13;
+  color: #94A3B8 !important;&#13;
+  text-transform: uppercase;&#13;
+  letter-spacing: 0.08em;&#13;
+  padding: 10px 20px 4px;&#13;
+}&#13;
+&#13;
+/* Notification Item */&#13;
+.notif-item {&#13;
+  display: flex;&#13;
+  align-items: flex-start;&#13;
+  gap: 12px;&#13;
+  padding: 12px 20px;&#13;
+  cursor: pointer;&#13;
+  transition: background-color 0.2s ease;&#13;
+  position: relative;&#13;
+  border-bottom: 1px solid #F8FAFC;&#13;
+}&#13;
+&#13;
+.notif-item:last-child {&#13;
+  border-bottom: none;&#13;
+}&#13;
+&#13;
+.notif-item:hover {&#13;
+  background: #F8FAFC;&#13;
+}&#13;
+&#13;
+/* Icon Wrap */&#13;
+.notif-icon-wrap {&#13;
+  width: 36px;&#13;
+  height: 36px;&#13;
+  border-radius: 10px;&#13;
+  display: flex;&#13;
+  align-items: center;&#13;
+  justify-content: center;&#13;
+  flex-shrink: 0;&#13;
+}&#13;
+&#13;
+.announcement-icon {&#13;
+  background: rgba(227, 6, 19, 0.08);&#13;
+  border: 1px solid rgba(227, 6, 19, 0.20);&#13;
+}&#13;
+&#13;
+.announcement-icon i {&#13;
+  color: $brand-danger !important;&#13;
+  font-size: 0.875rem;&#13;
+}&#13;
+&#13;
+.request-icon {&#13;
+  background: rgba(0, 122, 51, 0.08);&#13;
+  border: 1px solid rgba(0, 122, 51, 0.20);&#13;
+}&#13;
+&#13;
+.request-icon i {&#13;
+  color: $brand-success !important;&#13;
+  font-size: 0.875rem;&#13;
+}&#13;
+&#13;
+/* Content */&#13;
+.notif-content {&#13;
+  flex: 1;&#13;
+  min-width: 0;&#13;
+}&#13;
+&#13;
+.notif-title {&#13;
+  font-size: 0.875rem !important;&#13;
+  font-weight: 700 !important;&#13;
+  color: #0F172A !important;&#13;
+  margin: 0 0 2px !important;&#13;
+  white-space: nowrap;&#13;
+  overflow: hidden;&#13;
+  text-overflow: ellipsis;&#13;
+}&#13;
+&#13;
+.notif-desc {&#13;
+  font-size: 0.775rem !important;&#13;
+  color: #475569 !important;&#13;
+  margin: 0 0 4px !important;&#13;
+  line-height: 1.4;&#13;
+  display: -webkit-box;&#13;
+  -webkit-line-clamp: 2;&#13;
+  -webkit-box-orient: vertical;&#13;
+  overflow: hidden;&#13;
+}&#13;
+&#13;
+.notif-time {&#13;
+  font-size: 0.70rem !important;&#13;
+  color: #94A3B8 !important;&#13;
+  margin: 0 !important;&#13;
+  font-weight: 500;&#13;
+}&#13;
+&#13;
+/* Unread Dot */&#13;
+.notif-dot {&#13;
+  width: 8px;&#13;
+  height: 8px;&#13;
+  border-radius: 50%;&#13;
+  background: $brand-danger;&#13;
+  flex-shrink: 0;&#13;
+  margin-top: 6px;&#13;
+  box-shadow: 0 0 6px rgba(227, 6, 19, 0.4);&#13;
+}&#13;
+&#13;
+/* Empty States */&#13;
+.notif-empty {&#13;
+  text-align: center;&#13;
+  padding: 40px 20px;&#13;
+  color: #94A3B8 !important;&#13;
+}&#13;
+&#13;
+.notif-empty i {&#13;
+  font-size: 2.2rem;&#13;
+  margin-bottom: 8px;&#13;
+  display: block;&#13;
+  color: #CBD5E1 !important;&#13;
+}&#13;
+&#13;
+.notif-empty p {&#13;
+  font-size: 0.875rem !important;&#13;
+  color: #64748B !important;&#13;
+  font-weight: 600;&#13;
+}&#13;
+&#13;
+.notif-empty-section {&#13;
+  text-align: center;&#13;
+  padding: 16px 20px;&#13;
+  font-size: 0.8rem;&#13;
+  color: #94A3B8 !important;&#13;
+}&#13;
+&#13;
+/* Panel Footer */&#13;
+.notif-panel-footer {&#13;
+  padding: 12px 20px;&#13;
+  border-top: 1px solid #F1F5F9;&#13;
+  text-align: center;&#13;
+  background: #F8FAFC;&#13;
+}&#13;
+&#13;
+.notif-panel-footer a {&#13;
+  font-size: 0.8rem !important;&#13;
+  font-weight: 700 !important;&#13;
+  color: $brand-primary !important;&#13;
+  transition: color 0.2s ease;&#13;
+}&#13;
+&#13;
+.notif-panel-footer a:hover {&#13;
+  color: $brand-success !important;&#13;
+  text-decoration: underline !important;&#13;
+}&#13;
+&#13;
+/* Backdrop */&#13;
+.notif-backdrop {&#13;
+  position: fixed;&#13;
+  inset: 0;&#13;
+  z-index: 9998;&#13;
+  background: transparent;&#13;
+}&#13;
+&#13;
+/* Responsive */&#13;
+@media (max-width: 480px) {&#13;
+  .notif-panel {&#13;
+    width: 300px;&#13;
+    right: -60px;&#13;
+  }&#13;
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>launchpad_notification_bell</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {
+  
+}]]></link>
+        <name>Launchpad Notification Bell</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+  /* =========================================================================
+     SERVER SCRIPT: Fetch Announcements & Requests
+     ========================================================================= */
+  
+  data.announcements = [];
+  data.requests = [];
+  var userID = gs.getUserID();
+
+  // -------------------------------------------------------------------------
+  // 1. FETCH ANNOUNCEMENTS (ServiceNow `announcement` table)
+  // -------------------------------------------------------------------------
+  var annGr = new GlideRecord('announcement');
+  annGr.addActiveQuery();
+  // Filter for currently valid display windows
+  var now = new GlideDateTime().getValue();
+  annGr.addNullQuery('from').addOrCondition('from', '<=', now);
+  annGr.addNullQuery('to').addOrCondition('to', '>=', now);
+  annGr.orderByDesc('sys_created_on');
+  annGr.setLimit(10);
+  annGr.query();
+
+  while (annGr.next()) {
+    data.announcements.push({
+      sys_id: annGr.getUniqueValue(),
+      title: annGr.getValue('title') || 'Announcement',
+      short_description: annGr.getValue('summary') || annGr.getValue('name') || '',
+      time: annGr.sys_created_on.getDisplayValue(),
+      target_url: annGr.getValue('target_link') || '',
+      read: false // Session/client tracked
+    });
+  }
+
+  // -------------------------------------------------------------------------
+  // 2. FETCH USER REQUESTS (Service Catalog `sc_request` table)
+  // -------------------------------------------------------------------------
+  var reqGr = new GlideRecord('sc_request');
+  reqGr.addQuery('requested_for', userID);
+  reqGr.orderByDesc('sys_updated_on');
+  reqGr.setLimit(10);
+  reqGr.query();
+
+  while (reqGr.next()) {
+    data.requests.push({
+      sys_id: reqGr.getUniqueValue(),
+      number: reqGr.getValue('number'),
+      state: reqGr.getDisplayValue('state'),
+      short_description: reqGr.getValue('short_description') || 'Service Request',
+      time: reqGr.sys_updated_on.getDisplayValue(),
+      table: 'sc_request',
+      read: false // Session/client tracked
+    });
+  }
+
+  // Calculate combined unread count
+  data.totalCount = data.announcements.length + data.requests.length;
+
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-28 09:16:15</sys_created_on>
+        <sys_id>e5b0c526479a8310f301c82f316d43da</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>Launchpad Notification Bell</sys_name>
+        <sys_package display_value="Launchpad" source="x_2062828_launch_0">6e8263bd4739c394f301c82f316d4371</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</sys_scope>
+        <sys_update_name>sp_widget_e5b0c526479a8310f301c82f316d43da</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-28 09:43:45</sys_updated_on>
+        <template><![CDATA[<div class="notif-bell-wrapper" ng-class="{'open': c.isOpen}">
+
+  <!-- Bell Icon -->
+  <div class="notif-bell" ng-click="c.togglePanel()">
+    <i class="fa fa-bell"></i>
+    <span class="notif-badge" ng-if="c.data.totalCount > 0">
+      {{c.data.totalCount > 9 ? '9+' : c.data.totalCount}}
+    </span>
+  </div>
+
+  <!-- Notification Panel -->
+  <div class="notif-panel" ng-if="c.isOpen">
+    <div class="notif-panel-header">
+      <h4 class="notif-panel-title">Notifications</h4>
+      <span class="notif-mark-read" ng-click="c.markAllRead()">Mark all read</span>
+    </div>
+
+    <!-- Tabs -->
+    <div class="notif-tabs">
+      <button class="notif-tab" ng-class="{'active': c.activeTab === 'all'}" ng-click="c.activeTab = 'all'">
+        All <span class="tab-count">{{c.data.totalCount}}</span>
+      </button>
+      <button class="notif-tab" ng-class="{'active': c.activeTab === 'announcements'}" ng-click="c.activeTab = 'announcements'">
+        Announcements <span class="tab-count">{{c.data.announcements.length}}</span>
+      </button>
+      <button class="notif-tab" ng-class="{'active': c.activeTab === 'requests'}" ng-click="c.activeTab = 'requests'">
+        Requests <span class="tab-count">{{c.data.requests.length}}</span>
+      </button>
+    </div>
+
+    <!-- Notification List -->
+    <div class="notif-list">
+
+      <!-- Empty State -->
+      <div class="notif-empty" ng-if="c.data.totalCount === 0">
+        <i class="fa fa-bell-slash"></i>
+        <p>You are all caught up!</p>
+      </div>
+
+      <!-- Announcements -->
+      <div ng-if="c.activeTab === 'all' || c.activeTab === 'announcements'">
+        <div class="notif-section-label" ng-if="c.data.announcements.length > 0">
+          Announcements
+        </div>
+        <div class="notif-item announcement"
+             ng-repeat="item in c.data.announcements"
+             ng-click="c.openAnnouncement(item)">
+          <div class="notif-icon-wrap announcement-icon">
+            <i class="fa fa-bullhorn"></i>
+          </div>
+          <div class="notif-content">
+            <p class="notif-title">{{item.title}}</p>
+            <p class="notif-desc">{{item.short_description}}</p>
+            <p class="notif-time">{{item.time}}</p>
+          </div>
+          <div class="notif-dot" ng-if="!item.read"></div>
+        </div>
+        <div class="notif-empty-section"
+             ng-if="c.data.announcements.length === 0 && c.activeTab === 'announcements'">
+          No announcements at this time
+        </div>
+      </div>
+
+      <!-- Request Updates -->
+      <div ng-if="c.activeTab === 'all' || c.activeTab === 'requests'">
+        <div class="notif-section-label" ng-if="c.data.requests.length > 0">
+          Request Updates
+        </div>
+        <div class="notif-item request"
+             ng-repeat="item in c.data.requests"
+             ng-click="c.openRequest(item)">
+          <div class="notif-icon-wrap request-icon">
+            <i class="fa fa-ticket"></i>
+          </div>
+          <div class="notif-content">
+            <p class="notif-title">{{item.number}} — {{item.state}}</p>
+            <p class="notif-desc">{{item.short_description}}</p>
+            <p class="notif-time">{{item.time}}</p>
+          </div>
+          <div class="notif-dot" ng-if="!item.read"></div>
+        </div>
+        <div class="notif-empty-section"
+             ng-if="c.data.requests.length === 0 && c.activeTab === 'requests'">
+          No recent request updates
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="notif-panel-footer">
+      <a href="/onboarding?id=my_requests" ng-click="c.isOpen = false">
+        View all requests →
+      </a>
+    </div>
+  </div>
+
+  <!-- Backdrop -->
+  <div class="notif-backdrop" ng-if="c.isOpen" ng-click="c.isOpen = false"></div>
+</div>]]></template>
+    </sp_widget>
+</record_update>

@@ -33,22 +33,22 @@
         <short_description/>
         <size>md</size>
         <sp_column display_value="2">52ad5a0647c20718f301c82f316d43d7</sp_column>
-        <sp_widget display_value="Announcements">94c300c7e777320075c2a117c2f6a9e7</sp_widget>
+        <sp_widget display_value="Current Status">1e699082d7001200a9addd173e24d4e3</sp_widget>
         <sys_class_name>sp_instance</sys_class_name>
         <sys_created_by>admin</sys_created_by>
-        <sys_created_on>2026-07-22 10:17:07</sys_created_on>
-        <sys_id>612d1a2847960310f301c82f316d434c</sys_id>
+        <sys_created_on>2026-07-28 10:27:01</sys_created_on>
+        <sys_id>8df89d66475e8310f301c82f316d436a</sys_id>
         <sys_mod_count>0</sys_mod_count>
         <sys_name/>
         <sys_package display_value="Launchpad" source="x_2062828_launch_0">6e8263bd4739c394f301c82f316d4371</sys_package>
         <sys_policy/>
         <sys_scope display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</sys_scope>
-        <sys_update_name>sp_instance_612d1a2847960310f301c82f316d434c</sys_update_name>
+        <sys_update_name>sp_instance_8df89d66475e8310f301c82f316d436a</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2026-07-22 10:17:07</sys_updated_on>
+        <sys_updated_on>2026-07-28 10:27:01</sys_updated_on>
         <title/>
         <url/>
         <widget_parameters/>
     </sp_instance>
-    <sys_translated_text action="delete_multiple" query="documentkey=612d1a2847960310f301c82f316d434c"/>
+    <sys_translated_text action="delete_multiple" query="documentkey=8df89d66475e8310f301c82f316d436a"/>
 </record_update>

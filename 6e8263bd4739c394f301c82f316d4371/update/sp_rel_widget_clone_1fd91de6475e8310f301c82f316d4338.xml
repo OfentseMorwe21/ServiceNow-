@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_rel_widget_clone">
+    <sp_rel_widget_clone action="INSERT_OR_UPDATE">
+        <child display_value="Launchpad My Surveys">d7d9d9e6475e8310f301c82f316d43e3</child>
+        <cloned>2026-07-28 10:31:00</cloned>
+        <last_validated>2026-07-28 10:31:00</last_validated>
+        <parent display_value="My Surveys">04b1cc07c3231200e44574e1c1d3ae96</parent>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;sp_widget&gt;&lt;category&gt;other&lt;/category&gt;&lt;client_script&gt;&lt;![CDATA[function($rootScope, $timeout) {
+  // widget controller
+  var c = this;
+	var bc = [{label: c.data.widgetTitle, url: '#'}];
+	$timeout(function() {
+		$rootScope.$broadcast('sp.update.breadcrumbs', bc);
+	});
+	
+	function handleToolTip() {
+		$timeout(function() {
+			$(".tool-tip-title").each(function(index) {
+				if (this.offsetWidth &gt;= this.scrollWidth) {
+					$(this).removeAttr("title");
+					$(this).removeAttr("data-original-title");
+				}
+			});
+		}, 100);
+	}
+	
+	handleToolTip();
+	
+	$timeout(function() {
+		$('.survey-title a').first().focus();
+	});
+
+	$(document).on('mousedown', ".survey-title a[aria-describedby]", function() {
+    	$(".survey-title a[aria-describedby]").tooltip('hide');
+	});
+}]]&gt;&lt;/client_script&gt;&lt;controller_as&gt;c&lt;/controller_as&gt;&lt;css&gt;.instance-display-text{
+  padding:2px;
+  color: $link-color;
+}
+
+.survey-panel-spacer{
+  margin : 24px;
+}
+
+.survey-title {
+  font-weight: bold;
+}
+
+.survey-title a {
+  color:$text-primary;
+}
+
+.card-bottom {
+  margin-top:9px;
+}
+
+.progress-bar, .progress-bar-inner {
+  width:100%;
+  height:9px;
+  border-radius:4px;
+}
+
+.progress-bar {
+  background:#BDC3C7;
+  margin-top:5px;
+}
+
+.progress-bar-inner {
+  background:$primary;
+}
+
+.container-height {
+	height:17px;
+}
+&lt;/css&gt;&lt;data_table&gt;sp_instance&lt;/data_table&gt;&lt;demo_data/&gt;&lt;description/&gt;&lt;docs/&gt;&lt;field_list/&gt;&lt;has_preview&gt;false&lt;/has_preview&gt;&lt;id&gt;surveys&lt;/id&gt;&lt;internal&gt;false&lt;/internal&gt;&lt;link/&gt;&lt;name&gt;My Surveys&lt;/name&gt;&lt;option_schema&gt;[{"name":"maxRecords","section":"Presentation","label":"Max Records","type":"integer"},{"name":"widgetTitle","section":"Presentation","label":"Title of the Widget","type":"string"}]&lt;/option_schema&gt;&lt;public&gt;false&lt;/public&gt;&lt;roles&gt;snc_external,snc_internal&lt;/roles&gt;&lt;script&gt;&lt;![CDATA[(function() {
+  // populate the 'data' object
+  // e.g., data.table = $sp.getValue('table');
+	data.maxRecords = options.maxRecords || 5;
+	var sp = new SPSurveyAPI();
+	options.showAll = $sp.getParameter('id') == 'my_surveys';
+	if($sp.getParameter('id') != 'my_surveys'){
+		if(options.widgetTitle &amp;&amp; options.widgetTitle.length&gt;0){
+			data.widgetTitle = gs.getMessage(options.widgetTitle);
+		}else{
+			data.widgetTitle = gs.getMessage("My Assessments and Surveys");
+		}
+		data.encodedWidgetTitle = encodeURIComponent(data.widgetTitle);
+	} else{
+		data.widgetTitle = $sp.getParameter('title') ? gs.getMessage($sp.getParameter('title')) : gs.getMessage("My Assessments and Surveys");
+	}
+	
+	sp.getSurveys(data.maxRecords, options.showAll, data, true);
+	data.instances.forEach(function(instance) {
+		if (!!instance.description)
+			instance.description = $sp.stripHTML(instance.description);
+			var percentAnswered = parseInt(instance.portal_progress).toFixed(0) + '%';
+		  instance.progress_text = gs.getMessage("{0} complete", percentAnswered);
+		  instance.due_display_message = instance.due_display;
+		  if (instance.due_days &lt; -1)
+		    instance.due_display_message = gs.getMessage("Due in {0} days",(0-instance.due_days) + '');
+		  else if (instance.due_days == -1)
+		    instance.due_display_message = gs.getMessage("Due in 1 day");
+	});
+
+})();]]&gt;&lt;/script&gt;&lt;servicenow&gt;false&lt;/servicenow&gt;&lt;sys_class_name&gt;sp_widget&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2016-05-26 21:09:17&lt;/sys_created_on&gt;&lt;sys_id&gt;04b1cc07c3231200e44574e1c1d3ae96&lt;/sys_id&gt;&lt;sys_mod_count&gt;240&lt;/sys_mod_count&gt;&lt;sys_name&gt;My Surveys&lt;/sys_name&gt;&lt;sys_package display_value="Service Portal Surveys" source="sn_portal_surveys"&gt;67ac5062db10220035417878f0b8f5c4&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="Service Portal Surveys"&gt;67ac5062db10220035417878f0b8f5c4&lt;/sys_scope&gt;&lt;sys_update_name&gt;sp_widget_04b1cc07c3231200e44574e1c1d3ae96&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2025-10-29 19:19:20&lt;/sys_updated_on&gt;&lt;template&gt;&lt;![CDATA[&lt;div ng-if="!(options.showAll &amp;&amp; options.showAll != 'false' &amp;&amp; data.instances.length &amp;&amp; data.totalRecords == data.maxRecords &amp;&amp; data.totalRecords != 0)"&gt;
+	&lt;div class="panel panel-{{::options.color}} b"&gt;
+		&lt;div class="panel-heading"&gt;
+			&lt;h2 class="panel-title"&gt;&lt;fa ng-if="::options.glyph.length" name="{{::options.glyph}}" class="m-r-sm"&gt;&lt;/fa&gt;{{::data.widgetTitle}}&lt;/h2&gt;
+		&lt;/div&gt;
+			&lt;div class="list-group" ng-if="data.instances.length &amp;&amp; data.totalRecords &gt; 0"&gt;
+				&lt;div class="list-group-item" ng-repeat="instance in data.instances track by $index"&gt;
+					&lt;div&gt;
+						&lt;a href="?id=take_survey&amp;instance_id={{::instance.sys_id}}" title = "Take {{::instance.evaluation_method_display}}"&gt;
+                          &lt;span  class = "survey-icon icon-article-document"
+                                  ng-if="(instance.evaluation_method == 'assessment' || instance.evaluation_method == 'attestation_v2' || instance.evaluation_method == 'risk_assessment')"&gt;&lt;/span&gt;
+                            &lt;span ng-if="(instance.evaluation_method == 'survey' || instance.evaluation_method == 'quiz')" class="survey-icon icon-form"&gt;&lt;/span&gt;
+                          &lt;span class="instance-display-text" data-toggle="tooltip" data-container="body" title="{{::instance.display}}"&gt;{{::instance.display}}&lt;/span&gt;
+                      &lt;/a&gt;
+					&lt;/div&gt;
+					&lt;div&gt;
+						&lt;small ng-if="instance.trigger_id"&gt;
+							&lt;a style="color:inherit;text-decoration:underline" href="?id=ticket&amp;table={{::instance.trigger_table}}&amp;sys_id={{::instance.trigger_id}}"&gt;{{::instance.trigger_display}}&lt;/a&gt;
+							&lt;span&gt; • &lt;/span&gt;
+						&lt;/small&gt;
+						&lt;small&gt;
+							&lt;span aria-hidden="true" class="ng-binding"&gt;{{::instance.due_display}}&lt;/span&gt;
+							&lt;span class="sr-only"&gt;{{instance.due_display_message}}&lt;/span&gt;
+						&lt;/small&gt;
+					&lt;/div&gt;
+
+				&lt;/div&gt;
+			&lt;/div&gt;
+			&lt;div ng-if="data.totalRecords ==0" class="panel-body ng-scope"&gt;
+				${No assessments or surveys for you at the moment}
+			&lt;/div&gt;
+			&lt;div class="panel-footer" ng-if="data.totalRecords &gt; data.maxRecords"&gt;
+				&lt;h4 class="panel-title row"&gt;
+					&lt;div class="col-xs-6"&gt;
+						&lt;span&gt;{{::data.recordsShownMsg}}&lt;/span&gt;
+					&lt;/div&gt;
+					&lt;div class="col-xs-6 text-right"&gt;
+						&lt;a href="?id=my_surveys&amp;title={{::data.encodedWidgetTitle}}"&gt;${View all}&lt;/a&gt;
+					&lt;/div&gt;
+			 	&lt;/h4&gt;
+			&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div ng-if="options.showAll &amp;&amp; options.showAll != 'false' &amp;&amp; data.instances.length &amp;&amp; data.totalRecords == data.maxRecords &amp;&amp; data.totalRecords != 0"&gt;
+  &lt;div class = "survey-panel-spacer"/&gt;
+  &lt;h2&gt;{{::data.widgetTitle}}&lt;/h2&gt;
+  &lt;div class="row"&gt;
+    &lt;div class="col-sm-6 col-md-4 wrapper-xs" ng-repeat="instance in data.instances track by $index"&gt;
+      &lt;div class="panel panel-default wrapper-sm"&gt;
+
+        &lt;div class="row"&gt;
+          &lt;div class="col-xs-12 survey-title" style="height:34px;padding-top:4px;"&gt;
+            &lt;a href="?id=take_survey&amp;instance_id={{::instance.sys_id}}" class="text-overflow-ellipsis block tool-tip-title" data-toggle="tooltip" data-container="body" title="{{::instance.display}}" data-placement="top"&gt;
+                          &lt;span  class = "survey-icon icon-article-document"
+                                  ng-if="(instance.evaluation_method == 'assessment' || instance.evaluation_method == 'attestation_v2' || instance.evaluation_method == 'risk_assessment')"&gt;&lt;/span&gt;
+                            &lt;span ng-if="(instance.evaluation_method == 'survey' || instance.evaluation_method == 'quiz')" class="survey-icon icon-form"&gt;&lt;/span&gt;
+                          &lt;span class="instance-display-text"&gt;{{::instance.display}}&lt;/span&gt;
+          &lt;/a&gt;    
+          &lt;/div&gt;
+          &lt;div class="col-xs-12 text-overflow-ellipsis tool-tip-title" ng-if="instance.trigger_description" style="height:34px;" data-toggle="tooltip" data-container="body" title="{{::instance.trigger_description}}" data-placement="top"&gt;
+            {{::instance.trigger_description}}
+          &lt;/div&gt;
+          &lt;div class="col-xs-12 text-overflow-ellipsis tool-tip-title" ng-if="!instance.trigger_description" style="height:34px;" data-toggle="tooltip" data-container="body" title="{{::instance.description}}" data-placement="top"&gt;
+            {{::instance.description}}
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div class="card-bottom" style="font-size:12px;"&gt;
+
+          &lt;div class="row"&gt;
+            &lt;div class="col-xs-8 container-height"&gt;
+							&lt;span ng-if="instance.can_retake"&gt;${Completed. Do you want to retake?}&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;div class="col-xs-4 text-right container-height"&gt;
+              &lt;a  ng-if="instance.trigger_table_display" href="?id=ticket&amp;table={{::instance.trigger_table}}&amp;sys_id={{::instance.trigger_id}}" class="col-xs-12.5 text-overflow-ellipsis" data-toggle="tooltip" data-container="body" title="{{::instance.trigger_display}}" data-placement="top"&gt;
+               {{::instance.trigger_display}}
+              &lt;/a&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;div class="row"&gt;
+            &lt;div class="col-xs-8"&gt;
+              &lt;div class="progress-bar" ng-if="instance.portal_progress &gt; '0'"&gt;
+                &lt;div class="progress-bar-inner" ng-style="{width: instance.portal_progress + '%'}"&gt;&lt;/div&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class="col-xs-4 text-right"&gt;
+              &lt;div class="due-date"&gt;
+			   &lt;span aria-hidden="true" class="ng-binding"&gt;{{::instance.due_display}}&lt;/span&gt;
+			   &lt;span class="sr-only"&gt;{{instance.due_display_message}}&lt;/span&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class="col-xs-12 container-height"&gt;
+            	&lt;span ng-if="instance.portal_progress &gt; '0'"&gt;{{instance.progress_text}}&lt;/span&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+
+        &lt;/div&gt; &lt;!-- end div.card-bottom --&gt;
+
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;]]&gt;&lt;/template&gt;&lt;/sp_widget&gt;</payload>
+        <sys_class_name>sp_rel_widget_clone</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-28 10:31:00</sys_created_on>
+        <sys_id>1fd91de6475e8310f301c82f316d4338</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>d7d9d9e6475e8310f301c82f316d43e3</sys_name>
+        <sys_package display_value="Launchpad" source="x_2062828_launch_0">6e8263bd4739c394f301c82f316d4371</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</sys_scope>
+        <sys_update_name>sp_rel_widget_clone_1fd91de6475e8310f301c82f316d4338</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-28 10:31:00</sys_updated_on>
+    </sp_rel_widget_clone>
+</record_update>

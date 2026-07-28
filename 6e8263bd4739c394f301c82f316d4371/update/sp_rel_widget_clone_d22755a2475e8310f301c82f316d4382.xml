@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_rel_widget_clone">
+    <sp_rel_widget_clone action="INSERT_OR_UPDATE">
+        <child display_value="launchpad Current Status">de2755a2475e8310f301c82f316d430c</child>
+        <cloned>2026-07-28 10:19:11</cloned>
+        <last_validated>2026-07-28 10:19:11</last_validated>
+        <parent display_value="Current Status">1e699082d7001200a9addd173e24d4e3</parent>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;sp_widget&gt;&lt;category&gt;other&lt;/category&gt;&lt;client_script&gt;&lt;![CDATA[function ($scope, spUtil, snRecordWatcher, $rootScope, $sce) {
+	var c = this;
+	$scope.standalone = $scope.options.standalone == 'true' || $scope.options.standalone == true;
+  var q = "cmdb_ci.sys_class_name=cmdb_ci_service";
+  if ($scope.data.outageIDs != "")
+    q += "^NQsys_idIN" + $scope.data.outageIDs;
+	
+	spUtil.recordWatch($scope, "cmdb_ci_outage", q, function() {
+		$scope.server.update();
+		$rootScope.$broadcast("sp.outage.updated");
+	});
+	
+	$scope.trustAsHtml = function(html) {
+		return $sce.trustAsHtml(html);
+	};
+	
+}]]&gt;&lt;/client_script&gt;&lt;controller_as/&gt;&lt;css&gt;.bs-callout {
+  margin: 10px 0 !important;
+  padding: 20px !important;
+  border-left-style: solid;
+  border-left-width: 10px;
+  color: $text-color;
+}
+
+.bs-callout-outage {
+  background-color: $sp-status-danger-bg;
+  border-color: $sp-status-danger;
+}
+
+.bs-callout-degradation {
+  background-color: $sp-status-warning-bg;
+  border-color: $sp-status-warning;
+}
+
+.bs-callout-planned {
+  background-color: $sp-status-info-bg;
+  border-color: $sp-status-info;
+}
+
+.bs-callout-success {
+  background-color: $sp-status-success-bg;
+  border-color: $sp-status-success;
+}
+
+.tooltip-inner {
+    width: 150px;
+}
+
+div.sp-outage-details {
+  margin-bottom: -10px;
+}
+&lt;/css&gt;&lt;data_table&gt;sp_instance&lt;/data_table&gt;&lt;demo_data/&gt;&lt;description/&gt;&lt;docs/&gt;&lt;field_list/&gt;&lt;has_preview&gt;false&lt;/has_preview&gt;&lt;id&gt;current-status&lt;/id&gt;&lt;internal&gt;false&lt;/internal&gt;&lt;link/&gt;&lt;name&gt;Current Status&lt;/name&gt;&lt;option_schema&gt;[{"hint":"Display details from the cmdb_ci_outage record","name":"show_outage_details","section":"Presentation","label":"Show outage details","type":"boolean"},{"hint":"Omit explanatory information","name":"standalone","section":"Presentation","label":"Standalone","type":"boolean"},{"hint":"List of sys_class_name values (comma separated)","name":"sys_class_list","section":"Data","default_value":"cmdb_ci_service","label":"Class List","type":"string"}]&lt;/option_schema&gt;&lt;public&gt;true&lt;/public&gt;&lt;roles/&gt;&lt;script&gt;&lt;![CDATA[// populate the 'data' object
+// e.g., data.table = $sp.getValue('table');
+var outage = new GlideRecordSecure("cmdb_ci_outage");
+outage.addQuery("cmdb_ci.sys_class_name", "IN", options.sys_class_list || "cmdb_ci_service");
+outage.addQuery("begin", "&lt;=", gs.nowNoTZ());
+outage.addQuery("end", "&gt;=", gs.nowNoTZ()).addOrCondition("end", "=", "NULL");
+data.service = (input &amp;&amp; input.service) || $sp.getParameter("service");
+if (!GlideStringUtil.nil(data.service)) {
+  outage.addQuery("cmdb_ci", data.service);
+	var serviceGR = new GlideRecordSecure("cmdb_ci_service");
+	if (serviceGR.get(data.service))
+		data.serviceDisplay = serviceGR.getDisplayValue();
+}
+outage.query();
+data.outages = [];
+data.outageIDs = "";
+while (outage.next()) {
+	var out = {};
+	out.typeDisplay = outage.type.getDisplayValue();
+	out.type = outage.getValue("type");
+	out.details = outage.getValue("details");
+	out.ci = outage.cmdb_ci.getDisplayValue();
+	out.serviceID = outage.getValue("cmdb_ci");
+	out.begin = outage.begin.getDisplayValue();
+	data.outages.push(out);
+	data.outageIDs += "," + outage.getUniqueValue();
+}]]&gt;&lt;/script&gt;&lt;servicenow&gt;true&lt;/servicenow&gt;&lt;sys_class_name&gt;sp_widget&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2015-12-01 20:40:04&lt;/sys_created_on&gt;&lt;sys_id&gt;1e699082d7001200a9addd173e24d4e3&lt;/sys_id&gt;&lt;sys_mod_count&gt;132&lt;/sys_mod_count&gt;&lt;sys_name&gt;Current Status&lt;/sys_name&gt;&lt;sys_package display_value="Service Portal - Service Status" source="com.glide.service-portal.service-status"&gt;2a6c9ca0f5c403100a22c0b3dfa151f0&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="Global"&gt;global&lt;/sys_scope&gt;&lt;sys_update_name&gt;sp_widget_1e699082d7001200a9addd173e24d4e3&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2025-05-27 03:58:36&lt;/sys_updated_on&gt;&lt;template&gt;&lt;![CDATA[&lt;div ng-if="!data.service || data.outages.length &gt; 0" class="panel panel-{{options.color}} b"&gt;
+  &lt;div class="panel-heading"&gt;
+    &lt;h2 class="panel-title"&gt;${Current Status}&lt;span ng-if="data.serviceDisplay"&gt; - {{data.serviceDisplay}}&lt;/span&gt;&lt;/h2&gt;
+  &lt;/div&gt;
+
+  &lt;div class="panel-body"&gt;
+    &lt;div ng-if="!standalone &amp;&amp; !data.service" class="hidden-xs"&gt;${We constantly monitor our services and their related components.} ${If there is ever a service interruption, a notification will be posted to this page.} ${If you are experiencing problems not listed on this page, you can submit a request for service.}&lt;/div&gt;
+
+    &lt;div ng-if="data.outages.length == 0" class="col-xs-12 bs-callout bs-callout-success"&gt;
+      &lt;div ng-if="!data.service"&gt;${No system is reporting an issue}&lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div ng-if="data.outages.length &gt; 0" ng-repeat="outage in data.outages" class="col-xs-12 bs-callout bs-callout-{{outage.type}}"&gt;
+      &lt;a ng-if="!data.service" style="color:inherit" ng-href="?id=service_status&amp;service={{outage.serviceID}}"&gt;{{outage.typeDisplay}} - {{outage.ci}} (${started {{outage.begin}}})
+        &lt;div ng-if="options.show_outage_details == 'true' &amp;&amp; outage.details" ng-bind-html="::trustAsHtml(outage.details)" class="sp-outage-details"&gt;&lt;/div&gt;
+      &lt;/a&gt;
+      &lt;span ng-if="data.service" style="color:inherit"&gt;{{outage.typeDisplay}} - {{outage.ci}} (${started {{outage.begin}}})
+        &lt;div ng-if="options.show_outage_details == 'true' &amp;&amp; outage.details" ng-bind-html="::trustAsHtml(outage.details)" class="sp-outage-details"&gt;&lt;/div&gt;
+      &lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div ng-if="::standalone"&gt;&lt;a href="?id=services_status" aria-label="${More information, open current status page}"&gt;${More information...}&lt;/a&gt;&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;]]&gt;&lt;/template&gt;&lt;/sp_widget&gt;</payload>
+        <sys_class_name>sp_rel_widget_clone</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-28 10:19:11</sys_created_on>
+        <sys_id>d22755a2475e8310f301c82f316d4382</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>de2755a2475e8310f301c82f316d430c</sys_name>
+        <sys_package display_value="Launchpad" source="x_2062828_launch_0">6e8263bd4739c394f301c82f316d4371</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</sys_scope>
+        <sys_update_name>sp_rel_widget_clone_d22755a2475e8310f301c82f316d4382</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-28 10:19:11</sys_updated_on>
+    </sp_rel_widget_clone>
+</record_update>

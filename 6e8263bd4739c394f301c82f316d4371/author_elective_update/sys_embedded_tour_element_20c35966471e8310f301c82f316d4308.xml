@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_embedded_tour_element">
+    <sys_embedded_tour_element action="DELETE">
+        <cell_edit/>
+        <cell_types/>
+        <col/>
+        <cxs_results/>
+        <element_type>generic</element_type>
+        <field/>
+        <field_action/>
+        <field_header/>
+        <filters/>
+        <form_buttons>additional_actions</form_buttons>
+        <form_element>field</form_element>
+        <form_section/>
+        <frameset>nav_filter</frameset>
+        <js_path>macroponent-f51912f4c700201072b211d4d8c26010 &gt;&gt;&gt; sn-polaris-layout &gt;&gt;&gt; sn-polaris-header &gt;&gt;&gt; div[data-id="header-starting"]</js_path>
+        <list_element>ui_action</list_element>
+        <list_header/>
+        <manual_css>.navbar-header</manual_css>
+        <name>xpath</name>
+        <record_id/>
+        <related_field/>
+        <related_links/>
+        <related_list_element>ui_action</related_list_element>
+        <related_lists/>
+        <related_table/>
+        <row/>
+        <seismic_selector>div[data-id="header-starting"]</seismic_selector>
+        <sys_class_name>sys_embedded_tour_element</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-28 10:04:20</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>20c35966471e8310f301c82f316d4308</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>xpath</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="Launchpad" source="x_2062828_launch_0">6e8263bd4739c394f301c82f316d4371</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</sys_scope>
+        <sys_update_name>sys_embedded_tour_element_20c35966471e8310f301c82f316d4308</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-28 10:04:20</sys_updated_on>
+        <table/>
+        <type>manual_css</type>
+        <ui_action/>
+    </sys_embedded_tour_element>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</application>
+        <file_path/>
+        <instance_id>4f244272ebe8039c56eafddacad0cd3d</instance_id>
+        <instance_name>dev396915</instance_name>
+        <name>sys_embedded_tour_element_20c35966471e8310f301c82f316d4308</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_embedded_tour_element"><sys_embedded_tour_element action="INSERT_OR_UPDATE"><cell_edit/><cell_types/><col/><cxs_results/><element_type>generic</element_type><field/><field_action/><field_header/><filters/><form_buttons>additional_actions</form_buttons><form_element>field</form_element><form_section/><frameset>nav_filter</frameset><js_path>macroponent-f51912f4c700201072b211d4d8c26010 &gt;&gt;&gt; sn-polaris-layout &gt;&gt;&gt; sn-polaris-header &gt;&gt;&gt; div[data-id="header-starting"]</js_path><list_element>ui_action</list_element><list_header/><manual_css>.navbar-header</manual_css><name>xpath</name><record_id/><related_field/><related_links/><related_list_element>ui_action</related_list_element><related_lists/><related_table/><row/><seismic_selector>div[data-id="header-starting"]</seismic_selector><sys_class_name>sys_embedded_tour_element</sys_class_name><sys_created_by>admin</sys_created_by><sys_created_on>2026-07-28 10:04:20</sys_created_on><sys_domain>global</sys_domain><sys_domain_path>/</sys_domain_path><sys_id>20c35966471e8310f301c82f316d4308</sys_id><sys_mod_count>0</sys_mod_count><sys_name>xpath</sys_name><sys_overrides/><sys_package display_value="Launchpad" source="x_2062828_launch_0">6e8263bd4739c394f301c82f316d4371</sys_package><sys_policy/><sys_scope display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</sys_scope><sys_update_name>sys_embedded_tour_element_20c35966471e8310f301c82f316d4308</sys_update_name><sys_updated_by>admin</sys_updated_by><sys_updated_on>2026-07-28 10:04:20</sys_updated_on><table/><type>manual_css</type><ui_action/></sys_embedded_tour_element></record_update>]]></payload>
+        <payload_hash>443891000</payload_hash>
+        <record_name>xpath</record_name>
+        <reverted_from/>
+        <source>ad69b61447120310f301c82f316d4331</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-28 10:04:20</sys_created_on>
+        <sys_id>a0c35966471e8310f301c82f316d430b</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>19fa82eb1460000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-28 10:04:20</sys_updated_on>
+        <type>Guided Tour Element</type>
+        <update_guid>60c35966781e8310d66f1546417d960a</update_guid>
+        <update_guid_history>60c35966781e8310d66f1546417d960a:443891000</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-28 10:05:14</sys_created_on>
+        <sys_db_object display_value="" name="sys_embedded_tour_element">sys_embedded_tour_element</sys_db_object>
+        <sys_id>01adc623e57547eb8164b067fc1f6321</sys_id>
+        <sys_metadata>20c35966471e8310f301c82f316d4308</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>xpath</sys_name>
+        <sys_package display_value="Launchpad" source="x_2062828_launch_0">6e8263bd4739c394f301c82f316d4371</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</sys_scope>
+        <sys_scope_delete display_value="">c6c3a19153a145709d697dc6ddb23900</sys_scope_delete>
+        <sys_update_name>sys_embedded_tour_element_20c35966471e8310f301c82f316d4308</sys_update_name>
+        <sys_update_version display_value="sys_embedded_tour_element_20c35966471e8310f301c82f316d4308">a0c35966471e8310f301c82f316d430b</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-28 10:05:14</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

@@ -1,0 +1,573 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_rel_widget_clone">
+    <sp_rel_widget_clone action="INSERT_OR_UPDATE">
+        <child display_value="Launchpad of Approvals">ee8fd5a2479e8310f301c82f316d43bc</child>
+        <cloned>2026-07-28 10:55:47</cloned>
+        <last_validated>2026-07-28 10:55:47</last_validated>
+        <parent display_value="Approvals">f37aa302cb70020000f8d856634c9cfc</parent>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;sp_widget&gt;&lt;category&gt;other&lt;/category&gt;&lt;client_script&gt;&lt;![CDATA[function ($scope, spUtil, spUIActionsExecuter, $timeout, i18n, spModal, $q) {
+	var c = this;
+
+	$scope.$on('commentEntered', function(event, comment) {
+    	if ($scope.comment !== comment)
+        	$scope.comment = comment;
+	});
+
+	var ESIGNATURE = {
+		TYPE: "form",
+		APPROVE_SYS: "cbfe291147220100ba13a5554ee4904d",
+		REJECT_SYS: "580f711147220100ba13a5554ee4904b"
+	};
+
+	if ($scope.options.portal == true || $scope.options.portal == 'true') {
+		$scope.contentColClass = "col-xs-12";
+		$scope.options.portal = true;
+	} else {
+		$scope.options.portal = false;
+		$scope.contentColClass = "col-sm-8";
+	}
+
+	$scope.data.op = "";
+	var filter = "state=requested";
+	if ($scope.data.delegatedApprovals &amp;&amp; $scope.data.delegatedApprovals.length &gt; 0)
+		filter += "^sys_idIN" + $scope.data.delegatedApprovals.toString();
+	if ($scope.data.approvers &amp;&amp; $scope.data.approvers.length &gt; 0) {
+		if ($scope.data.delegatedApprovals &amp;&amp; $scope.data.delegatedApprovals.length &gt; 0)
+			filter += "^OR";
+		else
+			filter += "^";
+		filter += "approverIN" + $scope.data.approvers.toString();
+	}
+	spUtil.recordWatch($scope, "sysapproval_approver", filter, function(data) {
+		// don't double-roundtrip if update came from record just approved/rejected
+		if (data.data.sys_id != $scope.data.target)
+			spUtil.update($scope);
+	});
+
+	$scope.approvalsInProgressFor = [];
+  
+	function get(id) {
+		return $q(function(resolve) {
+			var target = $scope.data.target;
+			var operation = $scope.data.op;
+			var taskNumber = getTaskNumber(target);
+			spUtil.update($scope).then(function(result) {
+				updateInProgressApprovals(target);
+				$timeout(function () {
+					var approvalIds = result &amp;&amp; result.ids;
+					// Set focus on last element
+					if (id == -1)
+						id = approvalIds[approvalIds.length - 1];
+					// set focus on first element
+					else if (id == 0)
+						id = approvalIds[0];
+					var key = id == "no-approval" ? "no-approval" : ("approval_task_" + id);
+					setFocus(key, operation, taskNumber);
+					resolve();
+				}, 500);
+			});
+		});	
+	}
+	
+	function updateInProgressApprovals(id) {
+		if (id)
+			$scope.approvalsInProgressFor.splice($scope.approvalsInProgressFor.indexOf(id), 1);
+	}
+
+	function getTaskNumber(id) {
+    		var currentApproval = $scope.data.approvals.find(function(item){
+			return item.sys_id === id;
+		});
+		var taskNumber = currentApproval &amp;&amp; currentApproval.task.number;
+		return taskNumber;
+	}
+
+	function setFocus(id, operation, taskNumber) {
+		var nextApprovalElement = document.getElementById(id);
+		if (nextApprovalElement) {
+			var message = operation === 'approved' ? 
+				i18n.getMessage("{0} has been approved").withValues([taskNumber]) : 
+				i18n.getMessage("{0} has been rejected").withValues([taskNumber]);
+
+			// Add visual notification
+			if (operation === 'approved')
+				spUtil.addInfoMessage(message);
+			else
+				spUtil.addErrorMessage(message);
+
+			$( "&lt;span/&gt;", {
+				"class": 'sr-only',
+				"text": message
+			}).prependTo(nextApprovalElement);
+			nextApprovalElement.focus();
+			$(nextApprovalElement).one('blur', function() {
+				$(nextApprovalElement).find('.sr-only').remove();
+			});
+		}
+	}
+
+	function getNextApproval(id) {
+		var approvals = $scope.data.ids,
+		currentIndex = approvals.indexOf(id),
+		hasNext = $scope.data.pagination.hasNext,
+		hasPrevious = $scope.data.pagination.hasPrevious;
+
+		// Action on only approval and no approval left
+		if (approvals.length == 1 &amp;&amp; !hasNext &amp;&amp; !hasPrevious)
+			return "no-approval";
+		// Action on only approval in last page
+		if (approvals.length == 1 &amp;&amp; !hasNext)
+			return 0;
+		// Action on last approval item in current page
+		if (currentIndex == approvals.length - 1 &amp;&amp; hasNext)
+			return -1;
+		// Action on last approval item in last page
+		if (currentIndex == approvals.length - 1)
+			return approvals[currentIndex - 1];
+
+		if (currentIndex &gt;= 0 &amp;&amp; currentIndex &lt; approvals.length - 1)
+			return approvals[currentIndex + 1]
+	}
+
+	$scope.approve = function(id, esigRequired) {
+		var requestParams = {
+			username: $scope.data.esignature.username,
+			userSysId: $scope.data.esignature.userSysId
+		};
+
+		if($scope.data.esignature.e_sig_required &amp;&amp; esigRequired) {
+			spUIActionsExecuter.executeFormAction(ESIGNATURE.APPROVE_SYS, "sysapproval_approver" , id, [] , "", requestParams).then(function(response) {
+			});			
+		} else {
+			$scope.approvalsInProgressFor.push(id);
+			$scope.data.op = "approved";
+			$scope.data.target = id;
+			get(getNextApproval(id));
+		}
+  	}
+
+	$scope.reject = function(id, esigRequired) {
+		var requestParams = {
+			username: $scope.data.esignature.username,
+			userSysId: $scope.data.esignature.userSysId
+		};
+		$scope.data.op = "rejected";
+		$scope.data.target = id;
+		$scope.comment = '';
+
+		var openRejectionModal = function() {
+			spModal.open({
+				title: $scope.data.reject_record_message,
+				widget: 'reject_comment_text_area',
+				buttons: [
+					{label: i18n.getMessage('Cancel'), cancel: true},
+					{label: i18n.getMessage('Reject'), primary: true}
+				],
+				onSubmit: function() {
+					return postComment(id, esigRequired, requestParams).then(function(result) {
+						return { status: 'success' };
+					});
+				}
+			}).then(function() {
+			// Modal submit handler
+			}, function() {
+				// Reset button state if modal is canceled
+				var index = $scope.approvalsInProgressFor.indexOf(id);
+				if (index &gt; -1) {
+					$scope.approvalsInProgressFor.splice(index, 1);
+				};
+			});
+		};
+
+		if ($scope.data.esignature.e_sig_required &amp;&amp; esigRequired) {
+			if ($scope.data.mandatory_comment === "true")
+				openRejectionModal();
+			else {
+				spUIActionsExecuter.executeFormAction(ESIGNATURE.REJECT_SYS, "sysapproval_approver" , id, [] , "", requestParams).then(function(response) {
+					$scope.approvalsInProgressFor.push(id);
+					get(getNextApproval(id));
+				});
+			}
+		} else {
+			if ($scope.data.mandatory_comment === "true") {
+				$scope.approvalsInProgressFor.push(id);
+				openRejectionModal();
+			}
+			else {
+				$scope.approvalsInProgressFor.push(id);
+				get(getNextApproval(id));
+			}
+		}
+	}
+
+	$scope.isSubmitting = false;
+	function postComment(id, esigRequired, requestParams) {
+		return $q(function(resolve, reject) {
+			if ($scope.isSubmitting) 
+				return resolve({ status: 'success' });
+
+			if ($scope.comment) {
+				$scope.data.journalEntry = $scope.comment;
+				$scope.data.journalEntryField = $scope.data.primaryJournalField.name;
+				$scope.data.isPosting = true;
+				$scope.isSubmitting = true;
+				var updatePromise;
+
+				if ($scope.data.esignature.e_sig_required &amp;&amp; esigRequired) {
+					$rootScope.$broadcast('closeSpModal');
+					updatePromise = spUIActionsExecuter.executeFormAction(
+						ESIGNATURE.REJECT_SYS,
+						"sysapproval_approver",
+						id,
+						[],
+						"",
+						requestParams
+					).then(function() {
+						return spUtil.update($scope);
+					});
+				} else
+					updatePromise = get(getNextApproval(id));
+
+				updatePromise.then(function(result) {
+					$scope.data.isPosting = false;
+					$scope.isSubmitting = false;
+					$scope.comment = '';
+					resolve(result);
+				})
+			} else
+				$rootScope.$broadcast('commentRequired');
+		});
+	}
+	// pagination
+	$scope.previousPage = function() {
+		if ($scope.data.pagination.currentPage &gt; 1)
+			$scope.data.pagination.currentPage = $scope.data.pagination.currentPage - 1;
+		else
+			$scope.data.pagination.currentPage = 0;
+      
+		$scope.data.op = "previous";
+		$scope.data.target = null;
+
+		get(0);
+	}
+
+	$scope.nextPage = function() {
+		$scope.data.op = "next";
+		$scope.data.target = null;
+		$scope.data.pagination.currentPage = $scope.data.pagination.currentPage+1;
+		get(0);
+	}
+	
+	$scope.getItemDisplay = function(task) {
+		if (task.number &amp;&amp; task.short_description)
+			return task.number + " - " + task.short_description;
+		
+		return task.number || task.short_description || "";
+	}
+}]]&gt;&lt;/client_script&gt;&lt;controller_as/&gt;&lt;css&gt;.pre-wrap {
+  white-space:pre-wrap;
+}
+
+.col-sm-4 {
+  padding-left: 0px;
+}
+	    
+@media screen and (max-width: 992px) {
+  .col-sm-4 {
+    padding-right: 0px;
+  }
+
+  .col-sm-8 {
+    padding-left: 0px;
+  }
+}&lt;/css&gt;&lt;data_table&gt;sp_instance&lt;/data_table&gt;&lt;demo_data/&gt;&lt;description/&gt;&lt;docs/&gt;&lt;field_list&gt;color,glyph&lt;/field_list&gt;&lt;has_preview&gt;false&lt;/has_preview&gt;&lt;id/&gt;&lt;internal&gt;false&lt;/internal&gt;&lt;link/&gt;&lt;name&gt;Approvals&lt;/name&gt;&lt;option_schema&gt;[{"hint":"If false, buttons are stacked on the right; if true, they are side-by-side","name":"portal","section":"Presentation","label":"Buttons stacked side by side","type":"boolean"},{"hint":"Maximum number of elements that are shown in the list of approvals","name":"max_number_of_elements_shown_on_the_list","default_value":"10","section":"Presentation","label":"Max number of elements shown in the list (only positive numbers &amp;gt; 0, 10 otherwise)","type":"integer"},{"hint":"If checked, comments will be mandatory for rejecting a record","name":"mandatory_comment","section":"Behavior","default_value":"false","label":"Comments mandatory for rejection","type":"boolean"}]&lt;/option_schema&gt;&lt;public&gt;false&lt;/public&gt;&lt;roles/&gt;&lt;script&gt;&lt;![CDATA[g_approval_form_request = true;
+
+//we get only a max number of elements to avoid to have a big list of it
+var maxNumberOfItemsInTheList = parseInt(options.max_number_of_elements_shown_on_the_list);
+//set 10 if maxnumber is undefined, empty or negative value
+maxNumberOfItemsInTheList = maxNumberOfItemsInTheList&gt;0 ? maxNumberOfItemsInTheList : 10; 
+var initRow = 0;
+var lastRow = maxNumberOfItemsInTheList;
+var currentPage = 0; //0 is the first page
+data.mandatory_comment = options.mandatory_comment;
+data.reject_record_message = gs.getMessage("Provide additional information", "Provide additional information");
+if (input) {
+	// update pagination
+	currentPage = input.pagination.currentPage;
+	initRow = (currentPage * maxNumberOfItemsInTheList);
+	lastRow = initRow + maxNumberOfItemsInTheList;
+	
+	if (input.op == 'approved' || input.op == 'rejected') {
+		var app = new GlideRecord("sysapproval_approver");
+		if (app.get(input.target)) {
+			if (input.isPosting &amp;&amp; input.journalEntry &amp;&amp; input.journalEntryField){
+				if (app.canWrite(input.journalEntryField))
+					var displayValue = gs.getMessage('Reason for rejection: {0}', input.journalEntry);
+					app[input.journalEntryField].setDisplayValue(displayValue);
+			}
+			var isMine = gs.hasRole("approval_admin") || new ApprovalDelegationUtil().isMyApproval(app);
+			if (isMine) {
+				app.state = input.op;
+				app.update();
+				if (currentPage &gt; 0 &amp;&amp; !input.pagination.hasNext &amp;&amp; input.approvals.length == 1) {
+					currentPage--;
+					initRow = (currentPage * maxNumberOfItemsInTheList);
+					lastRow = initRow + maxNumberOfItemsInTheList;
+				}
+			}
+		}
+	}
+}
+
+data.ViewApprovalPageMsg = gs.getMessage("View approval page");
+data.esignature = {
+	username:  gs.getUserName(),
+	userSysId: gs.getUserID(),
+	e_sig_required: GlidePluginManager.isRegistered('com.glide.e_signature_approvals')
+};
+
+var esigRequiredMap = {};
+if (data.esignature.e_sig_required) {
+	var esigRegistryGR = new GlideRecord("e_signature_registry");
+	esigRegistryGR.addQuery("enabled", "true");
+	esigRegistryGR.query();
+	while(esigRegistryGR.next()) {
+		esigRequiredMap[esigRegistryGR.getValue("table_name")] = true;
+	}
+}
+
+var gr = new GlideRecord('sysapproval_approver');
+gr.chooseWindow(initRow, lastRow);
+//if (input)
+//  qc1.addOrCondition("sys_id", "IN", input.ids);
+var approvalUtil = new global.ApprovalDelegationUtil();
+var delegated = approvalUtil.getOnlyDelegatedApprovals();
+data.approvers = approvalUtil.getApprovers();
+data.myApprovals = approvalUtil.getAllMyRequestedApprovals();
+
+// Filter delegated approvals to only include requested state
+data.delegatedApprovals = [];
+if (delegated &amp;&amp; delegated.length &gt; 0) {
+    var checkForRequested = new GlideRecord('sysapproval_approver');
+    checkForRequested.addQuery('sys_id', delegated);
+    checkForRequested.addQuery('state', 'requested');
+    checkForRequested.query();
+    while (checkForRequested.next()) {
+        data.delegatedApprovals.push(checkForRequested.getValue('sys_id'));
+    }
+}
+gr.addQuery("sys_id", data.myApprovals);
+gr.orderBy("sys_created_on");
+gr.query();
+var rowCount = gr.getRowCount();
+var approvals = [];
+var ids = [];
+var source_tables = [];
+
+while (gr.next()) {
+  var task = getRecordBeingApproved(gr);
+	if (!task.isValidRecord())
+		continue;
+
+  ids.push(gr.getUniqueValue());
+  var t = {};
+  t.number = task.getDisplayValue();
+  t.short_description = task.short_description.toString();
+  if (gr.getValue("approver") != gs.getUserID())
+	  t.approver = gr.approver.getDisplayValue();
+  if (task.isValidField("opened_by") &amp;&amp; !task.opened_by.nil())
+	  t.opened_by = task.opened_by.getDisplayValue();
+
+  // requestor &gt;&gt; opener
+  if (task.isValidField("requested_by") &amp;&amp; !isDateTypeField(task.requested_by) &amp;&amp; !task.requested_by.nil())
+	  t.opened_by = task.requested_by.getDisplayValue();
+
+  t.start_date = task.start_date.getDisplayValue();
+  t.end_date = task.end_date.getDisplayValue();
+  t.quantity = task.quantity.getDisplayValue();
+  t.table = task.getLabel();
+  if (task.getValue("price") &gt; 0)
+	  t.price = task.getDisplayValue("price");
+
+  if (task.getValue("recurring_price") &gt; 0)
+	  t.recurring_price = task.getDisplayValue("recurring_price");
+
+  t.recurring_frequency = task.getDisplayValue("recurring_frequency");
+
+  var items = [];
+  var idx = 0;
+  var itemsGR = new GlideRecord("sc_req_item");
+  itemsGR.addQuery("request", task.sys_id);
+  itemsGR.query();
+  if (itemsGR.getRowCount() &gt; 1)
+    t.short_description = itemsGR.getRowCount() + " requested items";
+
+  while (itemsGR.next()) {
+    var item = {};
+    item.short_description = itemsGR.short_description.toString();
+    if (itemsGR.getValue("price") &gt; 0)
+      item.price = itemsGR.getDisplayValue("price");
+    if (itemsGR.getValue("recurring_price") &gt; 0) {
+      item.recurring_price = itemsGR.getDisplayValue("recurring_price");
+      item.recurring_frequency = itemsGR.getDisplayValue("recurring_frequency");
+    }
+    if (itemsGR.getRowCount() == 1) {
+			item.variables = new GlobalServiceCatalogUtil().getVariablesForTask(itemsGR, true);
+			item.variableSummarizerWidget = $sp.getWidget('sc-variable-summarizer', {'variables' : item.variables, 'toggle' : false, 'task' :t.number });
+      t.short_description = itemsGR.short_description.toString();
+    }
+
+    items[idx] = item;
+    idx++;
+  }
+
+  var j = {};
+  j.sys_id = gr.getUniqueValue();
+  j.table = gr.getRecordClassName();
+	j.approval_source_table = gr.getValue("source_table");
+	if (!j.approval_source_table)
+		j.approval_source_table = gr.sysapproval.sys_class_name + "";
+	j.requireEsigApproval = esigRequiredMap[j.approval_source_table];
+	j.task = t;
+  if (task) {
+		j.variables = new GlobalServiceCatalogUtil().getVariablesForTask(task, true);
+		j.variableSummarizerWidget = $sp.getWidget('sc-variable-summarizer', {'variables' : j.variables, 'toggle' : false, 'task': t.number });
+	}
+  j.items = items;
+  j.state = gr.getValue("state");
+  j.stateLabel = gr.state.getDisplayValue();
+  approvals.push(j);
+}
+
+data.sys_id = gr.getUniqueValue();
+data.table = gr.getTableName();
+data.ids = ids;
+data.approvals = approvals;
+data.showApprovals = gs.getUser().hasRole('approver_user') || new ApprovalDelegationUtil().isMyApproval(gr);
+// for pagination
+data.pagination = {};
+data.pagination.hasNext = (approvals.length == (parseInt(lastRow) - parseInt(initRow)) &amp;&amp; lastRow &lt; rowCount);
+data.pagination.hasPrevious = parseInt(initRow) &gt; 0;
+data.pagination.from = parseInt(initRow + 1);
+data.pagination.to = parseInt(lastRow) &lt; parseInt(rowCount) ? parseInt(lastRow) : parseInt(rowCount);
+data.pagination.of = parseInt(rowCount);
+data.pagination.showPagination = data.pagination.hasPrevious || data.pagination.hasNext;
+data.pagination.currentPage = data.pagination.from &gt; data.pagination.to ? currentPage -1 : currentPage;
+delete g_approval_form_request;
+
+data.stream = $sp.getStream(data.table, data.sys_id);
+if ('journal_fields' in data.stream) {
+	var jf = data.stream.journal_fields;
+	for(var i=0; i &lt; jf.length; i++) {
+		if (jf[i].can_read === true)
+			data.hasReadableJournalField = true;
+		if (jf[i].can_write === true) {
+			data.hasWritableJournalField = true;
+		if (!data.primaryJournalField)
+			data.primaryJournalField = jf[i];
+		else 
+			break;
+		}
+	}
+}
+function getRecordBeingApproved(gr) {
+  if (!gr.sysapproval.nil())
+    return gr.sysapproval.getRefRecord();
+
+  return gr.document_id.getRefRecord();
+}
+
+function isDateTypeField(f) {
+	return f.getED().getInternalType() == "glide_date";
+}
+	
+	
+]]&gt;&lt;/script&gt;&lt;servicenow&gt;true&lt;/servicenow&gt;&lt;sys_class_name&gt;sp_widget&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2015-06-23 22:34:43&lt;/sys_created_on&gt;&lt;sys_id&gt;f37aa302cb70020000f8d856634c9cfc&lt;/sys_id&gt;&lt;sys_mod_count&gt;437&lt;/sys_mod_count&gt;&lt;sys_name&gt;Approvals&lt;/sys_name&gt;&lt;sys_package display_value="Service Portal - Core" source="com.glide.service-portal"&gt;ba3c9820f5c403100a22c0b3dfa15131&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="Global"&gt;global&lt;/sys_scope&gt;&lt;sys_update_name&gt;sp_widget_f37aa302cb70020000f8d856634c9cfc&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2025-12-10 08:23:20&lt;/sys_updated_on&gt;&lt;template&gt;&lt;![CDATA[
+&lt;div class="panel panel-{{::options.color}} b" ng-if="data.showApprovals"&gt;
+  &lt;div class="panel-heading"&gt;
+    &lt;h2 class="h4 panel-title"&gt;
+      &lt;fa ng-if="::options.glyph.length" name="{{::options.glyph}}" class="m-r-sm" &gt;&lt;/fa&gt;
+      ${My Approvals}
+      &lt;label ng-if="data.pagination.showPagination &amp;&amp; (data.pagination.from &lt;= data.pagination.to)" class="pull-right text-info"&gt;
+        &lt;span ng-if="data.pagination.from != data.pagination.to"&gt;
+          {{data.pagination.from}} ${to_lower}
+        &lt;/span&gt;
+        {{data.pagination.to}} ${of} {{data.pagination.of}}
+      &lt;/label&gt;
+    &lt;/h2&gt;
+  &lt;/div&gt;
+  &lt;div class="panel-body" ng-class="{'padder-b-none': data.approvals.length != 0}"&gt;
+    &lt;div ng-if="data.approvals.length == 0 &amp;&amp; data.pagination.of == 0" tabindex="-1" id="no-approval"&gt;
+      ${You have no pending approvals}
+    &lt;/div&gt;
+    &lt;div ng-if="data.approvals.length == 0 &amp;&amp; data.pagination.of != 0"&gt;
+      ${Loading approvals...}
+    &lt;/div&gt;
+    &lt;div ng-repeat="approval in data.approvals" class="sp-approval m-b-xl"&gt;
+      &lt;div class="row"&gt;
+        &lt;div ng-class="contentColClass"&gt;
+          &lt;div ng-if="approval.task.number || approval.task.short_description"&gt;
+            &lt;a ng-href="?id=approval&amp;table=sysapproval_approver&amp;sys_id={{::approval.sys_id}}" id="approval_task_{{::approval.sys_id}}"title="{{data.ViewApprovalPageMsg}}"&gt;
+              &lt;span ng-if="approval.task.number"&gt;{{::approval.task.number}}&lt;/span&gt;
+              &lt;span ng-if="approval.task.number &amp;&amp; approval.task.short_description"&gt; - &lt;/span&gt;
+              &lt;span ng-if="approval.task.short_description"&gt;{{::approval.task.short_description}}&lt;/span&gt;
+            &lt;/a&gt;
+          &lt;/div&gt;
+          &lt;div ng-if="approval.task.opened_by"&gt;&lt;label&gt;${Requestor}&lt;/label&gt; {{::approval.task.opened_by}}&lt;/div&gt;
+          &lt;div ng-if="approval.task.approver"&gt;&lt;label&gt;${Approver}&lt;/label&gt; {{::approval.task.approver}}&lt;/div&gt;
+          &lt;div ng-if="approval.task.start_date"&gt;&lt;label&gt;${Start}&lt;/label&gt; {{::approval.task.start_date}}&lt;/div&gt;
+          &lt;div ng-if="approval.task.end_date"&gt;&lt;label&gt;${End}&lt;/label&gt; {{::approval.task.end_date}}&lt;/div&gt;
+          &lt;div ng-if="approval.task.quantity"&gt;&lt;label&gt;${Quantity}&lt;/label&gt; {{::approval.task.quantity}}&lt;/div&gt;
+          &lt;div ng-if="approval.task.price"&gt;&lt;label&gt;${Price}&lt;/label&gt; {{::approval.task.price}}
+            &lt;span ng-if="approval.task.recurring_price"&gt;&lt;label&gt;${Recurring price}&lt;/label&gt; {{::approval.task.recurring_price}} {{::approval.task.recurring_frequency}}&lt;/span&gt;
+            &lt;label ng-if="approval.task.quantity &amp;&amp; approval.task.quantity &gt; 1"&gt; ${each}&lt;/label&gt;
+          &lt;/div&gt;
+          &lt;div ng-if="approval.items.length == 1"&gt;
+            &lt;div ng-repeat="item in approval.items"&gt;
+             &lt;sp-widget ng-if="item.variableSummarizerWidget" widget="item.variableSummarizerWidget"&gt;&lt;/sp-widget&gt; 
+            &lt;/div&gt;
+          &lt;/div&gt;
+          &lt;sp-widget ng-if="approval.variableSummarizerWidget" widget="approval.variableSummarizerWidget"&gt;&lt;/sp-widget&gt;
+          
+          &lt;/div&gt;
+        &lt;div ng-if="!options.portal" class="col-sm-4"&gt;
+          &lt;button name="approve" ng-disabled="approvalsInProgressFor.indexOf(approval.sys_id) &gt; -1" id="approve_button_{{::approval.sys_id}}" aria-labelledby=" approve_button_{{::approval.sys_id}} approval_task_{{::approval.sys_id}}" ng-if="approval.state == 'requested'" class="btn btn-primary btn-block" style="border-width:1px;" ng-click="approve(approval.sys_id, approval.requireEsigApproval);"&gt;${Approve}&lt;/button&gt;
+          &lt;button name="reject" ng-disabled="approvalsInProgressFor.indexOf(approval.sys_id) &gt; -1" id="reject_button_{{::approval.sys_id}}" aria-labelledby=" reject_button_{{::approval.sys_id}} approval_task_{{::approval.sys_id}}" ng-if="approval.state == 'requested'" class="btn btn-default btn-block" ng-click="reject(approval.sys_id, approval.requireEsigApproval);"&gt;${Reject}&lt;/button&gt;
+          &lt;button ng-if="approval.state == 'approved'" class="btn btn-success btn-block"&gt;{{approval.stateLabel}}&lt;/button&gt;
+          &lt;button ng-if="approval.state == 'rejected'" class="btn btn-danger btn-block"&gt;{{approval.stateLabel}}&lt;/button&gt;
+          &lt;button ng-if="approval.state != 'requested'" class="btn btn-default btn-block" style="visibility:hidden"&gt;{{approval.stateLabel}}&lt;/button&gt;
+        &lt;/div&gt;
+        &lt;div ng-if="options.portal &amp;&amp; approval.state == 'requested'" class="col-xs-6"&gt;
+          &lt;button name="reject" ng-disabled="approvalsInProgressFor.indexOf(approval.sys_id) &gt; -1" id="reject_button_{{::approval.sys_id}}" aria-labelledby=" reject_button_{{::approval.sys_id}} approval_task_{{::approval.sys_id}}" class="btn btn-default btn-block" ng-click="reject(approval.sys_id, approval.requireEsigApproval);"&gt;${Reject}&lt;/button&gt;
+        &lt;/div&gt;
+        &lt;div ng-if="options.portal &amp;&amp; approval.state == 'requested'" class="col-xs-6"&gt;
+          &lt;button name="approve" ng-disabled="approvalsInProgressFor.indexOf(approval.sys_id) &gt; -1" id="approve_button_{{::approval.sys_id}}" aria-labelledby=" approve_button_{{::approval.sys_id}} approval_task_{{::approval.sys_id}}" class="btn btn-primary btn-block" ng-click="approve(approval.sys_id, approval.requireEsigApproval);"&gt;${Approve}&lt;/button&gt;
+        &lt;/div&gt;
+        &lt;div ng-if="options.portal &amp;&amp; approval.state != 'requested'" class="col-xs-12"&gt;
+          &lt;button ng-if="approval.state == 'approved'" class="btn btn-success btn-block"&gt;{{approval.stateLabel}}&lt;/button&gt;
+          &lt;button ng-if="approval.state == 'rejected'" class="btn btn-danger btn-block"&gt;{{approval.stateLabel}}&lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt; &lt;!-- body --&gt;
+       
+  &lt;/div&gt; 
+  &lt;div class="panel-footer clearfix" ng-if="data.pagination.showPagination"&gt;
+    &lt;a id="previous-btn" href="javascript:void(0)" ng-click="previousPage()" ng-show="data.pagination.hasPrevious" class="pull-left btn btn-sm btn-default" aria-label="${Pagination button Previous}"&gt;
+      &lt;i class="fa fa-arrow-left flip-icon-rtl m-r-sm" aria-hidden="true"&gt;&lt;/i&gt;${Previous}&lt;/a&gt;
+    &lt;a id="next_btn" href="javascript:void(0)" ng-click="nextPage()" ng-show="data.pagination.hasNext" class="pull-right btn btn-sm btn-default " aria-label="${Pagination button Next}"&gt;
+      ${Next}&lt;i class="fa fa-arrow-right flip-icon-rtl m-l-sm col-md-offset-3" aria-hidden="true"&gt;&lt;/i&gt;&lt;/a&gt;
+&lt;/div&gt;
+&lt;/div&gt;]]&gt;&lt;/template&gt;&lt;/sp_widget&gt;</payload>
+        <sys_class_name>sp_rel_widget_clone</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-07-28 10:55:47</sys_created_on>
+        <sys_id>668fd5a2479e8310f301c82f316d43c2</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>ee8fd5a2479e8310f301c82f316d43bc</sys_name>
+        <sys_package display_value="Launchpad" source="x_2062828_launch_0">6e8263bd4739c394f301c82f316d4371</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</sys_scope>
+        <sys_update_name>sp_rel_widget_clone_668fd5a2479e8310f301c82f316d43c2</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-07-28 10:55:47</sys_updated_on>
+    </sp_rel_widget_clone>
+</record_update>
