@@ -1,0 +1,734 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[api.controller = function($timeout, spUtil) {
+  var c = this;
+
+  c.query = '';
+  c.isFocused = false;
+  c.isLoading = false;
+  c.results = null;
+  c.aiAnswer = '';
+  c.searchTimer = null;
+
+  // Quick suggestion chips
+  c.quickSuggestions = [
+    'How do I set up VPN?',
+    'Request a laptop',
+    'Reset my password',
+    'Software access',
+    'First day checklist',
+    'Workplace badge'
+  ];
+
+  // Handle keyup with debounce
+  c.onKeyUp = function(event) {
+    if (event.which === 27) {
+      c.clearSearch();
+      return;
+    }
+
+    if (!c.query || c.query.length < 3) {
+      c.results = null;
+      c.aiAnswer = '';
+      return;
+    }
+
+    // Debounce — wait 500ms after user stops typing
+    if (c.searchTimer) $timeout.cancel(c.searchTimer);
+    c.searchTimer = $timeout(function() {
+      c.performSearch();
+    }, 500);
+  };
+
+  // Perform search
+  c.performSearch = function() {
+    if (!c.query || c.query.trim().length < 3) return;
+
+    c.isLoading = true;
+    c.results = null;
+    c.aiAnswer = '';
+
+    c.server.get({
+      action: 'search',
+      query: c.query.trim()
+    }).then(function(response) {
+      c.isLoading = false;
+      c.results = response.data.results;
+      c.aiAnswer = response.data.aiAnswer;
+    }, function() {
+      c.isLoading = false;
+      c.results = { articles: [], catalog: [] };
+      c.aiAnswer = 'Sorry, something went wrong. Please try again.';
+    });
+  };
+
+  // Select quick suggestion
+  c.selectSuggestion = function(suggestion) {
+    c.query = suggestion;
+    c.isFocused = true;
+    c.performSearch();
+  };
+
+  // Clear search
+  c.clearSearch = function() {
+    c.query = '';
+    c.results = null;
+    c.aiAnswer = '';
+    c.isLoading = false;
+    if (c.searchTimer) $timeout.cancel(c.searchTimer);
+  };
+
+  // On blur
+  c.onBlur = function() {
+    $timeout(function() {
+      c.isFocused = false;
+    }, 200);
+  };
+
+  // Open KB article
+  c.openArticle = function(item) {
+    window.location.href = item.url;
+  };
+
+  // Open catalog item
+  c.openCatalogItem = function(item) {
+    window.location.href = item.url;
+  };
+};]]></client_script>
+        <controller_as>c</controller_as>
+        <css>/* =============================================================================&#13;
+   LAUNCHPAD AI SEARCH WIDGET&#13;
+   SPAR Corporate Theme (Red, Green &amp; Clean White)&#13;
+   ============================================================================= */&#13;
+&#13;
+/* Container */&#13;
+.ai-search-container {&#13;
+  padding: 32px;&#13;
+  max-width: 760px;&#13;
+  margin: 0 auto;&#13;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;&#13;
+}&#13;
+&#13;
+/* Header */&#13;
+.ai-search-header {&#13;
+  text-align: center;&#13;
+  margin-bottom: 28px;&#13;
+}&#13;
+&#13;
+.ai-search-icon-wrap {&#13;
+  width: 56px;&#13;
+  height: 56px;&#13;
+  border-radius: 16px;&#13;
+  background: linear-gradient(135deg, #E30613, #008751);&#13;
+  display: flex;&#13;
+  align-items: center;&#13;
+  justify-content: center;&#13;
+  margin: 0 auto 16px;&#13;
+  box-shadow: 0 8px 24px rgba(227, 6, 19, 0.20);&#13;
+}&#13;
+&#13;
+.ai-search-icon-wrap i {&#13;
+  font-size: 1.4rem;&#13;
+  color: #FFFFFF !important;&#13;
+}&#13;
+&#13;
+.ai-search-title {&#13;
+  font-size: 1.5rem !important;&#13;
+  font-weight: 700 !important;&#13;
+  color: #1D1D1B !important;&#13;
+  margin-bottom: 6px !important;&#13;
+  letter-spacing: -0.02em;&#13;
+}&#13;
+&#13;
+.ai-search-subtitle {&#13;
+  font-size: 0.875rem !important;&#13;
+  color: #555555 !important;&#13;
+  margin: 0 !important;&#13;
+}&#13;
+&#13;
+/* Search Input */&#13;
+.ai-search-input-wrap {&#13;
+  position: relative;&#13;
+  margin-bottom: 24px;&#13;
+  transition: all 0.22s ease;&#13;
+}&#13;
+&#13;
+.ai-input-icon {&#13;
+  position: absolute;&#13;
+  left: 18px;&#13;
+  top: 50%;&#13;
+  transform: translateY(-50%);&#13;
+  color: #888888 !important;&#13;
+  font-size: 1rem;&#13;
+  transition: color 0.22s ease;&#13;
+  pointer-events: none;&#13;
+  z-index: 1;&#13;
+}&#13;
+&#13;
+.ai-search-input-wrap.focused .ai-input-icon {&#13;
+  color: #E30613 !important;&#13;
+}&#13;
+&#13;
+.ai-search-input {&#13;
+  width: 100% !important;&#13;
+  height: 56px !important;&#13;
+  padding: 0 48px 0 50px !important;&#13;
+  background: #FFFFFF !important;&#13;
+  border: 1px solid #E0E0E0 !important;&#13;
+  border-radius: 999px !important;&#13;
+  color: #1D1D1B !important;&#13;
+  font-size: 1rem !important;&#13;
+  font-family: inherit !important;&#13;
+  outline: none !important;&#13;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04) !important;&#13;
+  transition: all 0.25s ease !important;&#13;
+}&#13;
+&#13;
+.ai-search-input::placeholder {&#13;
+  color: #999999 !important;&#13;
+}&#13;
+&#13;
+.ai-search-input-wrap.focused .ai-search-input {&#13;
+  border-color: #E30613 !important;&#13;
+  background: #FFFFFF !important;&#13;
+  box-shadow: 0 0 0 4px rgba(227, 6, 19, 0.10),&#13;
+              0 8px 24px rgba(0, 0, 0, 0.08) !important;&#13;
+}&#13;
+&#13;
+/* Clear Button */&#13;
+.ai-clear-btn {&#13;
+  position: absolute;&#13;
+  right: 18px;&#13;
+  top: 50%;&#13;
+  transform: translateY(-50%);&#13;
+  color: #888888 !important;&#13;
+  cursor: pointer;&#13;
+  font-size: 0.875rem;&#13;
+  transition: all 0.2s ease;&#13;
+  z-index: 1;&#13;
+}&#13;
+&#13;
+.ai-clear-btn:hover {&#13;
+  color: #E30613 !important;&#13;
+  transform: translateY(-50%) rotate(90deg);&#13;
+}&#13;
+&#13;
+/* Loading Dots */&#13;
+.ai-loading-dots {&#13;
+  position: absolute;&#13;
+  right: 18px;&#13;
+  top: 50%;&#13;
+  transform: translateY(-50%);&#13;
+  display: flex;&#13;
+  gap: 4px;&#13;
+  align-items: center;&#13;
+}&#13;
+&#13;
+.ai-loading-dots span {&#13;
+  width: 6px;&#13;
+  height: 6px;&#13;
+  border-radius: 50%;&#13;
+  background: #E30613;&#13;
+  animation: dotBounce 1.2s ease-in-out infinite;&#13;
+}&#13;
+&#13;
+.ai-loading-dots span:nth-child(2) { animation-delay: 0.2s; }&#13;
+.ai-loading-dots span:nth-child(3) { animation-delay: 0.4s; }&#13;
+&#13;
+@keyframes dotBounce {&#13;
+  0%, 80%, 100% { transform: scale(0.7); opacity: 0.4; }&#13;
+  40%           { transform: scale(1.1); opacity: 1; }&#13;
+}&#13;
+&#13;
+/* Quick Suggestions */&#13;
+.ai-quick-suggestions {&#13;
+  text-align: center;&#13;
+  animation: fadeIn 0.3s ease;&#13;
+}&#13;
+&#13;
+.suggestions-label {&#13;
+  font-size: 0.75rem !important;&#13;
+  font-weight: 700 !important;&#13;
+  color: #777777 !important;&#13;
+  text-transform: uppercase !important;&#13;
+  letter-spacing: 0.08em !important;&#13;
+  margin-bottom: 12px !important;&#13;
+}&#13;
+&#13;
+.suggestions-list {&#13;
+  display: flex;&#13;
+  flex-wrap: wrap;&#13;
+  gap: 8px;&#13;
+  justify-content: center;&#13;
+}&#13;
+&#13;
+.suggestion-chip {&#13;
+  display: inline-flex;&#13;
+  align-items: center;&#13;
+  gap: 6px;&#13;
+  background: #F4F4F4;&#13;
+  border: 1px solid #E0E0E0;&#13;
+  border-radius: 999px;&#13;
+  padding: 6px 16px;&#13;
+  font-size: 0.8rem;&#13;
+  color: #333333 !important;&#13;
+  cursor: pointer;&#13;
+  transition: all 0.2s ease;&#13;
+}&#13;
+&#13;
+.suggestion-chip i {&#13;
+  color: #008751 !important;&#13;
+  font-size: 0.75rem;&#13;
+}&#13;
+&#13;
+.suggestion-chip:hover {&#13;
+  background: rgba(227, 6, 19, 0.06);&#13;
+  border-color: rgba(227, 6, 19, 0.30);&#13;
+  color: #E30613 !important;&#13;
+  transform: translateY(-2px);&#13;
+}&#13;
+&#13;
+/* AI Results */&#13;
+.ai-results {&#13;
+  animation: fadeIn 0.3s ease;&#13;
+}&#13;
+&#13;
+@keyframes fadeIn {&#13;
+  from { opacity: 0; transform: translateY(8px); }&#13;
+  to   { opacity: 1; transform: translateY(0); }&#13;
+}&#13;
+&#13;
+/* AI Answer Card */&#13;
+.ai-answer-card {&#13;
+  background: rgba(0, 135, 81, 0.05);&#13;
+  border: 1px solid rgba(0, 135, 81, 0.20);&#13;
+  border-radius: 14px;&#13;
+  padding: 20px;&#13;
+  margin-bottom: 20px;&#13;
+}&#13;
+&#13;
+.ai-answer-header {&#13;
+  margin-bottom: 10px;&#13;
+}&#13;
+&#13;
+.ai-badge {&#13;
+  display: inline-flex;&#13;
+  align-items: center;&#13;
+  gap: 6px;&#13;
+  background: #008751;&#13;
+  border-radius: 999px;&#13;
+  padding: 3px 12px;&#13;
+  font-size: 0.75rem;&#13;
+  font-weight: 700;&#13;
+  color: #FFFFFF !important;&#13;
+}&#13;
+&#13;
+.ai-badge i {&#13;
+  color: #FFFFFF !important;&#13;
+  font-size: 0.7rem;&#13;
+}&#13;
+&#13;
+.ai-answer-text {&#13;
+  font-size: 0.9rem !important;&#13;
+  color: #222222 !important;&#13;
+  line-height: 1.7 !important;&#13;
+  margin: 0 !important;&#13;
+}&#13;
+&#13;
+/* Results Section */&#13;
+.results-section {&#13;
+  margin-bottom: 20px;&#13;
+}&#13;
+&#13;
+.results-section-label {&#13;
+  font-size: 0.7rem !important;&#13;
+  font-weight: 700 !important;&#13;
+  color: #666666 !important;&#13;
+  text-transform: uppercase !important;&#13;
+  letter-spacing: 0.10em !important;&#13;
+  margin-bottom: 10px !important;&#13;
+  display: flex;&#13;
+  align-items: center;&#13;
+  gap: 6px;&#13;
+}&#13;
+&#13;
+.results-section-label i {&#13;
+  color: #E30613 !important;&#13;
+}&#13;
+&#13;
+/* Result Item */&#13;
+.result-item {&#13;
+  display: flex;&#13;
+  align-items: center;&#13;
+  gap: 14px;&#13;
+  padding: 14px 16px;&#13;
+  background: #FFFFFF;&#13;
+  border: 1px solid #E5E5E5;&#13;
+  border-radius: 12px;&#13;
+  margin-bottom: 8px;&#13;
+  cursor: pointer;&#13;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);&#13;
+  transition: all 0.22s ease;&#13;
+}&#13;
+&#13;
+.result-item:hover {&#13;
+  background: #FFFFFF;&#13;
+  border-color: #E30613;&#13;
+  box-shadow: 0 4px 12px rgba(227, 6, 19, 0.08);&#13;
+  transform: translateX(4px);&#13;
+}&#13;
+&#13;
+/* Result Icons */&#13;
+.result-icon {&#13;
+  width: 38px;&#13;
+  height: 38px;&#13;
+  border-radius: 10px;&#13;
+  display: flex;&#13;
+  align-items: center;&#13;
+  justify-content: center;&#13;
+  flex-shrink: 0;&#13;
+}&#13;
+&#13;
+.kb-icon {&#13;
+  background: rgba(227, 6, 19, 0.08);&#13;
+  border: 1px solid rgba(227, 6, 19, 0.15);&#13;
+}&#13;
+&#13;
+.kb-icon i {&#13;
+  color: #E30613 !important;&#13;
+  font-size: 0.875rem;&#13;
+}&#13;
+&#13;
+.catalog-icon {&#13;
+  background: rgba(0, 135, 81, 0.08);&#13;
+  border: 1px solid rgba(0, 135, 81, 0.15);&#13;
+}&#13;
+&#13;
+.catalog-icon i {&#13;
+  color: #008751 !important;&#13;
+  font-size: 0.875rem;&#13;
+}&#13;
+&#13;
+/* Result Content */&#13;
+.result-content {&#13;
+  flex: 1;&#13;
+  min-width: 0;&#13;
+}&#13;
+&#13;
+.result-title {&#13;
+  font-size: 0.875rem !important;&#13;
+  font-weight: 600 !important;&#13;
+  color: #1D1D1B !important;&#13;
+  margin: 0 0 2px !important;&#13;
+  white-space: nowrap;&#13;
+  overflow: hidden;&#13;
+  text-overflow: ellipsis;&#13;
+}&#13;
+&#13;
+.result-desc {&#13;
+  font-size: 0.775rem !important;&#13;
+  color: #666666 !important;&#13;
+  margin: 0 0 4px !important;&#13;
+  display: -webkit-box;&#13;
+  -webkit-line-clamp: 1;&#13;
+  -webkit-box-orient: vertical;&#13;
+  overflow: hidden;&#13;
+}&#13;
+&#13;
+.result-category {&#13;
+  display: inline-block;&#13;
+  background: #F4F4F4;&#13;
+  color: #555555 !important;&#13;
+  border-radius: 999px;&#13;
+  font-size: 0.65rem;&#13;
+  font-weight: 600;&#13;
+  padding: 2px 8px;&#13;
+  text-transform: uppercase;&#13;
+  letter-spacing: 0.05em;&#13;
+}&#13;
+&#13;
+.result-arrow {&#13;
+  color: #CCCCCC !important;&#13;
+  font-size: 0.75rem;&#13;
+  flex-shrink: 0;&#13;
+  transition: all 0.2s ease;&#13;
+}&#13;
+&#13;
+.result-item:hover .result-arrow {&#13;
+  color: #E30613 !important;&#13;
+  transform: translateX(3px);&#13;
+}&#13;
+&#13;
+/* No Results */&#13;
+.no-results {&#13;
+  text-align: center;&#13;
+  padding: 48px 24px;&#13;
+  color: #777777 !important;&#13;
+}&#13;
+&#13;
+.no-results i {&#13;
+  font-size: 2.5rem;&#13;
+  display: block;&#13;
+  margin-bottom: 16px;&#13;
+  color: #CCCCCC !important;&#13;
+}&#13;
+&#13;
+.no-results p {&#13;
+  font-size: 0.9rem !important;&#13;
+  color: #444444 !important;&#13;
+  margin-bottom: 6px !important;&#13;
+}&#13;
+&#13;
+.no-results p strong {&#13;
+  color: #1D1D1B !important;&#13;
+}&#13;
+&#13;
+.no-results-sub {&#13;
+  font-size: 0.8rem !important;&#13;
+  color: #888888 !important;&#13;
+  margin-bottom: 20px !important;&#13;
+}&#13;
+&#13;
+.no-results-btn {&#13;
+  display: inline-block;&#13;
+  background: #E30613;&#13;
+  color: #FFFFFF !important;&#13;
+  font-weight: 700;&#13;
+  font-size: 0.875rem;&#13;
+  padding: 10px 28px;&#13;
+  border-radius: 999px;&#13;
+  text-decoration: none !important;&#13;
+  transition: all 0.22s ease;&#13;
+  box-shadow: 0 4px 12px rgba(227, 6, 19, 0.25);&#13;
+}&#13;
+&#13;
+.no-results-btn:hover {&#13;
+  background: #C40410;&#13;
+  transform: translateY(-2px);&#13;
+  color: #FFFFFF !important;&#13;
+}&#13;
+&#13;
+/* Responsive */&#13;
+@media (max-width: 768px) {&#13;
+  .ai-search-container {&#13;
+    padding: 20px 16px;&#13;
+  }&#13;
+&#13;
+  .suggestions-list {&#13;
+    gap: 6px;&#13;
+  }&#13;
+&#13;
+  .suggestion-chip {&#13;
+    font-size: 0.75rem;&#13;
+    padding: 5px 12px;&#13;
+  }&#13;
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>launchpad_ai_search</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {
+  
+}]]></link>
+        <name>Launchpad AI Search</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+
+    // Handle search action from client
+    if (input && input.action === 'search' && input.query) {
+        var query = input.query.toLowerCase();
+        var articles = [];
+        var catalog = [];
+
+        // Search KB Articles
+        var kbGr = new GlideRecord('kb_knowledge');
+        kbGr.addQuery('workflow_state', 'published');
+        kbGr.addQuery('123TEXTQUERY321', input.query);
+        kbGr.setLimit(5);
+        kbGr.query();
+
+        while (kbGr.next()) {
+            var text = kbGr.getValue('text') || '';
+            var cleanText = text.replace(/<[^>]*>/g, '');
+            articles.push({
+                sys_id: kbGr.getUniqueValue(),
+                title: kbGr.getValue('short_description'),
+                description: cleanText.substring(0, 120) + '...',
+                category: kbGr.getDisplayValue('kb_category') || 'General',
+                url: '/kb?id=kb_article&sys_id=' + kbGr.getUniqueValue()
+            });
+        }
+
+        // Search Catalog Items
+        var catGr = new GlideRecord('sc_cat_item');
+        catGr.addQuery('active', true);
+        catGr.addQuery('123TEXTQUERY321', input.query);
+        catGr.setLimit(5);
+        catGr.query();
+
+        while (catGr.next()) {
+            catalog.push({
+                sys_id: catGr.getUniqueValue(),
+                title: catGr.getValue('name'),
+                description: catGr.getValue('short_description') || '',
+                url: '/onboarding?id=sc_cat_item&sys_id=' + catGr.getUniqueValue()
+            });
+        }
+
+        // Generate AI Answer
+        var aiAnswer = '';
+        if (articles.length > 0) {
+            aiAnswer = 'Based on our knowledge base, I found ' + 
+                articles.length + ' article' + (articles.length > 1 ? 's' : '') + 
+                ' related to "' + input.query + '". ' +
+                'The most relevant is "' + articles[0].title + '". ' +
+                'You can also submit a request through the IT Services Catalog if you need further assistance.';
+        } else if (catalog.length > 0) {
+            aiAnswer = 'I found ' + catalog.length + ' service' + 
+                (catalog.length > 1 ? 's' : '') + 
+                ' related to "' + input.query + '". ' +
+                'You can submit a request directly from the results below.';
+        } else {
+            aiAnswer = 'I could not find specific results for "' + input.query + 
+                '". Try searching with different keywords or browse our IT Services Catalog for available services.';
+        }
+
+        data.results = {
+            articles: articles,
+            catalog: catalog
+        };
+        data.aiAnswer = aiAnswer;
+        return;
+    }
+
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-08-04 07:44:02</sys_created_on>
+        <sys_id>3f75b47047620750f301c82f316d4365</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Launchpad AI Search</sys_name>
+        <sys_package display_value="Launchpad" source="x_2062828_launch_0">6e8263bd4739c394f301c82f316d4371</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Launchpad">6e8263bd4739c394f301c82f316d4371</sys_scope>
+        <sys_update_name>sp_widget_3f75b47047620750f301c82f316d4365</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-08-04 07:44:02</sys_updated_on>
+        <template><![CDATA[<div class="ai-search-container">
+
+  <!-- Search Header -->
+  <div class="ai-search-header">
+    <div class="ai-search-icon-wrap">
+      <i class="fa fa-search"></i>
+    </div>
+    <h3 class="ai-search-title">How can I help you today?</h3>
+    <p class="ai-search-subtitle">Search knowledge articles, catalog items and requests</p>
+  </div>
+
+  <!-- Search Input -->
+  <div class="ai-search-input-wrap" ng-class="{'focused': c.isFocused, 'loading': c.isLoading}">
+    <i class="fa fa-search ai-input-icon"></i>
+    <input
+      type="text"
+      class="ai-search-input"
+      placeholder="Ask anything... e.g. How do I set up VPN?"
+      ng-model="c.query"
+      ng-focus="c.isFocused = true"
+      ng-blur="c.onBlur()"
+      ng-keyup="c.onKeyUp($event)"
+      autocomplete="off"
+    />
+    <div class="ai-loading-dots" ng-if="c.isLoading">
+      <span></span><span></span><span></span>
+    </div>
+    <i class="fa fa-times ai-clear-btn"
+       ng-if="c.query && !c.isLoading"
+       ng-click="c.clearSearch()">
+    </i>
+  </div>
+
+  <!-- Quick Suggestions -->
+  <div class="ai-quick-suggestions" ng-if="!c.query && !c.results">
+    <p class="suggestions-label">Popular searches</p>
+    <div class="suggestions-list">
+      <span class="suggestion-chip"
+            ng-repeat="s in c.quickSuggestions"
+            ng-click="c.selectSuggestion(s)">
+        <i class="fa fa-bolt"></i> {{s}}
+      </span>
+    </div>
+  </div>
+
+  <!-- AI Results -->
+  <div class="ai-results" ng-if="c.results && !c.isLoading">
+
+    <!-- AI Answer -->
+    <div class="ai-answer-card" ng-if="c.aiAnswer">
+      <div class="ai-answer-header">
+        <div class="ai-badge">
+          <i class="fa fa-magic"></i> AI Answer
+        </div>
+      </div>
+      <p class="ai-answer-text">{{c.aiAnswer}}</p>
+    </div>
+
+    <!-- KB Articles -->
+    <div class="results-section" ng-if="c.results.articles.length > 0">
+      <p class="results-section-label">
+        <i class="fa fa-book"></i> Knowledge Articles
+      </p>
+      <div class="result-item"
+           ng-repeat="item in c.results.articles"
+           ng-click="c.openArticle(item)">
+        <div class="result-icon kb-icon">
+          <i class="fa fa-file-text"></i>
+        </div>
+        <div class="result-content">
+          <p class="result-title">{{item.title}}</p>
+          <p class="result-desc">{{item.description}}</p>
+          <span class="result-category">{{item.category}}</span>
+        </div>
+        <i class="fa fa-chevron-right result-arrow"></i>
+      </div>
+    </div>
+
+    <!-- Catalog Items -->
+    <div class="results-section" ng-if="c.results.catalog.length > 0">
+      <p class="results-section-label">
+        <i class="fa fa-shopping-cart"></i> Services
+      </p>
+      <div class="result-item"
+           ng-repeat="item in c.results.catalog"
+           ng-click="c.openCatalogItem(item)">
+        <div class="result-icon catalog-icon">
+          <i class="fa fa-cogs"></i>
+        </div>
+        <div class="result-content">
+          <p class="result-title">{{item.title}}</p>
+          <p class="result-desc">{{item.description}}</p>
+        </div>
+        <i class="fa fa-chevron-right result-arrow"></i>
+      </div>
+    </div>
+
+    <!-- No Results -->
+    <div class="no-results" ng-if="c.results.articles.length === 0 && c.results.catalog.length === 0">
+      <i class="fa fa-search"></i>
+      <p>No results found for <strong>"{{c.query}}"</strong></p>
+      <p class="no-results-sub">Try different keywords or browse the catalog</p>
+      <a href="/onboarding?id=sc_home" class="no-results-btn">Browse Catalog</a>
+    </div>
+
+  </div>
+
+</div>]]></template>
+    </sp_widget>
+</record_update>
